@@ -1,0 +1,51 @@
+Date : 2022-01-27 00:12:17
+Directory : c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend
+Total : 19 files,  750 codes, 2 comments, 106 blanks, all 858 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Python     |         10 |        279 |          2 |         74 |        355 |
+| Markdown   |          4 |        183 |          0 |         26 |        209 |
+| Django txt |          2 |        179 |          0 |          6 |        185 |
+| CSV        |          2 |        108 |          0 |          0 |        108 |
+| JSON       |          1 |          1 |          0 |          0 |          1 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                          | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                             |         19 |        750 |          2 |        106 |        858 |
+| .VSCodeCounter                                                                                                                |          9 |        471 |          0 |         32 |        503 |
+| .VSCodeCounter\2022-01-26_20-02-26                                                                                            |          9 |        471 |          0 |         32 |        503 |
+| src                                                                                                                           |          9 |        274 |          3 |         74 |        351 |
+| src\Models                                                                                                                    |          9 |        274 |          3 |         74 |        351 |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                                      | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\details.md      | Markdown   |         87 |          0 |          6 |         93 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\diff-details.md | Markdown   |         35 |          0 |          6 |         41 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\diff.csv        | CSV        |         28 |          0 |          0 |         28 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\diff.md         | Markdown   |         24 |          0 |          7 |         31 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\diff.txt        | Django txt |         57 |          0 |          3 |         60 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\results.csv     | CSV        |         80 |          0 |          0 |         80 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\results.json    | JSON       |          1 |          0 |          0 |          1 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\results.md      | Markdown   |         37 |          0 |          7 |         44 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\results.txt     | Django txt |        122 |          0 |          3 |        125 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\Test_pydantic_to_sqlalchemy.py                     | Python     |          5 |         -1 |          0 |          4 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelCoursePlan.py                      | Python     |         46 |          1 |         10 |         57 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelCurricula.py                       | Python     |         54 |          0 |         11 |         65 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelDepartment.py                      | Python     |         14 |          0 |          5 |         19 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelEquipment.py                       | Python     |         29 |          0 |          5 |         34 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelLocation.py                        | Python     |         35 |          0 |         13 |         48 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelMmx.py                             | Python     |         39 |          1 |         11 |         51 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelTableInformation.py                | Python     |         17 |          0 |          5 |         22 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelTypera.py                          | Python     |         15 |          0 |          5 |         20 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelUser.py                            | Python     |         25 |          1 |          9 |         35 |
+| Total                                                                                                                         |            |        750 |          2 |        106 |        858 |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
