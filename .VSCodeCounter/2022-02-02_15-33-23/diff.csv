@@ -1,0 +1,60 @@
+"filename", "language", "Python", "Markdown", "Django txt", "JSON", "CSV", "comment", "blank", "total"
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-22_13-03-52\details.md", "Markdown", 0, -273, 0, 0, 0, 0, -6, -279
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-22_13-03-52\diff-details.md", "Markdown", 0, -72, 0, 0, 0, 0, -6, -78
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-22_13-03-52\diff.csv", "CSV", 0, 0, 0, 0, -65, 0, 0, -65
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-22_13-03-52\diff.md", "Markdown", 0, -29, 0, 0, 0, 0, -7, -36
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-22_13-03-52\diff.txt", "Django txt", 0, 0, -99, 0, 0, 0, -3, -102
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-22_13-03-52\results.csv", "CSV", 0, 0, 0, 0, -266, 0, 0, -266
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-22_13-03-52\results.json", "JSON", 0, 0, 0, -1, 0, 0, 0, -1
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-22_13-03-52\results.md", "Markdown", 0, -39, 0, 0, 0, 0, -7, -46
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-22_13-03-52\results.txt", "Django txt", 0, 0, -310, 0, 0, 0, -3, -313
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\details.md", "Markdown", 0, 98, 0, 0, 0, 0, 6, 104
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\diff-details.md", "Markdown", 0, 53, 0, 0, 0, 0, 6, 59
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\diff.csv", "CSV", 0, 0, 0, 0, 46, 0, 0, 46
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\diff.md", "Markdown", 0, 24, 0, 0, 0, 0, 7, 31
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\diff.txt", "Django txt", 0, 0, 75, 0, 0, 0, 3, 78
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\results.csv", "CSV", 0, 0, 0, 0, 91, 0, 0, 91
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\results.json", "JSON", 0, 0, 0, 1, 0, 0, 0, 1
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\results.md", "Markdown", 0, 38, 0, 0, 0, 0, 7, 45
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\results.txt", "Django txt", 0, 0, 134, 0, 0, 0, 3, 137
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\Test.py", "Python", 1, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ModelCoursePlan.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ModelCurricula.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ModelDepartment.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ModelEquipment.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ModelLocation.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ModelLocationExtension.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ModelMmx.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ModelMmxData.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ModelRunningAccount.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ModelTableInformation.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ModelTypera.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ModelUser.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ModelUserExtension.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\crud.py", "Python", 6, 0, 0, 0, 0, 20, 7, 33
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\run.py", "Python", 11, 0, 0, 0, 0, 0, 3, 14
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\test.py", "Python", -1, 0, 0, 0, 0, 0, 1, 0
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\MiddleWare.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelMmx.py", "Python", 2, 0, 0, 0, 0, 0, 0, 2
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelRunningAccount.py", "Python", 1, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelTableInformation.py", "Python", 3, 0, 0, 0, 0, 0, 0, 3
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ORM.py", "Python", 1, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\PublicValuesAndSchemas.py", "Python", 1, 0, 0, 0, 0, 0, -1, 0
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\__init__.py", "Python", 2, 0, 0, 0, 0, 0, 0, 2
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\MiddleWare.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ModelUserExtension.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\PublicService.py", "Python", 100, 0, 0, 0, 0, 36, 12, 148
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceCoursePlan.py", "Python", 2, 0, 0, 0, 0, 11, 1, 14
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceCurricula.py", "Python", 40, 0, 0, 0, 0, 37, 6, 83
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceDepartment.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceEquipment.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceLocation.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceLocationExtension.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceMmx.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceMmxData.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceRunningAccount.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceTableInformation.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceTypera.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceUser.py", "Python", 0, 0, 0, 0, 0, 11, 1, 12
+"c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\整体技术框架设计.md", "Markdown", 0, 64, 0, 0, 0, 11, 9, 84
+"Total", "-", 169, -136, -200, 0, -194, 401, 64, 104

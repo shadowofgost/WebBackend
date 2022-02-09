@@ -7,13 +7,13 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-01-24 12:31:57
+# @LastTime         : 2022-02-09 20:17:47
 # @LastAuthor       : Albert Wang
 """
-from src.Api.test import app
+from src.Api.ApiBase import app
 import uvicorn
 
 if __name__ == "__main__":
     uvicorn.run(
-        "src.Api.test:app", host="127.0.0.1", port=8000, reload=True, debug=True, workers=1
+        "src.Api.ApiBase:app", host="127.0.0.1", port=8000, reload=True, debug=True, workers=1
     )

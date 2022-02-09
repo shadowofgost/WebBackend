@@ -16,7 +16,7 @@ import os
 sys.path.append(os.getcwd())
 from src.Api import *
 from src.Models import *
-import src.Core as Core
+import src.Config as Config
 import src.Services as Services
 import src.Tasks as Tasks
 import src.Tests as Tests

@@ -31,7 +31,7 @@ from sqlalchemy import (
     select,
     subquery,
 )
-from src.Core.Settings import SessionLocal
+from src.Config.Settings import SessionLocal
 from time import time
 session = SessionLocal()
 sub = (
