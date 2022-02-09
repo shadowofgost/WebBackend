@@ -6,14 +6,25 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiBase.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-09 20:22:25
+# @LastTime         : 2022-02-09 23:54:47
 # @Software         : Vscode
 """
 from fastapi import FastAPI, Request
 import time
 from fastapi.middleware.cors import CORSMiddleware
 from .Login import router as login_router
+from .ApiCoursePlan import router as api_course_plan_router
 from .ApiCurricula import router as api_curricula_router
+from .ApiDepartment import router as api_department_router
+from .ApiEquipment import router as api_equipment_router
+from .ApiLocation import router as api_location_router
+from .ApiLocationExtension import router as api_location_extension_router
+from .ApiMmx import router as api_mmx_router
+from .ApiMmxData import router as api_mmx_data_router
+from .ApiRunningAccount import router as api_running_account_router
+from .ApiTypera import router as api_typera_router
+from .ApiUser import router as api_user_router
+from .ApiUserExtension import router as api_user_extension_router
 
 app = FastAPI()
 
@@ -36,6 +47,20 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.include_router(login_router)
-app.include_router(api_curricula_router)
-app
+list_router = [
+    login_router,
+    api_course_plan_router,
+    api_curricula_router,
+    api_department_router,
+    api_equipment_router,
+    api_location_router,
+    api_location_extension_router,
+    api_mmx_router,
+    api_mmx_data_router,
+    api_running_account_router,
+    api_typera_router,
+    api_user_router,
+    api_user_extension_router,
+]
+for i in list_router:
+    app.include_router(i)

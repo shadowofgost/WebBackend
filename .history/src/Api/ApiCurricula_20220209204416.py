@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-09 23:27:49
+# @LastTime         : 2022-02-09 20:43:34
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -17,18 +17,8 @@ from sqlalchemy.orm import Session
 from ..Models import (
     ModelCurriculaSelectInSingleTableSchema,
     ModelCurriculaSelectOutSingleTableSchema,
-    ModelCurriculaInsertMultipleGetSchema,
-    ModelCurriculaUpdateMultipleGetSchema,
-    DeleteMultipleGetSchema,
-    Execution,
 )
-from ..Services import (
-    get_curricula,
-    service_select,
-    service_insert,
-    service_update,
-    service_delete,
-)
+from ..Services import get_curricula
 from .Depends import get_current_user, get_db
 
 router = APIRouter(
@@ -47,43 +37,13 @@ class CurriculaGet(BaseModel):
 
 
 @router.get("/", response_model=Page[ModelCurriculaSelectOutSingleTableSchema])
-async def api_model_curricula_get(
+async def api_curricula_get(
     schema: CurriculaGet,
     Params=Depends(),
     session: Session = Depends(get_db),
     user: ModelCurriculaSelectOutSingleTableSchema = Depends(get_current_user),
 ):
-    result_data = get_curricula(
+    result_data = await get_curricula(
         session, user.ID, user.Attr, schema.service_type, schema.requires
     )
     return paginate(result_data, Params)
-
-
-@router.post("/", response_model=Execution)
-async def api_model_curricula_insert(
-    schema: ModelCurriculaInsertMultipleGetSchema,
-    session: Session = Depends(get_db),
-    user: ModelCurriculaSelectOutSingleTableSchema = Depends(get_current_user),
-):
-    model = "ModelCurricula"
-    return service_insert(session, user.ID, model, schema)
-
-
-@router.put("/", response_model=Execution)
-async def api_model_curricula_update(
-    schema: ModelCurriculaUpdateMultipleGetSchema,
-    session: Session = Depends(get_db),
-    user: ModelCurriculaSelectOutSingleTableSchema = Depends(get_current_user),
-):
-    model = "ModelCurricula"
-    return service_update(session, user.ID, model, schema)
-
-
-@router.delete("/", response_model=Execution)
-async def api_model_curricula_delete(
-    schema: DeleteMultipleGetSchema,
-    session: Session = Depends(get_db),
-    user: ModelCurriculaSelectOutSingleTableSchema = Depends(get_current_user),
-):
-    model = "ModelCurricula"
-    return service_delete(session, user.ID, model, schema)
