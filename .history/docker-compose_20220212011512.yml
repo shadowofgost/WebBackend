@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  web:
+    build: ./src
+    ports:
+    - "8000:8000"
+    volumes:
+    - logvolume:/usr/webbackend/src/logs
+  nginx:
+    build: ./nginx
+    ports:
+    - "80:80"
+volumes:
+  logvolume: {}
