@@ -3,7 +3,7 @@ services:
   web:
     build: ./src
     ports:
-    - "8000:8000"
+    - "9001:9001"
     volumes:
     - logvolume:/usr/webbackend/src/logs
   nginx:
