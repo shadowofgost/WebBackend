@@ -1,14 +1,16 @@
-version: '3.3'
+version: '4'
 services:
   web:
     build: ./src
     ports:
     - "9001:9001"
+    networks:
+    - web
     volumes:
-    - logvolume:/usr/webbackend/src/logs
+    - /root/logs:/usr/webbackend/src/logs
   nginx:
     build: ./nginx
     ports:
     - "80:80"
-volumes:
-  logvolume: {}
+    networks:
+    - web
