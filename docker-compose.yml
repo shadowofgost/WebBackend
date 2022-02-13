@@ -15,4 +15,4 @@ services:
     networks:
     - web
     depends_on:
-    - web
+    - web_app
