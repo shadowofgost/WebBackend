@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  web_app:
+  web:
     build: ./src
     ports:
     - "9001:9001"
@@ -13,6 +13,4 @@ services:
     ports:
     - "80:80"
     networks:
-    - web
-    depends_on:
     - web
