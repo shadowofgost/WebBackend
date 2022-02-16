@@ -26,4 +26,4 @@ services:
             network:
                 ipv4_address: 172.19.0.4
         depends_on:
-            - web
+            - web_app
