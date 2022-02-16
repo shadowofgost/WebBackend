@@ -12,9 +12,9 @@
 """
 from Api import app
 import uvicorn
-from Config import logger_config
+from Logs import config
 
-logger = logger_config.init_logging()
+logger = config.init_logging()
 if __name__ == "__main__":
     uvicorn.run(
         "Api.ApiBase:app",
