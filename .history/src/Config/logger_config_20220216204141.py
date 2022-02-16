@@ -4,9 +4,9 @@
 # @Time             : 2022-02-16 17:15:44
 # @Description      :
 # @Email            : shadowofgost@outlook.com
-# @FilePath         : /WebBackend/src/Config/logger_config.py
+# @FilePath         : /WebBackend/src/Logs/logger_config.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-16 20:45:26
+# @LastTime         : 2022-02-16 20:41:11
 # @Software         : Vscode
 """
 import logging
@@ -97,10 +97,11 @@ def init_logging():
     # set logs output, level and format
     # logger.add(sys.stdout, level=logging.DEBUG, format=format_record, filter=make_filter('stdout'))
     # 为app添加一个info log文件，主要记录debug和info级别的日志
-    dirpath = dirname(dirname(__file__)) + "/Logs"
-    app_info = join(dirpath, f'{strftime("%Y_%m_%d")+"_info"}.log')
+    app_info = join(dirname(__file__), f'{strftime("%Y_%m_%d")+"_info"}.log')
     # 为app添加一个error log文件，主要记录warning和error级别的日志
-    app_warning = join(dirpath, f'{strftime("%Y_%m_%d")+"_warning_error"}.log')
+    app_warning = join(
+        dirname(__file__), f'{strftime("%Y_%m_%d")+"_warning_error"}.log'
+    )
     logger.add(
         app_info,
         enqueue=True,

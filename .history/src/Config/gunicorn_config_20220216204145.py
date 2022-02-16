@@ -4,15 +4,15 @@
 # @Time             : 2022-02-16 17:56:07
 # @Description      :
 # @Email            : shadowofgost@outlook.com
-# @FilePath         : /WebBackend/src/Config/gunicorn_config.py
+# @FilePath         : /WebBackend/src/gunicorn_config.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-16 20:46:07
+# @LastTime         : 2022-02-16 20:35:12
 # @Software         : Vscode
 """
 # config.py
 import multiprocessing
 from time import strftime
-from os.path import join, dirname
+from os.path import join,dirname
 
 # Sample Gunicorn configuration file.
 
@@ -164,11 +164,11 @@ tmp_upload_dir = None
 #
 #       A string of "debug", "info", "warning", "error", "critical"
 #
-dirpath = dirname(dirname(__file__)) + "/Logs"
-errorlog = join(dirpath, f'{strftime("%Y_%m_%d"+"_gunicorn_error")}.log')
+
+errorlog = join(dirname(__file__), f'{strftime("%Y_%m_%d"+"_gunicorn_error")}.log')
 loglevel = "info"
-logfile = join(dirpath, f'{strftime("%Y-%m-%d"+"_gunicorn_debug")}.log')
-accesslog = join(dirpath, f'{strftime("%Y-%m-%d"+"_gunicorn_access")}.log')
+logfile = join(dirname(__file__), f'{strftime("%Y-%m-%d"+"_gunicorn_debug")}.log')
+accesslog = join(dirname(__file__), f'{strftime("%Y-%m-%d"+"_gunicorn_access")}.log')
 access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"'
 
 #

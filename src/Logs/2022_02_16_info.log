@@ -1,0 +1,7 @@
+2022-02-16 20:45:44.693 | INFO     | uvicorn.config:__init__:340 - Will watch for changes in these directories: ['C:\\Users\\shado\\Desktop\\Desktop\\Documents\\ComputerProgramme\\Code\\WebBackend']
+2022-02-16 20:45:44.698 | INFO     | uvicorn.config:bind_socket:562 - Uvicorn running on http://127.0.0.1:9001 (Press CTRL+C to quit)
+2022-02-16 20:45:44.701 | INFO     | uvicorn.supervisors.basereload:startup:59 - Started reloader process [25208] using statreload
+2022-02-16 20:45:49.964 | WARNING  | uvicorn.loops.asyncio:asyncio_setup:10 - The --reload flag should not be used in production on Windows.
+2022-02-16 20:45:50.029 | INFO     | uvicorn.server:serve:84 - Started server process [4864]
+2022-02-16 20:45:50.030 | INFO     | uvicorn.lifespan.on:startup:45 - Waiting for application startup.
+2022-02-16 20:45:50.032 | INFO     | uvicorn.lifespan.on:startup:59 - Application startup complete.
