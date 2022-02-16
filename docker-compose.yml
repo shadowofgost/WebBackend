@@ -1,17 +1,17 @@
 version: "3.7"
 networks:
-    web_network:
+    network:
         ipam:
             config:
                 - subnet: 172.19.0.0/16
 services:
-    web_app:
+    app:
         build: ./src
         ports:
             - "9001:9001"
         networks:
-            web_network:
-                ipv4_address: 172.19.0.1
+            network:
+                ipv4_address: 172.19.0.3
         volumes:
             - /root/logs:/usr/webbackend/src/logs
         restart: always
@@ -20,8 +20,10 @@ services:
         build: ./nginx
         ports:
             - "80:80"
+        restart: always
+        tty: true
         networks:
-            web_network:
-                ipv4_address: 172.19.0.2
+            network:
+                ipv4_address: 172.19.0.4
         depends_on:
             - web_app
