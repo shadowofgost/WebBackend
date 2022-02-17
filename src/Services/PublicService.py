@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicService.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-15 17:05:21
+# @LastTime         : 2022-02-17 18:10:13
 # @Software         : Vscode
 """
 from ast import Raise
@@ -16,8 +16,8 @@ from typing import Container, Optional, Type
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
-from Models import (
-    ORM,
+from .ORM import ORM
+from .PublicValuesAndSchemas import (
     DeleteMultipleGetSchema,
     DeleteMultipleTableSchema,
     DeleteSingleTableSchema,

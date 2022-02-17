@@ -1,0 +1,159 @@
+Date : 2022-02-16 20:58:06
+Directory : c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend
+Total : 109 files,  6336 codes, 1421 comments, 1032 blanks, all 8789 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| Python           |         65 |      4,113 |      1,327 |        843 |      6,283 |
+| Markdown         |         21 |      1,174 |         11 |        139 |      1,324 |
+| CSV              |         10 |        729 |          0 |          0 |        729 |
+| pip requirements |          2 |        144 |          0 |          2 |        146 |
+| Ini              |          1 |         80 |          0 |         23 |        103 |
+| Properties       |          1 |         46 |         65 |         16 |        127 |
+| YAML             |          1 |         29 |          0 |          1 |         30 |
+| Docker           |          2 |         16 |          7 |          7 |         30 |
+| JSON             |          5 |          5 |          0 |          0 |          5 |
+| HTML             |          1 |          0 |         11 |          1 |         12 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                          | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                             |        109 |      6,336 |      1,421 |      1,032 |      8,789 |
+| .VSCodeCounter                                                                                                                |         35 |      1,844 |          0 |        130 |      1,974 |
+| .VSCodeCounter\2022-01-26_20-02-26                                                                                            |          7 |        292 |          0 |         26 |        318 |
+| .VSCodeCounter\2022-01-27_00-12-17                                                                                            |          7 |        295 |          0 |         26 |        321 |
+| .VSCodeCounter\2022-01-27_17-18-34                                                                                            |          7 |        351 |          0 |         26 |        377 |
+| .VSCodeCounter\2022-02-02_15-33-23                                                                                            |          7 |        440 |          0 |         26 |        466 |
+| .VSCodeCounter\2022-02-10_00-06-02                                                                                            |          7 |        466 |          0 |         26 |        492 |
+| nginx                                                                                                                         |          3 |         53 |         76 |         18 |        147 |
+| nginx\static                                                                                                                  |          1 |          0 |         11 |          1 |         12 |
+| src                                                                                                                           |         66 |      4,096 |      1,316 |        842 |      6,254 |
+| src\Api                                                                                                                       |         19 |        989 |        211 |        197 |      1,397 |
+| src\Config                                                                                                                    |          4 |        204 |        239 |         55 |        498 |
+| src\Logs                                                                                                                      |          1 |          6 |         11 |          2 |         19 |
+| src\Models                                                                                                                    |         20 |      2,522 |        410 |        515 |      3,447 |
+| src\Server                                                                                                                    |          1 |         47 |        160 |         21 |        228 |
+| src\Services                                                                                                                  |         16 |        250 |        244 |         41 |        535 |
+| src\Tasks                                                                                                                     |          1 |          0 |         11 |          1 |         12 |
+| src\Tests                                                                                                                     |          1 |          0 |         11 |          1 |         12 |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                                                                      | language         | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\details.md      | Markdown         |         87 |          0 |          6 |         93 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\diff-details.md | Markdown         |         35 |          0 |          6 |         41 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\diff.csv        | CSV              |         28 |          0 |          0 |         28 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\diff.md         | Markdown         |         24 |          0 |          7 |         31 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\results.csv     | CSV              |         80 |          0 |          0 |         80 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\results.json    | JSON             |          1 |          0 |          0 |          1 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-26_20-02-26\results.md      | Markdown         |         37 |          0 |          7 |         44 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_00-12-17\details.md      | Markdown         |         96 |          0 |          6 |        102 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_00-12-17\diff-details.md | Markdown         |         28 |          0 |          6 |         34 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_00-12-17\diff.csv        | CSV              |         21 |          0 |          0 |         21 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_00-12-17\diff.md         | Markdown         |         22 |          0 |          7 |         29 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_00-12-17\results.csv     | CSV              |         89 |          0 |          0 |         89 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_00-12-17\results.json    | JSON             |          1 |          0 |          0 |          1 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_00-12-17\results.md      | Markdown         |         38 |          0 |          7 |         45 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\details.md      | Markdown         |         98 |          0 |          6 |        104 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\diff-details.md | Markdown         |         53 |          0 |          6 |         59 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\diff.csv        | CSV              |         46 |          0 |          0 |         46 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\diff.md         | Markdown         |         24 |          0 |          7 |         31 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\results.csv     | CSV              |         91 |          0 |          0 |         91 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\results.json    | JSON             |          1 |          0 |          0 |          1 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-01-27_17-18-34\results.md      | Markdown         |         38 |          0 |          7 |         45 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-02_15-33-23\details.md      | Markdown         |        128 |          0 |          6 |        134 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-02_15-33-23\diff-details.md | Markdown         |         67 |          0 |          6 |         73 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-02_15-33-23\diff.csv        | CSV              |         60 |          0 |          0 |         60 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-02_15-33-23\diff.md         | Markdown         |         25 |          0 |          7 |         32 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-02_15-33-23\results.csv     | CSV              |        121 |          0 |          0 |        121 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-02_15-33-23\results.json    | JSON             |          1 |          0 |          0 |          1 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-02_15-33-23\results.md      | Markdown         |         38 |          0 |          7 |         45 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-10_00-06-02\details.md      | Markdown         |        126 |          0 |          6 |        132 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-10_00-06-02\diff-details.md | Markdown         |         81 |          0 |          6 |         87 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-10_00-06-02\diff.csv        | CSV              |         74 |          0 |          0 |         74 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-10_00-06-02\diff.md         | Markdown         |         27 |          0 |          7 |         34 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-10_00-06-02\results.csv     | CSV              |        119 |          0 |          0 |        119 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-10_00-06-02\results.json    | JSON             |          1 |          0 |          0 |          1 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\.VSCodeCounter\2022-02-10_00-06-02\results.md      | Markdown         |         38 |          0 |          7 |         45 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\Test.py                                            | Python           |         83 |         18 |          8 |        109 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\alembic.ini                                        | Ini              |         80 |          0 |         23 |        103 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\docker-compose.yml                                 | YAML             |         29 |          0 |          1 |         30 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\nginx\Dockerfile                                   | Docker           |          7 |          0 |          1 |          8 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\nginx\nginx.conf                                   | Properties       |         46 |         65 |         16 |        127 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\nginx\static\505.html                              | HTML             |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\requirements.txt                                   | pip requirements |         87 |          0 |          1 |         88 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiBase.py                                 | Python           |         50 |         11 |          6 |         67 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiCoursePlan.py                           | Python           |         67 |         11 |         13 |         91 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiCurricula.py                            | Python           |         66 |         11 |         13 |         90 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiDepartment.py                           | Python           |         67 |         11 |         13 |         91 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiEquipment.py                            | Python           |         67 |         11 |         13 |         91 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiLocation.py                             | Python           |         67 |         11 |         13 |         91 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiLocationExtension.py                    | Python           |         67 |         11 |         13 |         91 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiMiddleWare.py                           | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiMmx.py                                  | Python           |         67 |         11 |         13 |         91 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiMmxData.py                              | Python           |         67 |         11 |         13 |         91 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiRunningAccount.py                       | Python           |         67 |         11 |         13 |         91 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiTableInformation.py                     | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiTypera.py                               | Python           |         67 |         11 |         13 |         91 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiUser.py                                 | Python           |         67 |         11 |         13 |         91 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\ApiUserExtension.py                        | Python           |         67 |         11 |         13 |         91 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\Depends.py                                 | Python           |         90 |         12 |         18 |        120 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\Exceptions.py                              | Python           |         25 |         11 |          7 |         43 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\Login.py                                   | Python           |         20 |         11 |          7 |         38 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Api\__init__.py                                | Python           |          1 |         12 |          1 |         14 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Config\Settings.py                             | Python           |         81 |         13 |         12 |        106 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Config\__init__.py                             | Python           |          1 |         12 |          1 |         14 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Config\gunicorn_config.py                      | Python           |         51 |        166 |         26 |        243 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Config\logger_config.py                        | Python           |         71 |         48 |         16 |        135 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Dockerfile                                     | Docker           |          9 |          7 |          6 |         22 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Logs\test.py                                   | Python           |          6 |         11 |          2 |         19 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\MiddleWare.py                           | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelCoursePlan.py                      | Python           |        194 |         13 |         35 |        242 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelCurricula.py                       | Python           |        178 |         12 |         36 |        226 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelDepartment.py                      | Python           |         92 |         12 |         30 |        134 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelEquipment.py                       | Python           |        132 |         12 |         28 |        172 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelLocation.py                        | Python           |         89 |         12 |         31 |        132 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelLocationExtension.py               | Python           |        140 |         11 |         28 |        179 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelMmx.py                             | Python           |         93 |         13 |         30 |        136 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelMmxData.py                         | Python           |         89 |         11 |         31 |        131 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelRunningAccount.py                  | Python           |        135 |         12 |         34 |        181 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelSqlAlchemySession.py               | Python           |         85 |         12 |         26 |        123 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelTableInformation.py                | Python           |         89 |         12 |         28 |        129 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelTypera.py                          | Python           |         88 |         12 |         31 |        131 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelUser.py                            | Python           |        121 |         13 |         30 |        164 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ModelUserExtension.py                   | Python           |         89 |         11 |         23 |        123 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\ORM.py                                  | Python           |        408 |        167 |         38 |        613 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\PublicModel.py                          | Python           |        126 |         27 |         14 |        167 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\PublicValuesAndSchemas.py               | Python           |        109 |         14 |         21 |        144 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\UserGroup.py                            | Python           |         42 |         11 |         17 |         70 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Models\__init__.py                             | Python           |        223 |         12 |          3 |        238 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Server\config.py                               | Python           |         47 |        160 |         21 |        228 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\MiddleWare.py                         | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\PublicService.py                      | Python           |        112 |         36 |         14 |        162 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceCoursePlan.py                  | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceCurricula.py                   | Python           |         90 |         53 |          5 |        148 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceDepartment.py                  | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceEquipment.py                   | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceLocation.py                    | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceLocationExtension.py           | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceMmx.py                         | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceMmxData.py                     | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceRunningAccount.py              | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceTableInformation.py            | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceTypera.py                      | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\ServiceUser.py                        | Python           |         45 |         11 |          9 |         65 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\Test.py                               | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Services\__init__.py                           | Python           |          3 |         12 |          1 |         16 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Tasks\__init_.py                               | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\Tests\__init__.py                              | Python           |          0 |         11 |          1 |         12 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\main.py                                        | Python           |         12 |         12 |          2 |         26 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\src\requirements.txt                               | pip requirements |         57 |          0 |          1 |         58 |
+| c:\Users\shado\Desktop\Desktop\Documents\ComputerProgramme\Code\WebBackend\整体技术框架设计.md                                        | Markdown         |         64 |         11 |          9 |         84 |
+| Total                                                                                                                         |                  |      6,336 |      1,421 |      1,032 |      8,789 |
++-------------------------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+

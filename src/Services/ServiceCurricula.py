@@ -6,29 +6,14 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-15 17:07:03
+# @LastTime         : 2022-02-17 18:13:16
 # @Software         : Vscode
 """
-from logging import raiseExceptions
-from .PublicService import (
-    service_delete,
-    service_insert,
-    service_update,
-    service_select,
-    error_service_null,
-    error_service_validation,
-)
+from .PublicService import service_select,error_service_null
 from sqlalchemy.orm import Session
-from pydantic import BaseModel
-from Models import (
-    ModelCurriculaSelectInSingleTableSchema,
-    ModelCurriculaSelectOutSingleTableSchema,
-    ModelCurricula,
-    ModelUser,
-    ModelLocation,
-)
-from typing import List, Optional
+from Models import ModelCurricula,ModelUser,ModelLocation
 from sqlalchemy import select
+from .SchemaCurricula import ModelCurriculaSelectInSingleTableSchema
 
 
 def orm_for_student(
@@ -130,18 +115,17 @@ def get_curricula(
     [type]
         [description]
     """
+    model_name = "ModelCurricula"
     if attr == 1 or 2:
-        return service_select(
-            session, id_manager, "ModelCurricula", service_type, schema
-        )
+        return service_select(session, id_manager, model_name, service_type, schema)
     elif attr == 0:
         if extra_attr == 0:
             return orm_for_student(session, id_manager, service_type, schema)
         elif extra_attr == 1:
             schema.ID_Speaker = id_manager
             if service_type == 0:
-                return service_select(session, id_manager, "ModelCurricula", 3, schema)
+                return service_select(session, id_manager, model_name, 3, schema)
             else:
                 return service_select(
-                    session, id_manager, "ModelCurricula", service_type, schema
+                    session, id_manager, model_name, service_type, schema
                 )
