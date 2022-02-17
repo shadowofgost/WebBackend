@@ -1,4 +1,0 @@
-( NAME = N'CyWz', FILENAME = N'D:\Professional\SQLServer\Case\MSSQL15.MSSQLSERVER\MSSQL\DATA\CyWz.ndf' , SIZE = 73728KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
- LOG ON
-( NAME = N'CyWz_log', FILENAME = N'D:\Professional\SQLServer\Case\MSSQL15.MSSQLSERVER\MSSQL\DATA\CyWz_log.ldf' , SIZE = 73728KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
-sqlacodegen --outfile database.py mssql+pymssql://web:123456@localhost:2233/WebEngineeringBackUP?charset=utf8

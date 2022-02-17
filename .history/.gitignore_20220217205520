@@ -2,5 +2,5 @@
 **/env/**
 **/alembic/**
 **/.mypy_cache/**
-
+**/.history/**
 *.pyc
