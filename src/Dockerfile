@@ -15,7 +15,6 @@ RUN pip install  --no-cache-dir -r ./requirements.txt
 
 #
 COPY ./ ./
-RUN ls -la ./*
 #
 # CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "9001"]
 CMD ["gunicorn","-c=./Config/gunicorn_config.py","main:app"]

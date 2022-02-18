@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiBase.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-16 18:40:30
+# @LastTime         : 2022-02-18 12:48:35
 # @Software         : Vscode
 """
 from fastapi import FastAPI, Request,Depends
@@ -18,11 +18,11 @@ from .ApiCurricula import router as api_curricula_router
 from .ApiDepartment import router as api_department_router
 from .ApiEquipment import router as api_equipment_router
 from .ApiLocation import router as api_location_router
-from .ApiLocationExtension import router as api_location_extension_router
-from .ApiMmx import router as api_mmx_router
-from .ApiMmxData import router as api_mmx_data_router
+##from ...Backup.ApiLocationExtension import router as api_location_extension_router
+##from .ApiMmx import router as api_mmx_router
+##from .ApiMmxData import router as api_mmx_data_router
 from .ApiRunningAccount import router as api_running_account_router
-from .ApiTypera import router as api_typera_router
+##from .ApiTypera import router as api_typera_router
 from .ApiUser import router as api_user_router
 from .ApiUserExtension import router as api_user_extension_router
 from .Depends import request_info
@@ -54,11 +54,11 @@ list_router = [
     api_department_router,
     api_equipment_router,
     api_location_router,
-    api_location_extension_router,
-    api_mmx_router,
-    api_mmx_data_router,
+    ##api_location_extension_router,
+    ##api_mmx_router,
+    ##api_mmx_data_router,
     api_running_account_router,
-    api_typera_router,
+    ##api_typera_router,
     api_user_router,
     api_user_extension_router,
 ]
