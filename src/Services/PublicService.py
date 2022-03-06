@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicService.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 18:10:13
+# @LastTime         : 2022-02-23 16:39:38
 # @Software         : Vscode
 """
 from ast import Raise
@@ -23,16 +23,7 @@ from .PublicValuesAndSchemas import (
     DeleteSingleTableSchema,
     model_dict,
 )
-
-error_service_validation = HTTPException(
-    status_code=status.HTTP_406_NOT_ACCEPTABLE,
-    detail="Service Validation Error,Service层数据严重失败",
-)
-error_service_null = HTTPException(
-    status_code=status.HTTP_412_PRECONDITION_FAILED,
-    detail="Service Null Error,所调用的service不存在",
-)
-
+from Components.Exceptions import error_service_validation,error_service_null
 
 def transform(id_manager: int, single_schema, multiple_schema, initial_schema):
     if initial_schema.n == 1:

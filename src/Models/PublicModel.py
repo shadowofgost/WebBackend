@@ -7,14 +7,12 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-02-17 17:04:25
+# @LastTime         : 2022-02-23 17:32:26
 # @LastAuthor       : Albert Wang
 """
 from sqlalchemy import (
     BigInteger,
-    Boolean,
     Column,
-    Identity,
     Integer,
     Unicode,
 )

@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiCoursePlan.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 20:33:06
+# @LastTime         : 2022-02-23 17:31:02
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -15,8 +15,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from Services import (
-    get_curricula,
-    service_select,
+    get_course_plan,
     service_insert,
     service_update,
     service_delete,
@@ -52,9 +51,8 @@ async def api_model_courseplan_get(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
-    model = "ModelCoursePlan"
-    result_data = service_select(
-        session, user.ID, model, schema.service_type, schema.requires
+    result_data = get_course_plan(
+        session, user.ID, user.Attr, schema.service_type, schema.requires
     )
     return paginate(result_data, Params)
 

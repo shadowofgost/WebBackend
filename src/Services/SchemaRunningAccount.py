@@ -6,15 +6,15 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaRunningAccount.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 17:55:29
+# @LastTime         : 2022-02-24 17:28:25
 # @Software         : Vscode
 """
-from typing import List, Optional
-
-from Models import ModelRunningAccount, ModelUser
+from typing import List, Optional, Type
 from pydantic import BaseModel, Field, create_model
 from sqlalchemy import select
-from sqlalchemy.orm import  aliased
+from sqlalchemy.orm import aliased
+from Models import ModelRunningAccount, ModelUser
+
 
 from .PublicFunctions import (
     format_current_time,
@@ -119,7 +119,7 @@ class ModelRunningAccountSelectOutSingleTableSchema(
         default=None, title="打卡签到者的姓名", description="这次打卡签到者的姓名"
     )
     ID_User_NoUser: Optional[int] = Field(
-        default=None, title="打卡者的学号", description="这是这节课程安排课对应的老师/演讲者的教职工号"
+        default=None, title="打卡者的学号", description="这是这次打卡安排课对应的老师/演讲者的教职工号"
     )
     ID_Manager_Name: Optional[str] = Field(
         default=None, title="修改者的姓名", description="这次课程信息最新一次修改的修改者姓名"
@@ -137,6 +137,8 @@ ModelRunningAccountSelectInSingleTableSchema = create_model(
     __base__=ModelRunningAccountSelectInSingleTableSchema,
 )
 user1 = aliased(ModelUser)
+##TODO:WARNING:随着sqlalchemy的升级，subquery的查询列的方法会发生改变，会从原来的sub.c.column_name变成sub.column_name
+sub_sub = select(ModelRunningAccount).where(ModelRunningAccount.Type == 4097).subquery()
 ModelRunningAccount_sub_stmt = (
     select(
         ModelRunningAccount,
@@ -144,8 +146,9 @@ ModelRunningAccount_sub_stmt = (
         ModelUser.NoUser.label("ID_User_NoUser"),
         user1.Name.label("ID_Manager_Name"),
     )
-    .join(ModelUser, ModelRunningAccount.ID_User == ModelUser.ID, isouter=True)
-    .join(user1, ModelRunningAccount.IdManager == user1.ID, isouter=True)
-    .where(ModelRunningAccount.Type_field == 4097)
+    .join(ModelUser, sub_sub.c.ID_User == ModelUser.ID, isouter=True)
+    .join(user1, sub_sub.c.IdManager == user1.ID, isouter=True)
+    .where(ModelUser.IMark == 0)
+    .where(user1.IMark == 0)
     .subquery()
 )

@@ -4,9 +4,9 @@
 # @Time             : 2022-02-01 22:19:24
 # @Description      :
 # @Email            : shadowofgost@outlook.com
-# @FilePath         : /WebBackend/src/Services/ServiceCoursePlan.py
+# @FilePath         : /WebBackend/src/Services/SchemaCoursePlan.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 17:14:32
+# @LastTime         : 2022-02-24 10:56:04
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -165,4 +165,8 @@ ModelCoursePlan_sub_stmt = (
         isouter=True,
     )
     .join(user1, user1.ID == ModelCoursePlan.IdManager, isouter=True)
+    .where(ModelCurricula.IMark == 0)
+    .where(ModelUser.IMark == 0)
+    .where(ModelLocation.IMark == 0)
+    .where(user1.IMark == 0)
 ).subquery()

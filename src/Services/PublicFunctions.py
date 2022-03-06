@@ -6,10 +6,10 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicFunctions.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 18:09:59
+# @LastTime         : 2022-02-24 11:07:16
 # @Software         : Vscode
 """
-from time import  localtime, mktime, strptime
+from time import localtime, mktime, strptime
 from typing import Container, Optional, Type
 from pydantic import BaseConfig, BaseModel, Field, create_model
 from sqlalchemy.ext.declarative import declarative_base
@@ -38,10 +38,22 @@ nullable = ["Rem", "Introduction"]
 
 
 def format_current_time():
+    """
+    format_current_time _summary_
+
+    _extended_summary_
+
+    Returns
+    -------
+    _type_
+        _description_
+    """
     base_time = mktime(strptime("2000-01-01 00:00:00", "%Y-%m-%d %X"))  ##设定标准或者说基础的时间
     current_time = mktime(localtime())  ##获取当前时间
     time_update = int(current_time - base_time)  ##计算时间差
     return time_update
+
+
 class OrmConfig(BaseConfig):
     orm_mode = True
 

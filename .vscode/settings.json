@@ -1,6 +1,6 @@
 {
 	"cSpell.words": ["Pydantic"],
-	"python.linting.pylintEnabled": false,
-	"python.linting.mypyEnabled": true,
-	"python.linting.enabled": true
+	"python.linting.pylintEnabled": true,
+	"python.linting.mypyEnabled": false,
+	"python.linting.enabled": false
 }

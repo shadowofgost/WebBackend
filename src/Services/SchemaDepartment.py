@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaDepartment.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 17:42:33
+# @LastTime         : 2022-02-24 10:56:26
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -106,5 +106,6 @@ ModelDepartmentSelectInSingleTableSchema = create_model(
 ModelDepartment_sub_stmt = (
     select(ModelDepartment, ModelUser.Name.label("ID_Manager_Name"))
     .join(ModelUser, ModelDepartment.IdManager == ModelUser.ID, isouter=True)
+    .where(ModelUser.IMark == 0)
     .subquery()
 )

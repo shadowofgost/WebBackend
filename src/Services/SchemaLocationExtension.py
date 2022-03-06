@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaLocationExtension.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 17:47:30
+# @LastTime         : 2022-02-24 10:57:32
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -147,5 +147,7 @@ ModelLocationExtension_sub_stmt = (
         ModelLocation.ID == ModelLocationExtension.ID_Location,
         isouter=True,
     )
+    .where(ModelUser.IMark == 0)
+    .where(ModelLocation.IMark == 0)
     .subquery()
 )

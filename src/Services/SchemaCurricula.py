@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 17:35:27
+# @LastTime         : 2022-02-24 10:55:52
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -150,4 +150,7 @@ ModelCurricula_sub_stmt = (
         isouter=True,
     )
     .join(user1, user1.ID == ModelCurricula.IdManager, isouter=True)
+    .where(ModelUser.IMark == 0)
+    .where(ModelLocation.IMark == 0)
+    .where(user1.IMark == 0)
 ).subquery()

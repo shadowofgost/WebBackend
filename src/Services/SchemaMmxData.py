@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaMmxData.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 17:53:10
+# @LastTime         : 2022-02-24 10:58:47
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -105,6 +105,6 @@ ModelMmxData_sub_stmt = (
         ModelMmxData,
         ModelUser.Name.label("ID_Manager_Name"),
     )
-    .join(ModelUser, ModelUser.ID == ModelMmxData.IdManager, isouter=True)
+    .join(ModelUser, ModelUser.ID == ModelMmxData.IdManager, isouter=True).where(ModelUser.IMark==0)
     .subquery()
 )

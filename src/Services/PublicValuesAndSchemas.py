@@ -25,20 +25,6 @@ model_filename_list = [
     if filename_str.endswith(".py")
     and match(r"Schema", filename_str) is not None
 ]
-status.HTTP_412_PRECONDITION_FAILED
-error_database_execution = HTTPException(
-    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-    detail="Model Database execution error,model层查询数据库出现异常",
-)
-error_schema_validation = HTTPException(
-    status_code=status.HTTP_406_NOT_ACCEPTABLE,
-    detail="Model Schema validation error,model层传输数据模型验证失败",
-)
-error_fuction_not_implemented = HTTPException(
-    status_code=status.HTTP_412_PRECONDITION_FAILED,
-    detail="Model function error,model层传输数据出现数据缺失",
-)
-success_execution = {"message": "成功执行"}
 
 
 def format_current_time():

@@ -6,13 +6,15 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 18:13:16
+# @LastTime         : 2022-02-24 10:46:32
 # @Software         : Vscode
 """
-from .PublicService import service_select,error_service_null
-from sqlalchemy.orm import Session
-from Models import ModelCurricula,ModelUser,ModelLocation
+from Models import ModelCurricula, ModelLocation, ModelUser
 from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+from .PublicService import service_select
+from Components.Exceptions import error_service_null
 from .SchemaCurricula import ModelCurriculaSelectInSingleTableSchema
 
 
@@ -51,7 +53,16 @@ def orm_for_student(
                 ModelLocation.ID == ModelCurricula.ID_Location,
                 isouter=True,
             )
-            .where(ModelCurricula.RangeUsers.like("%{}%".format(str(id_manager))))
+            .where(
+                ModelCurricula.RangeUsers.like(
+                    "%{}%".format(
+                        str(id_manager),
+                        ModelCurricula.IMark == 0,
+                        ModelLocation.IMark == 0,
+                        ModelUser.IMark == 0,
+                    )
+                )
+            )
         )
     elif service_type == 2:
         stmt = (
@@ -67,10 +78,11 @@ def orm_for_student(
                 isouter=True,
             )
             .where(
-                ModelCurricula.RangeUsers.like(
-                    "%{}%".format(str(id_manager)),
-                    ModelCurricula.Name.like("%{}%".format(schema.Name)),
-                )
+                ModelCurricula.RangeUsers.like("%{}%".format(str(id_manager))),
+                ModelCurricula.Name.like("%{}%".format(schema.Name)),
+                ModelCurricula.IMark == 0,
+                ModelLocation.IMark == 0,
+                ModelUser.IMark == 0,
             )
         )
     else:
@@ -87,7 +99,6 @@ def get_curricula(
     attr: int,
     service_type: int,
     schema: ModelCurriculaSelectInSingleTableSchema,
-    extra_attr: int = 0,
 ):
     """
     get_curricula [查询课程表]
@@ -116,16 +127,13 @@ def get_curricula(
         [description]
     """
     model_name = "ModelCurricula"
-    if attr == 1 or 2:
+    if attr == 1:
         return service_select(session, id_manager, model_name, service_type, schema)
-    elif attr == 0:
-        if extra_attr == 0:
-            return orm_for_student(session, id_manager, service_type, schema)
-        elif extra_attr == 1:
-            schema.ID_Speaker = id_manager
-            if service_type == 0:
-                return service_select(session, id_manager, model_name, 3, schema)
-            else:
-                return service_select(
-                    session, id_manager, model_name, service_type, schema
-                )
+    elif attr == 3:
+        return orm_for_student(session, id_manager, service_type, schema)
+    elif attr == 2:
+        schema.ID_Speaker = id_manager
+        if service_type == 0:
+            return service_select(session, id_manager, model_name, 3, schema)
+        else:
+            return service_select(session, id_manager, model_name, service_type, schema)

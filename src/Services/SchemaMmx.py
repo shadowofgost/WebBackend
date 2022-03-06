@@ -6,12 +6,12 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaMmx.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 17:49:08
+# @LastTime         : 2022-02-24 10:58:02
 # @Software         : Vscode
 """
 from typing import List, Optional
 
-from Models import ModelMmxData, ModelUser,ModelMmx
+from Models import ModelMmxData, ModelUser, ModelMmx
 from pydantic import BaseModel, Field, create_model
 from sqlalchemy import select
 
@@ -76,7 +76,11 @@ class ModelMmxInsertMultipleTableSchema(BaseModel):
 ModelMmxSelectOutSingleTableSchemaBase = sqlalchemy_to_pydantic(
     ModelMmx, select_out_exclude
 )
-ModelMmxSelectOutSingleTableSchemaBase = create_model("ModelMmxSelectOutSingleTableSchemaBase", __base__=ModelMmxSelectOutSingleTableSchemaBase)
+ModelMmxSelectOutSingleTableSchemaBase = create_model(
+    "ModelMmxSelectOutSingleTableSchemaBase",
+    __base__=ModelMmxSelectOutSingleTableSchemaBase,
+)
+
 
 class ModelMmxSelectOutSingleTableSchema(ModelMmxSelectOutSingleTableSchemaBase):
     Data: Optional[str] = Field(
@@ -96,7 +100,9 @@ class ModelMmxSelectOutSingleTableSchema(ModelMmxSelectOutSingleTableSchemaBase)
 ModelMmxSelectInSingleTableSchema = sqlalchemy_to_pydantic(
     ModelMmx, select_in_exclude, []
 )
-ModelMmxSelectInSingleTableSchema= create_model("ModelMmxSelectInSingleTableSchema", __base__=ModelMmxSelectInSingleTableSchema)
+ModelMmxSelectInSingleTableSchema = create_model(
+    "ModelMmxSelectInSingleTableSchema", __base__=ModelMmxSelectInSingleTableSchema
+)
 ModelMmx_sub_stmt = (
     select(
         ModelMmx,
@@ -105,5 +111,7 @@ ModelMmx_sub_stmt = (
     )
     .join(ModelUser, ModelUser.ID == ModelMmxData.IdManager, isouter=True)
     .join(ModelMmxData, ModelMmxData.ID == ModelMmx.ID_Data, isouter=True)
+    .where(ModelMmxData.IMark == 0)
+    .where(ModelUser.IMark == 0)
     .subquery()
 )

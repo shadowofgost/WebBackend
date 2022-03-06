@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiUser.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 20:40:04
+# @LastTime         : 2022-03-07 00:37:58
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -42,6 +42,13 @@ class CurriculaGet(BaseModel):
         description="根据输入数据判断服务类型,0表示查询所有的数据，1表示查询的是通过id查询数据，2表示通过name查询数据，3表示通过schema查询特定值的数据，4表示通过学号/序列号查询账户",
         default=1,
     )
+
+
+@router.get("/current_user", response_model=SchemaUserPydantic)
+async def api_current_user(
+    user: SchemaUserPydantic = Depends(get_current_user),
+):
+    return user.dict()
 
 
 @router.get("/", response_model=Page[ModelUserSelectOutSingleTableSchema])

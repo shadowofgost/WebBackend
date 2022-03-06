@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/Depends.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 20:41:04
+# @LastTime         : 2022-03-06 21:37:22
 # @Software         : Vscode
 """
 from datetime import datetime, timedelta
@@ -23,11 +23,9 @@ from sqlalchemy.orm import Session, sessionmaker
 from loguru import logger
 from Config import get_settings
 from Services import get_user_id, get_user_nouser
-from .Exceptions import (
+from Components.Exceptions import (
     CredentialsError,
     IncorrectPassword,
-    InvalidData,
-    UserNotFound,
     notAuthenticated,
 )
 

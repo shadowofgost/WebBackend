@@ -6,10 +6,10 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiUserExtension.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 20:40:16
+# @LastTime         : 2022-03-07 00:32:47
 # @Software         : Vscode
 """
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, UploadFile
 from fastapi_pagination import Page, Params, paginate
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
@@ -61,20 +61,26 @@ async def api_model_userextension_get(
 @router.post("/", response_model=Execution)
 async def api_model_userextension_insert(
     schema: ModelUserExtensionInsertMultipleGetSchema,
+    file: UploadFile,
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
     model = "ModelUserExtension"
+    schema.Photo=file.read()
+    schema.FaceFeature=file.read()
     return service_insert(session, user.ID, model, schema)
 
 
 @router.put("/", response_model=Execution)
 async def api_model_userextension_update(
     schema: ModelUserExtensionUpdateMultipleGetSchema,
+    file: UploadFile,
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
     model = "ModelUserExtension"
+    schema.Photo=file.read()
+    schema.FaceFeature=file.read()
     return service_update(session, user.ID, model, schema)
 
 

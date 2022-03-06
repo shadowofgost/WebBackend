@@ -7,7 +7,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-02-17 17:54:34
+# @LastTime         : 2022-02-24 15:24:34
 # @LastAuthor       : Albert Wang
 """
 from sqlalchemy import BigInteger, Column, Integer, SmallInteger
@@ -15,16 +15,25 @@ from .PublicModel import ModelPublic
 
 
 class ModelRunningAccount(ModelPublic):
+    '''
+    ModelRunningAccount _summary_
+
+    _extended_summary_
+
+    Parameters
+    ----------
+    ModelPublic : _type_
+        _description_
+    '''
     __tablename__ = "t_cyrunningaccount"
 
     ID_User = Column(BigInteger, index=True, comment="这是外键用户ID", doc="这是外键，链接User的用户ID")
     Time = Column(
         BigInteger, index=True, comment="生成记录的时间", doc="生成记录（发生费用）的时间，从2000-1-1日计秒"
     )
-    Type_field = Column(
+    Type = Column(
         SmallInteger,
         index=True,
-        name="Type",
         comment="这是外键，记录的类型",
         doc="这是记录的类型，其值定义如下：参见T_CyTypeRA表每一个功能的id，例如：考勤：4097，这是T_CyTypeRA表的id和外键",
     )

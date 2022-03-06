@@ -7,22 +7,20 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-02-17 16:56:49
+# @LastTime         : 2022-02-24 17:02:37
 # @LastAuthor       : Albert Wang
 """
 from sqlalchemy import create_engine, delete, insert, select, update
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session, sessionmaker
 
-from .PublicValuesAndSchemas import (
+from .PublicValuesAndSchemas import model_dict,name_column_model_dict
+from Components.Exceptions import(
     error_database_execution,
     error_fuction_not_implemented,
     error_schema_validation,
-    model_dict,
-    name_column_model_dict,
     success_execution,
 )
-
 Base = declarative_base()
 session = 1
 stmt_format = type(select())
@@ -173,7 +171,7 @@ def single_table_name_select(
     offset_data: int = -1,
     limit_data: int = -1,
 ):
-    ##TODOWARNING:Salchemy的迁移，subquery,也就是子查询会更改接口形式，原来的sub.c.colum改为sub.column形式，注意修改
+    ##TODO:WARNING:Salchemy的迁移，subquery,也就是子查询会更改接口形式，原来的sub.c.colum改为sub.column形式，注意修改
     """
     single_table_condition_select [根据传入的条件进行查询]
 

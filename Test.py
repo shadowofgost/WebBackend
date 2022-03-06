@@ -1,94 +1,22 @@
 """
-# @Time             : 2022-01-24 11:45:11
 # @Author           : Albert Wang
-# @Email            : shadowofgost@outlook.com
-# @Software         : Vscode
-# @FilePath         : /WebBackend/Test.py
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
+# @Time             : 2022-02-27 13:51:17
 # @Description      :
-# @LastTime         : 2022-02-17 20:42:22
+# @Email            : shadowofgost@outlook.com
+# @FilePath         : /WebBackend/test.py
 # @LastAuthor       : Albert Wang
+# @LastTime         : 2022-02-27 17:21:12
+# @Software         : Vscode
 """
-from attr import has
-from src.Models import (
-    ModelUserExtension,
-    ModelUser,
-    ModelCoursePlan,
-    ModelCurricula,
-    ModelDepartment,
-    ModelLocation,
-    ModelRunningAccount,
-    ModelCurricula,
-)
-from src.Services.SchemaCurricula import (
-    ModelCurriculaSelectOutSingleTableSchemaBase,
-    ModelCurriculaSelectOutSingleTableSchema,
-    ModelCurriculaSelectInSingleTableSchema,
-)
-from sqlalchemy import (
-    select,
-    create_engine,
-)
-from sqlalchemy.orm import Session, sessionmaker, aliased
-from time import time
-from src.Config import get_settings
-from pydantic import create_model
-
-settings = get_settings()
-
-
-def test_model():
-    engine = create_engine(settings.DATABASE_URL)
-    SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
-    session = SessionLocal()
-    user1 = aliased(ModelUser)
-    sub = (
-        select(
-            ModelRunningAccount,
-            ModelRunningAccount.ID,
-            ModelUser.Name.label("ID_User_Name"),
-            ModelUser.NoUser.label("ID_User_NoUser"),
-            user1.Name.label("ID_Manager_Name"),
-        )
-        .join(ModelUser, ModelRunningAccount.ID_User == ModelUser.ID)
-        .join(user1, ModelRunningAccount.IdManager == user1.ID)
-        .where(ModelRunningAccount.Type_field == 4097)
-        .subquery()
-    )
-    """
-    if hasattr(sub, "c"):
-        a = sub.c.ID_Curricula_Name.like("%计算机%")
-        stmt = select(sub).where(a)
-    else:
-        stmt = select(sub)
-    """
-    stmt = select(sub)
-    sub2 = (
-        select(ModelCoursePlan)
-        .join(
-            ModelCurricula,
-            ModelCurricula.ID == ModelCoursePlan.ID_Curricula,
-            isouter=True,
-        )
-        .join(ModelUser, ModelUser.ID == ModelCurricula.ID_Speaker, isouter=True)
-        .join(
-            ModelLocation, ModelLocation.ID == ModelCoursePlan.ID_Location, isouter=True
-        )
-    )
-    print(stmt)
-    begin = time()
-    result = session.execute(stmt).mappings().all()
-    end = time()
-    print(result)
-    print(end - begin)
-
-
-def test_model_name():
-    test_schema = create_model(
-        "test_schema",
-        __base__=ModelCurriculaSelectInSingleTableSchema,
-    )
-    print(test_schema.__dict__)
-
-
-test_model_name()
+with open("test.txt","r") as f:
+    lines=f.readlines()
+null=[]
+extend=["pyflink","stack-data","cupy-cuda111","scikit-opt","pure-eval","sklearn","legate"]
+for i in range(len(lines)):
+    lines[i]= lines[i].strip()
+    lines[i]=lines[i].strip("\n")
+    tmp = lines[i].split(" ")
+    if tmp[-1]=="pypi" and tmp[0] not in extend:
+        null.append(tmp[0])
+print(" ".join(null))

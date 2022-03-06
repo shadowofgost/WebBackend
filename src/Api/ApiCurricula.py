@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 20:38:41
+# @LastTime         : 2022-02-23 17:31:22
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -22,7 +22,6 @@ from Services import (
     ModelCurriculaSelectOutSingleTableSchema,
     ModelCurriculaInsertMultipleGetSchema,
     ModelCurriculaUpdateMultipleGetSchema,
-    ModelUserSelectOutSingleTableSchema,
     DeleteMultipleGetSchema,
     SchemaUserPydantic,
     Execution,

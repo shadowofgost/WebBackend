@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaUserExtension.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 18:05:00
+# @LastTime         : 2022-02-24 11:09:54
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -32,7 +32,11 @@ ModelUserExtension_nullable_columns.extend(nullable)
 ModelUserExtensionUpdateSingleGetSchema = sqlalchemy_to_pydantic(
     ModelUserExtension, update_exclude
 )
-ModelUserExtensionUpdateSingleGetSchema= create_model("ModelUserExtensionUpdateSingleGetSchema", __base__=ModelUserExtensionUpdateSingleGetSchema)
+ModelUserExtensionUpdateSingleGetSchema = create_model(
+    "ModelUserExtensionUpdateSingleGetSchema",
+    __base__=ModelUserExtensionUpdateSingleGetSchema,
+)
+
 
 class ModelUserExtensionUpdateMultipleGetSchema(BaseModel):
     data: List[ModelUserExtensionUpdateSingleGetSchema]
@@ -54,7 +58,11 @@ class ModelUserExtensionUpdateMultipleTableSchema(BaseModel):
 ModelUserExtensionInsertSingleGetSchema = sqlalchemy_to_pydantic(
     ModelUserExtension, insert_exclude, ModelUserExtension_nullable_columns
 )
-ModelUserExtensionInsertSingleGetSchema= create_model("ModelUserExtensionInsertSingleGetSchema", __base__=ModelUserExtensionInsertSingleGetSchema)
+ModelUserExtensionInsertSingleGetSchema = create_model(
+    "ModelUserExtensionInsertSingleGetSchema",
+    __base__=ModelUserExtensionInsertSingleGetSchema,
+)
+
 
 class ModelUserExtensionInsertMultipleGetSchema(BaseModel):
     data: List[ModelUserExtensionInsertSingleGetSchema]
@@ -76,7 +84,11 @@ class ModelUserExtensionInsertMultipleTableSchema(BaseModel):
 ModelUserExtensionSelectOutSingleTableSchemaBase = sqlalchemy_to_pydantic(
     ModelUserExtension, select_out_exclude
 )
-ModelUserExtensionSelectOutSingleTableSchemaBase= create_model("ModelUserExtensionSelectOutSingleTableSchemaBase", __base__=ModelUserExtensionSelectOutSingleTableSchemaBase)
+ModelUserExtensionSelectOutSingleTableSchemaBase = create_model(
+    "ModelUserExtensionSelectOutSingleTableSchemaBase",
+    __base__=ModelUserExtensionSelectOutSingleTableSchemaBase,
+)
+
 
 class ModelUserExtensionSelectOutSingleTableSchema(
     ModelUserExtensionSelectOutSingleTableSchemaBase
@@ -87,13 +99,20 @@ class ModelUserExtensionSelectOutSingleTableSchema(
 
     class Config:
         orm_mode = True
+
+
 ModelUserExtensionSelectInSingleTableSchema = sqlalchemy_to_pydantic(
     ModelUserExtension, select_in_exclude, []
 )
-ModelUserExtensionSelectInSingleTableSchema=create_model("ModelUserExtensionSelectInSingleTableSchema", __base__=ModelUserExtensionSelectInSingleTableSchema)
+ModelUserExtensionSelectInSingleTableSchema = create_model(
+    "ModelUserExtensionSelectInSingleTableSchema",
+    __base__=ModelUserExtensionSelectInSingleTableSchema,
+)
 ModelUserExtension_sub_stmt = (
     select(
         ModelUserExtension,
         ModelUser.Name.label("ID_Manager_Name"),
-    ).join(ModelUser, ModelUser.ID == ModelUserExtension.IdManager, isouter=True)
+    )
+    .join(ModelUser, ModelUser.ID == ModelUserExtension.IdManager, isouter=True)
+    .where(ModelUser.IMark == 0)
 ).subquery()
