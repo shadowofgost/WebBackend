@@ -1,6 +1,6 @@
 
 #
-FROM python:3.9
+FROM amazonlinux:latest
 
 #
 WORKDIR /usr/webbackend/src
