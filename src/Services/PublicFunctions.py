@@ -6,11 +6,11 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicFunctions.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-09 11:19:24
+# @LastTime         : 2022-03-09 13:14:33
 # @Software         : Vscode
 """
 from time import localtime, mktime, strptime
-from typing import Container, Optional, Type
+from typing import Container, Optional, Type, NewType
 from pydantic import BaseConfig, BaseModel, Field, create_model
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.inspection import inspect
@@ -98,7 +98,7 @@ def sqlalchemy_to_pydantic(
                 default = None
                 description = " "
                 title = " "
-                max_length = 0
+                max_length = None
                 if column.default is None and not column.nullable:
                     default = ...
                 if column.doc is not None:
