@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicFunctions.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-24 11:07:16
+# @LastTime         : 2022-03-09 11:19:24
 # @Software         : Vscode
 """
 from time import localtime, mktime, strptime
@@ -96,9 +96,9 @@ def sqlalchemy_to_pydantic(
                     python_type = column.type.python_type
                 ##assert python_type, f"Could not infer python_type for {column}"
                 default = None
-                description = None
-                title = None
-                max_length = None
+                description = " "
+                title = " "
+                max_length = 0
                 if column.default is None and not column.nullable:
                     default = ...
                 if column.doc is not None:

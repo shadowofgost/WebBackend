@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaEquipment.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-24 10:57:01
+# @LastTime         : 2022-03-09 11:42:06
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -115,10 +115,9 @@ ModelEquipment_sub_stmt = (
         ModelEquipment,
         ModelLocation.Name.label("ID_Location_Name"),
         ModelUser.Name.label("ID_Manager_Name"),
-    )
+    ).where(ModelUser.IMark == 0)
+    .where(ModelLocation.IMark == 0)
     .join(ModelUser, ModelUser.ID == ModelEquipment.IdManager, isouter=True)
     .join(ModelLocation, ModelLocation.ID == ModelEquipment.ID_Location, isouter=True)
-    .where(ModelUser.IMark == 0)
-    .where(ModelLocation.IMark == 0)
     .subquery()
 )

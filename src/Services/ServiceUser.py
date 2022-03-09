@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceUser.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-24 17:27:28
+# @LastTime         : 2022-03-09 12:08:41
 # @Software         : Vscode
 """
 from sqlalchemy.orm import Session
@@ -22,7 +22,7 @@ class SchemaUserPydantic(ModelUserSelectOutSingleTableSchema):
     ID: int
     Attr: int  ##这个attr是对数据库attr的重新设定，1是管理员，2是教师，3是学生,4 是其他人
     NoUser: str
-    Name:str
+    Name: str
     Psw: str
 
     class Config:
@@ -56,7 +56,7 @@ def get_user_id(session: Session, id: int) -> SchemaUserPydantic:
         raise UserNotFound
 
 
-def get_user_nouser(session: Session, nouser: int) -> SchemaUserPydantic:
+def get_user_nouser(session: Session, nouser: str) -> SchemaUserPydantic:
     schema = ModelUserSelectInSingleTableSchema(NoUser=nouser)
     user_list = model_user_crud_select(session, 1, 4, schema)
     try:

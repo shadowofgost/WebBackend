@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaCoursePlan.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-24 10:56:04
+# @LastTime         : 2022-03-09 11:37:29
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -153,6 +153,10 @@ ModelCoursePlan_sub_stmt = (
         ModelUser.NoUser.label("ID_Speaker_NoUser"),
         user1.Name.label("ID_Manager_Name"),
     )
+    .where(ModelCurricula.IMark == 0)
+    .where(ModelUser.IMark == 0)
+    .where(ModelLocation.IMark == 0)
+    .where(user1.IMark == 0)
     .join(
         ModelCurricula,
         ModelCurricula.ID == ModelCoursePlan.ID_Curricula,
@@ -165,8 +169,5 @@ ModelCoursePlan_sub_stmt = (
         isouter=True,
     )
     .join(user1, user1.ID == ModelCoursePlan.IdManager, isouter=True)
-    .where(ModelCurricula.IMark == 0)
-    .where(ModelUser.IMark == 0)
-    .where(ModelLocation.IMark == 0)
-    .where(user1.IMark == 0)
-).subquery()
+    .subquery()
+)

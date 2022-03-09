@@ -6,13 +6,13 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-24 10:46:32
+# @LastTime         : 2022-03-09 12:46:17
 # @Software         : Vscode
 """
 from Models import ModelCurricula, ModelLocation, ModelUser
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-
+from typing import List
 from .PublicService import service_select
 from Components.Exceptions import error_service_null
 from .SchemaCurricula import ModelCurriculaSelectInSingleTableSchema
@@ -47,22 +47,12 @@ def orm_for_student(
                 ModelLocation.Name.label("ID_Location_Name"),
                 ModelUser.Name.label("ID_Speaker_Name"),
             )
-            .join(ModelUser, ModelUser.ID == ModelCurricula.ID_Speaker, isouter=True)
-            .join(
-                ModelLocation,
-                ModelLocation.ID == ModelCurricula.ID_Location,
-                isouter=True,
-            )
-            .where(
-                ModelCurricula.RangeUsers.like(
-                    "%{}%".format(
-                        str(id_manager),
-                        ModelCurricula.IMark == 0,
-                        ModelLocation.IMark == 0,
-                        ModelUser.IMark == 0,
-                    )
-                )
-            )
+            .where(ModelCurricula.RangeUsers.like("%{}%".format(str(id_manager))))
+            .where(ModelCurricula.IMark == 0)
+            .where(ModelLocation.IMark == 0)
+            .where(ModelUser.IMark == 0)
+            .outerjoin(ModelUser, ModelUser.ID == ModelCurricula.ID_Speaker)
+            .outerjoin(ModelLocation, ModelLocation.ID == ModelCurricula.ID_Location)
         )
     elif service_type == 2:
         stmt = (
@@ -71,19 +61,13 @@ def orm_for_student(
                 ModelLocation.Name.label("ID_Location_Name"),
                 ModelUser.Name.label("ID_Speaker_Name"),
             )
-            .join(ModelUser, ModelUser.ID == ModelCurricula.ID_Speaker, isouter=True)
-            .join(
-                ModelLocation,
-                ModelLocation.ID == ModelCurricula.ID_Location,
-                isouter=True,
-            )
-            .where(
-                ModelCurricula.RangeUsers.like("%{}%".format(str(id_manager))),
-                ModelCurricula.Name.like("%{}%".format(schema.Name)),
-                ModelCurricula.IMark == 0,
-                ModelLocation.IMark == 0,
-                ModelUser.IMark == 0,
-            )
+            .where(ModelCurricula.RangeUsers.like("%{}%".format(str(id_manager))))
+            .where(ModelCurricula.Name.like("%{}%".format(schema.Name)))
+            .where(ModelCurricula.IMark == 0)
+            .where(ModelLocation.IMark == 0)
+            .where(ModelUser.IMark == 0)
+            .outerjoin(ModelUser, ModelUser.ID == ModelCurricula.ID_Speaker)
+            .outerjoin(ModelLocation, ModelLocation.ID == ModelCurricula.ID_Location)
         )
     else:
         raise error_service_null
@@ -99,7 +83,7 @@ def get_curricula(
     attr: int,
     service_type: int,
     schema: ModelCurriculaSelectInSingleTableSchema,
-):
+) -> List[dict]:
     """
     get_curricula [查询课程表]
 
@@ -137,3 +121,5 @@ def get_curricula(
             return service_select(session, id_manager, model_name, 3, schema)
         else:
             return service_select(session, id_manager, model_name, service_type, schema)
+    else:
+        raise error_service_null

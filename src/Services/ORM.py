@@ -7,20 +7,22 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-02-24 17:02:37
+# @LastTime         : 2022-03-09 11:16:48
 # @LastAuthor       : Albert Wang
 """
+from typing import List
 from sqlalchemy import create_engine, delete, insert, select, update
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session, sessionmaker
 
-from .PublicValuesAndSchemas import model_dict,name_column_model_dict
-from Components.Exceptions import(
+from .PublicValuesAndSchemas import model_dict, name_column_model_dict
+from Components.Exceptions import (
     error_database_execution,
     error_fuction_not_implemented,
     error_schema_validation,
     success_execution,
 )
+
 Base = declarative_base()
 session = 1
 stmt_format = type(select())
@@ -57,7 +59,7 @@ def single_table_multiple_require_select(
     physical: bool = False,
     offset_data: int = -1,
     limit_data: int = -1,
-):
+) -> List[dict]:
     """
     single_table_multiple_require_select [特殊选择的表]
 
@@ -81,7 +83,7 @@ def single_table_multiple_require_select(
     else:
         pass
     if limit_data == -1 or offset_data == -1:
-        stmt = select(sub_select).where(**schema_dict)
+        stmt = select(sub_select).filter_by(**schema_dict)
     else:
         stmt = (
             select(sub_select)
@@ -102,7 +104,7 @@ def single_table_condition_select(
     physical: bool = False,
     offset_data: int = -1,
     limit_data: int = -1,
-):
+) -> List[dict]:
     """
     single_table_condition_select [根据传入的条件进行查询]
 
@@ -122,9 +124,13 @@ def single_table_condition_select(
     if limit_data == -1 or offset_data == -1:
         if physical == False:
             if condition == "" or condition == None:
-                stmt = select(sub_select).filter_by(IMark=0)
+                stmt = select(sub_select).where(sub_select.IMark == 0)
             else:
-                stmt = select(sub_select).where(eval(condition)).filter_by(IMark=0)
+                stmt = (
+                    select(sub_select)
+                    .where(eval(condition))
+                    .where(sub_select.IMark == 0)
+                )
         else:
             if condition == "" or condition == None:
                 stmt = select(sub_select)
@@ -135,7 +141,7 @@ def single_table_condition_select(
             if condition == "" or condition == None:
                 stmt = (
                     select(sub_select)
-                    .filter_by(IMark=0)
+                    .where(sub_select.IMark == 0)
                     .offset(offset_data)
                     .limit(limit_data)
                 )
@@ -143,7 +149,7 @@ def single_table_condition_select(
                 stmt = (
                     select(sub_select)
                     .where(eval(condition))
-                    .filter_by(IMark=0)
+                    .where(sub_select.IMark == 0)
                     .offset(offset_data)
                     .limit(limit_data)
                 )
@@ -170,7 +176,7 @@ def single_table_name_select(
     physical: bool = False,
     offset_data: int = -1,
     limit_data: int = -1,
-):
+)-> List[dict]:
     ##TODO:WARNING:Salchemy的迁移，subquery,也就是子查询会更改接口形式，原来的sub.c.colum改为sub.column形式，注意修改
     """
     single_table_condition_select [根据传入的条件进行查询]
@@ -195,7 +201,7 @@ def single_table_name_select(
         name_condition = sub_select.Name.like(name)
     if limit_data == -1 or offset_data == -1:
         if physical == False:
-            stmt = select(sub_select).where(name_condition).filter_by(IMark=0)
+            stmt = select(sub_select).where(name_condition).where(sub_select.IMark == 0)
         else:
             stmt = select(sub_select).where(name_condition)
     else:
@@ -203,7 +209,7 @@ def single_table_name_select(
             stmt = (
                 select(sub_select)
                 .where(name_condition)
-                .filter_by(IMark=0)
+                .where(sub_select.IMark == 0)
                 .offset(offset_data)
                 .limit(limit_data)
             )
@@ -312,9 +318,7 @@ def get_session():
 
 
 class ORM:
-    def __init__(
-        self, model: str, session: Session = None, abstract_model: bool = False
-    ):
+    def __init__(self, model: str, session: Session, abstract_model: bool = False):
         """
         __init__ORM初始化,用于初始化具体的表的增删改查操作
 
@@ -356,7 +360,7 @@ class ORM:
         physical: bool = False,
         offset_data: int = -1,
         limit_data: int = -1,
-    ):
+    ) -> List[dict]:
         """
         multiple_require_select [特殊选择查询]
 
@@ -407,7 +411,7 @@ class ORM:
         physical: bool = False,
         offset_data: int = -1,
         limit_data: int = -1,
-    ):
+    ) -> List[dict]:
         """
         condition_select [根据传入的条件进行查询]
 
@@ -454,7 +458,7 @@ class ORM:
         physical: bool = False,
         offset_data: int = -1,
         limit_data: int = -1,
-    ):
+    ) -> List[dict]:
         """
         condition_select [根据传入的条件进行查询]
 
@@ -476,7 +480,7 @@ class ORM:
             )
         else:
             if self.has_name == False:
-                return error_schema_validation
+                raise error_schema_validation
             else:
                 if service == True:
                     return single_table_condition_select(

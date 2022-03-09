@@ -6,11 +6,11 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiCoursePlan.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-23 17:31:02
+# @LastTime         : 2022-03-09 12:57:32
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
-from fastapi_pagination import Page, Params, paginate
+from fastapi_pagination import Page, paginate
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 

@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceRunningAccount.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-07 00:18:51
+# @LastTime         : 2022-03-09 11:51:13
 # @Software         : Vscode
 """
 from Models import ModelUser, ModelCoursePlan, ModelRunningAccount, ModelCurricula
@@ -28,6 +28,7 @@ class RunningAccountSchema(ModelRunningAccountSelectOutSingleTableSchemaBase):
         title="id序列号",
         description="这是RunningAccount表的id序列号,如果为None表示数据不存在，打卡缺勤,status是未签到",
     )
+    Time: int = Field(title="生成记录的时间", description="生成记录（发生费用）的时间，从2000-1-1日计秒")
     ID_User_Name: Optional[str] = Field(
         default=None, title="打卡签到者的姓名", description="这次打卡签到者的姓名"
     )
@@ -105,7 +106,8 @@ def get_for_student(
     )
     sub_course_plan = (
         select(ModelCoursePlan.ID, ModelCoursePlan.TimeBegin, ModelCoursePlan.TimeEnd)
-        .where(ModelCoursePlan.IMark == 0, ModelCoursePlan.ID == id_courseplan)
+        .where(ModelCoursePlan.IMark == 0)
+        .where(ModelCoursePlan.ID == id_courseplan)
         .subquery()
     )
     sub_user = select(ModelUser).where(ModelUser.IMark == 0).subquery()
@@ -138,31 +140,38 @@ def get_for_student(
 
 
 def get_for_teacher(session: Session, user: SchemaUserPydantic, id_courseplan: int):
-    stmt = select(
-        ModelCoursePlan.ID_Curricula, ModelCoursePlan.TimeBegin, ModelCoursePlan.TimeEnd
-    ).where(ModelCoursePlan.ID == id_courseplan, ModelCoursePlan.IMark == 0)
+    stmt = (
+        select(
+            ModelCoursePlan.ID_Curricula,
+            ModelCoursePlan.TimeBegin,
+            ModelCoursePlan.TimeEnd,
+        )
+        .where(ModelCoursePlan.ID == id_courseplan)
+        .where(ModelCoursePlan.IMark == 0)
+    )
     result_courseplan = execute_database(stmt, session)
     id_curricula = result_courseplan[0]["ID_Curricula"]
     time_begin = result_courseplan[0]["TimeBegin"]
     time_end = result_courseplan[0]["TimeEnd"]
-    stmt = select(ModelCurricula.RangeUsers).where(
-        ModelCurricula.ID == id_curricula, ModelCurricula.IMark == 0
+    stmt = (
+        select(ModelCurricula.RangeUsers)
+        .where(ModelCurricula.ID == id_curricula)
+        .where(ModelCurricula.IMark == 0)
     )
     RangeUsers = execute_database(stmt, session)
     range_users_initial_data = RangeUsers[0]["RangeUsers"].split(";")
     range_users = [int(i) for i in range_users_initial_data]
     sub_runningaccount = (
         select(ModelRunningAccount)
-        .where(
-            ModelRunningAccount.Type == 4097,
-            ModelRunningAccount.IMark == 0,
-            ModelRunningAccount.Param2 == id_courseplan,
-        )
+        .where(ModelRunningAccount.Type == 4097)
+        .where(ModelRunningAccount.IMark == 0)
+        .where(ModelRunningAccount.Param2 == id_courseplan)
         .subquery()
     )
     sub_user = (
         select(ModelUser)
-        .where(ModelUser.IMark == 0, ModelUser.NoUser.in_(range_users))
+        .where(ModelUser.IMark == 0)
+        .where(ModelUser.NoUser.in_(range_users))
         .subquery()
     )
     stmt = select(
@@ -201,8 +210,8 @@ def get_running_account(
     获取用户的运行账户
     """
     if user.Attr == 1 or user.Attr == 2:
-        return get_for_teacher(session,user,schema.Param2)
+        return get_for_teacher(session, user, schema.Param2)
     elif user.Attr == 3:
-        return get_for_student(session,user,schema.Param2)
+        return get_for_student(session, user, schema.Param2)
     else:
-        return get_for_student(session,user,schema.Param2)
+        return get_for_student(session, user, schema.Param2)

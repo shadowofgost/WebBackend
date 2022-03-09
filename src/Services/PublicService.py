@@ -6,14 +6,9 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicService.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-23 16:39:38
+# @LastTime         : 2022-03-09 11:20:58
 # @Software         : Vscode
 """
-from ast import Raise
-from statistics import mode
-from typing import Container, Optional, Type
-
-from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
 from .ORM import ORM
@@ -23,7 +18,8 @@ from .PublicValuesAndSchemas import (
     DeleteSingleTableSchema,
     model_dict,
 )
-from Components.Exceptions import error_service_validation,error_service_null
+from Components.Exceptions import error_service_validation, error_service_null
+
 
 def transform(id_manager: int, single_schema, multiple_schema, initial_schema):
     if initial_schema.n == 1:
@@ -90,9 +86,7 @@ def service_insert(
     return result
 
 
-def service_select(
-    session: Session, id: int, model: str, service_type: int, schema=None
-):
+def service_select(session: Session, id: int, model: str, service_type: int, schema):
     """
     select [筛选函数的服务提供]
 
