@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/Depends.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-09 13:00:37
+# @LastTime         : 2022-03-10 17:52:36
 # @Software         : Vscode
 """
 from datetime import datetime, timedelta
@@ -23,9 +23,10 @@ from passlib.context import CryptContext
 from Services import SchemaUserPydantic, get_user_id, get_user_nouser
 from sqlalchemy.orm import Session
 from .Middleware import SessionLocal
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated=["auto"])
 oauth2_schema = OAuth2PasswordBearer(tokenUrl="/jwt/token")
-settings= get_settings()
+settings = get_settings()
 
 
 async def get_db(request: Request):
@@ -90,7 +91,11 @@ async def created_access_token(data: dict, expires_delta: Optional[timedelta] = 
     )
     return encoded_jwt
 
+
 ## 以下是未使用的函数
+"""
+
+
 async def request_info(request: Request):
     logger.bind(name=None).info(f"{request.method} {request.url}")
     try:
@@ -101,7 +106,7 @@ async def request_info(request: Request):
         if len(body) != 0:
             # 有请求体，记录日志
             logger.bind(payload=body, name=None).debug(body)
-
+"""
 
 async def login_required(func):
     @wraps(func)

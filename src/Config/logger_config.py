@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Config/logger_config.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-16 20:45:26
+# @LastTime         : 2022-03-10 19:44:06
 # @Software         : Vscode
 """
 import logging
@@ -68,8 +68,8 @@ def format_record(record: dict) -> str:
         record["extra"]["payload"] = pformat(
             record["extra"]["payload"], indent=4, compact=True, width=88
         )
-        format_string += "\n<level>{extra[payload]}</level>"
-    format_string += "{exception}\n"
+        format_string += "\n<level>{extra[payload]}</level>"  # type: ignore
+    format_string += "{exception}\n"  # type: ignore
     return format_string
 
 

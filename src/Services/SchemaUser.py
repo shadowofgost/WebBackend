@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaUser.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-24 17:00:52
+# @LastTime         : 2022-03-10 19:41:03
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -98,12 +98,12 @@ class ModelUserSelectOutSingleTableSchema(ModelUserSelectOutSingleTableSchemaBas
 
 
 ##TODO:WARNING:随着sqlalchemy的升级，subquery的查询列的方法会发生改变，会从原来的sub.c.column_name变成sub.column_name
-sub_sub = select(ModelUser).where(ModelUser.IMark == 0).subquery()
+sub_sub = select(ModelUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
 ModelUser_sub_stmt = (
     select(
         ModelUser,
         sub_sub.c.Name.label("ID_Manager_Name"),
     )
     .join(sub_sub, sub_sub.c.ID == ModelUser.IdManager, isouter=True)
-    .subquery()
+    .subquery()  # type: ignore
 )

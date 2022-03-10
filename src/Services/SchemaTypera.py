@@ -6,14 +6,13 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaTypera.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-24 11:05:29
+# @LastTime         : 2022-03-10 19:40:53
 # @Software         : Vscode
 """
 from typing import List, Optional
 from pydantic import BaseModel, Field, create_model
 from sqlalchemy import select
 from Models import ModelTypera, ModelUser
-
 
 
 from .PublicFunctions import (
@@ -104,6 +103,6 @@ ModelTypera_sub_stmt = (
         ModelUser.Name.label("ID_Manager_Name"),
     )
     .join(ModelUser, ModelUser.ID == ModelUser.IdManager, isouter=True)
-    .where(ModelUser.IMark == 0)
+    .where(ModelUser.IMark == 0)  # type: ignore
     .subquery()
 )

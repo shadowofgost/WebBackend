@@ -7,7 +7,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-03-09 11:16:48
+# @LastTime         : 2022-03-10 19:42:28
 # @LastAuthor       : Albert Wang
 """
 from typing import List
@@ -82,12 +82,13 @@ def single_table_multiple_require_select(
         schema_dict["IMark"] = 0
     else:
         pass
+    print(schema_dict)
     if limit_data == -1 or offset_data == -1:
-        stmt = select(sub_select).filter_by(**schema_dict)
+        stmt = select(sub_select).filter_by(**schema_dict)  # type: ignore
     else:
         stmt = (
             select(sub_select)
-            .filter_by(**schema_dict)
+            .filter_by(**schema_dict)  # type: ignore
             .offset(offset_data)
             .limit(limit_data)
         )
@@ -176,7 +177,7 @@ def single_table_name_select(
     physical: bool = False,
     offset_data: int = -1,
     limit_data: int = -1,
-)-> List[dict]:
+) -> List[dict]:
     ##TODO:WARNING:Salchemy的迁移，subquery,也就是子查询会更改接口形式，原来的sub.c.colum改为sub.column形式，注意修改
     """
     single_table_condition_select [根据传入的条件进行查询]

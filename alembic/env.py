@@ -7,7 +7,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-01-15 01:00:44
+# @LastTime         : 2022-03-10 18:49:51
 # @LastAuthor       : Albert Wang
 """
 from logging.config import fileConfig
@@ -18,7 +18,8 @@ from sqlalchemy import pool
 from alembic import context
 import sys
 from os.path import abspath, dirname
-root = dirname(dirname(abspath(__file__))) # 把项目根目录加入 sys.path
+
+root = dirname(dirname(abspath(__file__)))  # 把项目根目录加入 sys.path
 sys.path.append(root)
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -32,7 +33,8 @@ fileConfig(config.config_file_name)
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from src.Config.Settings import Base
+from src.Models import Base
+
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
@@ -79,9 +81,7 @@ def run_migrations_online():
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaMmx.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-24 10:58:02
+# @LastTime         : 2022-03-10 19:40:08
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -107,11 +107,11 @@ ModelMmx_sub_stmt = (
     select(
         ModelMmx,
         ModelMmxData.Data.label("Data"),
-        ModelUser.Name.label("ID_Manager_Name"),
+        ModelUser.Name.label("ID_Manager_Name"),  # type: ignore
     )
     .join(ModelUser, ModelUser.ID == ModelMmxData.IdManager, isouter=True)
     .join(ModelMmxData, ModelMmxData.ID == ModelMmx.ID_Data, isouter=True)
-    .where(ModelMmxData.IMark == 0)
+    .where(ModelMmxData.IMark == 0)  # type: ignore
     .where(ModelUser.IMark == 0)
     .subquery()
 )

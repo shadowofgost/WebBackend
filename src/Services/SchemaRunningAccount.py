@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaRunningAccount.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-09 11:22:44
+# @LastTime         : 2022-03-10 19:40:28
 # @Software         : Vscode
 """
 from typing import List, Optional, Type
@@ -138,17 +138,17 @@ ModelRunningAccountSelectInSingleTableSchema = create_model(
 )
 user1 = aliased(ModelUser)
 ##TODO:WARNING:随着sqlalchemy的升级，subquery的查询列的方法会发生改变，会从原来的sub.c.column_name变成sub.column_name
-sub_sub = select(ModelRunningAccount).where(ModelRunningAccount.Type == 4097).subquery()
+sub_sub = select(ModelRunningAccount).where(ModelRunningAccount.Type == 4097).subquery()  # type: ignore
 ModelRunningAccount_sub_stmt = (
     select(
         ModelRunningAccount,
         ModelUser.Name.label("ID_User_Name"),
-        ModelUser.NoUser.label("ID_User_NoUser"),
+        ModelUser.NoUser.label("ID_User_NoUser"),  # type: ignore
         user1.Name.label("ID_Manager_Name"),
     )
     .join(ModelUser, sub_sub.c.ID_User == ModelUser.ID, isouter=True)
-    .join(user1, sub_sub.c.IdManager == user1.ID, isouter=True)
-    .where(ModelUser.IMark == 0)
+    .join(user1, sub_sub.c.IdManager == user1.ID, isouter=True)  # type: ignore
+    .where(ModelUser.IMark == 0)  # type: ignore
     .where(user1.IMark == 0)
     .subquery()
 )

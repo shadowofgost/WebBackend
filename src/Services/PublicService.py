@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicService.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-09 11:20:58
+# @LastTime         : 2022-03-10 18:42:13
 # @Software         : Vscode
 """
 from sqlalchemy.orm import Session
@@ -138,7 +138,7 @@ def service_select(session: Session, id: int, model: str, service_type: int, sch
     elif service_type == 4:
         select_in_schema = model_dict[model]["select_single_schema"]
         try:
-            table_schema = select_in_schema(ID=schema.Nouser)
+            table_schema = select_in_schema(NoUser=schema.NoUser)
         except Exception:
             raise error_service_validation
         return model_instance.multiple_require_select(table_schema)

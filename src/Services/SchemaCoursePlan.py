@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaCoursePlan.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-09 11:37:29
+# @LastTime         : 2022-03-10 19:38:33
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -148,7 +148,7 @@ ModelCoursePlan_sub_stmt = (
     select(
         ModelCoursePlan,
         ModelCurricula.Name.label("ID_Curricula_Name"),
-        ModelLocation.Name.label("ID_Location_Name"),
+        ModelLocation.Name.label("ID_Location_Name"),  # type: ignore
         ModelUser.Name.label("ID_Speaker_Name"),
         ModelUser.NoUser.label("ID_Speaker_NoUser"),
         user1.Name.label("ID_Manager_Name"),
@@ -168,6 +168,6 @@ ModelCoursePlan_sub_stmt = (
         ModelLocation.ID == ModelCoursePlan.ID_Location,
         isouter=True,
     )
-    .join(user1, user1.ID == ModelCoursePlan.IdManager, isouter=True)
-    .subquery()
+    .join(user1, user1.ID == ModelCoursePlan.IdManager, isouter=True)  # type: ignore
+    .subquery()  # type: ignore
 )

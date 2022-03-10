@@ -113,6 +113,6 @@ ModelTableInformation_sub_stmt = (
         ModelUser.Name.label("ID_Manager_Name"),
     )
     .join(ModelUser, ModelUser.ID == ModelTableInformation.IdManager, isouter=True)
-    .where(ModelUser.IMark == 0)
+    .where(ModelUser.IMark == 0)  # type: ignore
     .subquery()
 )

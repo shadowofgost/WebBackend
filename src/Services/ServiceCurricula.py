@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-09 12:46:17
+# @LastTime         : 2022-03-10 19:41:19
 # @Software         : Vscode
 """
 from Models import ModelCurricula, ModelLocation, ModelUser
@@ -45,7 +45,7 @@ def orm_for_student(
             select(
                 ModelCurricula,
                 ModelLocation.Name.label("ID_Location_Name"),
-                ModelUser.Name.label("ID_Speaker_Name"),
+                ModelUser.Name.label("ID_Speaker_Name"),  # type: ignore
             )
             .where(ModelCurricula.RangeUsers.like("%{}%".format(str(id_manager))))
             .where(ModelCurricula.IMark == 0)
@@ -59,10 +59,10 @@ def orm_for_student(
             select(
                 ModelCurricula,
                 ModelLocation.Name.label("ID_Location_Name"),
-                ModelUser.Name.label("ID_Speaker_Name"),
+                ModelUser.Name.label("ID_Speaker_Name"),  # type: ignore
             )
             .where(ModelCurricula.RangeUsers.like("%{}%".format(str(id_manager))))
-            .where(ModelCurricula.Name.like("%{}%".format(schema.Name)))
+            .where(ModelCurricula.Name.like("%{}%".format(schema.Name)))  # type: ignore
             .where(ModelCurricula.IMark == 0)
             .where(ModelLocation.IMark == 0)
             .where(ModelUser.IMark == 0)

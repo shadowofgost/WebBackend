@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceUser.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-09 12:08:41
+# @LastTime         : 2022-03-10 19:24:55
 # @Software         : Vscode
 """
 from sqlalchemy.orm import Session
@@ -16,7 +16,7 @@ from .SchemaUser import (
     ModelUserSelectOutSingleTableSchema,
 )
 from Components.Exceptions import UserNotFound
-
+from typing import Optional
 ##TODO:WARNING:后端文件的进行的权限控制系统
 class SchemaUserPydantic(ModelUserSelectOutSingleTableSchema):
     ID: int
@@ -59,6 +59,7 @@ def get_user_id(session: Session, id: int) -> SchemaUserPydantic:
 def get_user_nouser(session: Session, nouser: str) -> SchemaUserPydantic:
     schema = ModelUserSelectInSingleTableSchema(NoUser=nouser)
     user_list = model_user_crud_select(session, 1, 4, schema)
+    print(user_list)
     try:
         user = SchemaUserPydantic(**user_list[0])
         return modify_user_attr(user)

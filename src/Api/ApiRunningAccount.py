@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiRunningAccount.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-07 00:19:33
+# @LastTime         : 2022-03-09 16:09:30
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -53,7 +53,7 @@ async def api_result(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
-    result_data = get_running_account(session, user, schema.requires)
+    result_data = get_running_account(session, user, schema)
     return paginate(result_data, Params)
 
 
@@ -65,9 +65,7 @@ async def api_model_runningaccount_get(
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
     model = "ModelRunningAccount"
-    result_data = service_select(
-        session, user.ID, model, schema.service_type, schema.requires
-    )
+    result_data = service_select(session, user.ID, model, schema.service_type, schema)
     return paginate(result_data, Params)
 
 

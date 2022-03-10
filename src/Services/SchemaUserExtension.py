@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaUserExtension.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-09 11:30:39
+# @LastTime         : 2022-03-10 19:41:10
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -113,5 +113,5 @@ ModelUserExtension_sub_stmt = (
         ModelUserExtension,
         ModelUser.Name.label("ID_Manager_Name"),
     ).where(ModelUser.IMark == 0)
-    .join(ModelUser, ModelUser.ID == ModelUserExtension.IdManager, isouter=True).subquery()
+    .join(ModelUser, ModelUser.ID == ModelUserExtension.IdManager, isouter=True).subquery()  # type: ignore
 )

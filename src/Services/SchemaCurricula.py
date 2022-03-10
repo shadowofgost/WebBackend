@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-09 11:40:26
+# @LastTime         : 2022-03-10 19:38:55
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -139,10 +139,11 @@ ModelCurricula_sub_stmt = (
     select(
         ModelCurricula,
         ModelLocation.Name.label("ID_Location_Name"),
-        ModelUser.Name.label("ID_Speaker_Name"),
+        ModelUser.Name.label("ID_Speaker_Name"),  # type: ignore
         ModelUser.NoUser.label("ID_Speaker_NoUser"),
         user1.Name.label("ID_Manager_Name"),
-    ).where(ModelUser.IMark == 0)
+    )
+    .where(ModelUser.IMark == 0)
     .where(ModelLocation.IMark == 0)
     .where(user1.IMark == 0)
     .join(ModelUser, ModelUser.ID == ModelCurricula.ID_Speaker, isouter=True)
@@ -151,5 +152,6 @@ ModelCurricula_sub_stmt = (
         ModelLocation.ID == ModelCurricula.ID_Location,
         isouter=True,
     )
-    .join(user1, user1.ID == ModelCurricula.IdManager, isouter=True).subquery()
+    .join(user1, user1.ID == ModelCurricula.IdManager, isouter=True)  # type: ignore
+    .subquery()  # type: ignore
 )

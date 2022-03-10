@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiBase.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-09 12:35:00
+# @LastTime         : 2022-03-10 17:54:27
 # @Software         : Vscode
 """
 from fastapi import FastAPI, Request, Depends
@@ -27,21 +27,14 @@ from .ApiRunningAccount import router as api_running_account_router
 ##from .ApiTypera import router as api_typera_router
 from .ApiUser import router as api_user_router
 from .ApiUserExtension import router as api_user_extension_router
-from .Depends import request_info
+
+##from .Depends import request_info
 from .Middleware import middleware_get_db
 
 
-app = FastAPI(dependencies=[Depends(request_info)])
+##app = FastAPI(dependencies=[Depends(request_info)])
+app = FastAPI()
 origins = ["http://127.0.0.1:8080" "http://127.0.0.1"]
-
-
-@app.middleware("http")
-async def add_process_time_header(request: Request, call_next):
-    start_time = time.time()
-    response = await call_next(request)
-    process_time = time.time() - start_time
-    response.headers["X-Process-Time"] = str(process_time)
-    return response
 
 
 app.add_middleware(
@@ -57,6 +50,16 @@ app.add_middleware(
 async def db_session_middleware(request: Request, call_next):
     return await middleware_get_db(request, call_next)
 
+
+"""
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    process_time = time.time() - start_time
+    response.headers["X-Process-Time"] = str(process_time)
+    return response
+"""
 
 list_router = [
     login_router,

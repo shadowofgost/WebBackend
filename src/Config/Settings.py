@@ -7,7 +7,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-02-16 18:50:26
+# @LastTime         : 2022-03-10 18:47:26
 # @LastAuthor       : Albert Wang
 """
 import os
@@ -15,9 +15,6 @@ from datetime import timedelta
 from functools import lru_cache
 
 from pydantic import BaseSettings
-from Models import Base as user_base
-
-Base = user_base
 
 IsDev = True
 

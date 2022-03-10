@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaLocationExtension.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-24 10:57:32
+# @LastTime         : 2022-03-10 19:39:55
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -139,7 +139,7 @@ ModelLocationExtension_sub_stmt = (
     select(
         ModelLocationExtension,
         ModelLocation.Name.label("ID_Location_Name"),
-        ModelUser.Name.label("ID_Manager_Name"),
+        ModelUser.Name.label("ID_Manager_Name"),  # type: ignore
     )
     .join(ModelUser, ModelUser.ID == ModelLocationExtension.IdManager, isouter=True)
     .join(
@@ -147,7 +147,7 @@ ModelLocationExtension_sub_stmt = (
         ModelLocation.ID == ModelLocationExtension.ID_Location,
         isouter=True,
     )
-    .where(ModelUser.IMark == 0)
+    .where(ModelUser.IMark == 0)  # type: ignore
     .where(ModelLocation.IMark == 0)
     .subquery()
 )

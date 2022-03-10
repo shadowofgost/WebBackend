@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicValuesAndSchemas.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 20:49:02
+# @LastTime         : 2022-03-10 18:09:23
 # @Software         : Vscode
 """
 from os import listdir
@@ -20,10 +20,9 @@ from pydantic import BaseModel
 
 path = dirname(__file__)
 model_filename_list = [
-    filename_str.split(".")[0].replace("Schema","Model")
+    filename_str.split(".")[0].replace("Schema", "Model")
     for filename_str in listdir(path)
-    if filename_str.endswith(".py")
-    and match(r"Schema", filename_str) is not None
+    if filename_str.endswith(".py") and match(r"Schema", filename_str) is not None
 ]
 
 
@@ -91,37 +90,37 @@ def format_variables():
         tmp_dict["delete_single_get_schema"] = DeleteSingleGetSchema
         tmp_dict["delete_multiple_get_schema"] = DeleteMultipleGetSchema
         tmp_dict["update_single_schema"] = (
-            eval(model_filename + "UpdateSingleTableSchema"),
+            eval(model_filename + "UpdateSingleTableSchema")
         )
         tmp_dict["update_multiple_schema"] = (
-            eval(model_filename + "UpdateMultipleTableSchema"),
+            eval(model_filename + "UpdateMultipleTableSchema")
         )
         tmp_dict["update_single_get_schema"] = (
-            eval(model_filename + "UpdateSingleGetSchema"),
+            eval(model_filename + "UpdateSingleGetSchema")
         )
         tmp_dict["update_multiple_get_schema"] = (
-            eval(model_filename + "UpdateMultipleGetSchema"),
+            eval(model_filename + "UpdateMultipleGetSchema")
         )
         tmp_dict["insert_single_schema"] = (
-            eval(model_filename + "InsertSingleTableSchema"),
+            eval(model_filename + "InsertSingleTableSchema")
         )
         tmp_dict["insert_multiple_schema"] = (
-            eval(model_filename + "InsertMultipleTableSchema"),
+            eval(model_filename + "InsertMultipleTableSchema")
         )
         tmp_dict["insert_single_get_schema"] = (
-            eval(model_filename + "InsertSingleGetSchema"),
+            eval(model_filename + "InsertSingleGetSchema")
         )
         tmp_dict["insert_multiple_get_schema"] = (
-            eval(model_filename + "InsertMultipleGetSchema"),
+            eval(model_filename + "InsertMultipleGetSchema")
         )
         tmp_dict["select_single_schema"] = (
-            eval(model_filename + "SelectInSingleTableSchema"),
+            eval(model_filename + "SelectInSingleTableSchema")
         )
-        tmp_dict["selct_multiple_schema"] = (
-            eval(model_filename + "SelectOutSingleTableSchema"),
+        tmp_dict["select_multiple_schema"] = (
+            eval(model_filename + "SelectOutSingleTableSchema")
         )
-        tmp_dict["service_sub_stmt"] = (eval(model_filename + "_sub_stmt"),)
-        tmp_dict["model"] = (eval(model_filename + ""),)
+        tmp_dict["service_sub_stmt"] = (eval(model_filename + "_sub_stmt"))
+        tmp_dict["model"] = (eval(model_filename + ""))
         ##exec(f"from {model_filename} import {model_filename}")
         if model_filename in name_column_model_list:
             name_column_model_dict[model_filename] = eval(model_filename + "")
