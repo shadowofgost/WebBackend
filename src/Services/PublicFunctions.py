@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicFunctions.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-09 13:14:33
+# @LastTime         : 2022-03-11 14:24:42
 # @Software         : Vscode
 """
 from time import localtime, mktime, strptime

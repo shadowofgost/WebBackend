@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceUser.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-10 19:24:55
+# @LastTime         : 2022-03-11 17:31:08
 # @Software         : Vscode
 """
 from sqlalchemy.orm import Session
@@ -15,8 +18,9 @@ from .SchemaUser import (
     ModelUserSelectInSingleTableSchema,
     ModelUserSelectOutSingleTableSchema,
 )
-from Components.Exceptions import UserNotFound
-from typing import Optional
+from Components import UserNotFound
+from typing import List, Optional
+
 ##TODO:WARNING:后端文件的进行的权限控制系统
 class SchemaUserPydantic(ModelUserSelectOutSingleTableSchema):
     ID: int
@@ -29,14 +33,11 @@ class SchemaUserPydantic(ModelUserSelectOutSingleTableSchema):
         orm_mode = True
 
 
-def model_user_crud_select(
-    session: Session, id_manager: int, service_type: int, schema=None
-):
-    model = "ModelUser"
-    return service_select(session, id_manager, model, service_type, schema)
-
-
-def modify_user_attr(user: SchemaUserPydantic) -> SchemaUserPydantic:
+def modify_user_attr(user_list: List[dict]) -> SchemaUserPydantic:
+    try:
+        user = SchemaUserPydantic(**user_list[0])
+    except Exception:
+        raise UserNotFound
     if user.NoUser.isdigit() == True:
         user.Attr = 3
     else:
@@ -47,21 +48,15 @@ def modify_user_attr(user: SchemaUserPydantic) -> SchemaUserPydantic:
     return user
 
 
-def get_user_id(session: Session, id: int) -> SchemaUserPydantic:
-    user_list = model_user_crud_select(session, id, 1)
-    try:
-        user = SchemaUserPydantic(**user_list[0])
-        return modify_user_attr(user)
-    except Exception:
-        raise UserNotFound
+def get_user_id(session: Session, id_manager: int) -> SchemaUserPydantic:
+    schema = ModelUserSelectInSingleTableSchema(ID=id_manager)
+    model = "ModelUser"
+    user_list = service_select(session, model, 1, schema)
+    return modify_user_attr(user_list)
 
 
 def get_user_nouser(session: Session, nouser: str) -> SchemaUserPydantic:
     schema = ModelUserSelectInSingleTableSchema(NoUser=nouser)
-    user_list = model_user_crud_select(session, 1, 4, schema)
-    print(user_list)
-    try:
-        user = SchemaUserPydantic(**user_list[0])
-        return modify_user_attr(user)
-    except Exception:
-        raise UserNotFound
+    model = "ModelUser"
+    user_list = service_select(session, model, 4, schema)
+    return modify_user_attr(user_list)

@@ -1,0 +1,1 @@
+每一个get函数都变成post("/search")，同时，查询的body参数也增加了两个page和size

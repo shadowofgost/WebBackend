@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceRunningAccount.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-10 19:41:45
+# @LastTime         : 2022-03-11 15:26:17
 # @Software         : Vscode
 """
 from Models import ModelUser, ModelCoursePlan, ModelRunningAccount, ModelCurricula
@@ -14,7 +17,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from pydantic import Field
 from typing import Optional, List
-from Components.Exceptions import error_service_null, error_database_execution
+from Components import error_service_null, error_database_execution
 from .SchemaRunningAccount import (
     ModelRunningAccountSelectInSingleTableSchema,
     ModelRunningAccountSelectOutSingleTableSchemaBase,

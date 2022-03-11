@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaDepartment.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-10 19:39:13
+# @LastTime         : 2022-03-11 14:25:30
 # @Software         : Vscode
 """
 from typing import List, Optional

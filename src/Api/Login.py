@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/Login.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-09 12:44:14
+# @LastTime         : 2022-03-11 16:43:55
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -35,5 +38,5 @@ async def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
 ):
     user = await authenticate_user(db, form_data.username, form_data.password)
-    access_token = await created_access_token(data={"sub": user.ID})
+    access_token = await created_access_token(data={"sub": str(user.ID)})
     return {"access_token": access_token, "token_type": "bearer","attr":user.Attr}

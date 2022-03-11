@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Models/UserGroup.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 18:04:24
+# @LastTime         : 2022-03-11 14:23:47
 # @Software         : Vscode
 """
 from sqlalchemy import Column,Integer,Unicode

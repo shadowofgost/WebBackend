@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,14 +9,14 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/Depends.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-10 17:52:36
+# @LastTime         : 2022-03-11 17:21:06
 # @Software         : Vscode
 """
 from datetime import datetime, timedelta
 from functools import wraps
 from typing import Optional
 
-from Components.Exceptions import CredentialsError, IncorrectPassword, notAuthenticated
+from Components import CredentialsError, IncorrectPassword, notAuthenticated
 from Config import get_settings
 from fastapi import Depends, Request
 from fastapi.security import OAuth2PasswordBearer
@@ -25,7 +28,7 @@ from sqlalchemy.orm import Session
 from .Middleware import SessionLocal
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated=["auto"])
-oauth2_schema = OAuth2PasswordBearer(tokenUrl="/jwt/token")
+oauth2_schema = OAuth2PasswordBearer(tokenUrl="/login")
 settings = get_settings()
 
 
@@ -54,7 +57,7 @@ async def get_current_user(
     db = request.state.db
     try:
         payload = jwt.decode(
-            token=token, key=settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
+            token=token, key=settings.SECRET_KEY, algorithms=settings.ALGORITHM
         )
     except JWTError:
         raise CredentialsError
@@ -107,6 +110,7 @@ async def request_info(request: Request):
             # 有请求体，记录日志
             logger.bind(payload=body, name=None).debug(body)
 """
+
 
 async def login_required(func):
     @wraps(func)

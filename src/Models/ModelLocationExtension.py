@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Models/ModelLocationExtension.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 17:51:30
+# @LastTime         : 2022-03-11 14:22:53
 # @Software         : Vscode
 """
 from sqlalchemy import BigInteger, Column, Integer, SmallInteger

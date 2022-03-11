@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Time             : 2022-01-13 23:22:46
 # @Author           : Albert Wang
@@ -7,7 +10,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-02-17 17:49:40
+# @LastTime         : 2022-03-11 14:22:57
 # @LastAuthor       : Albert Wang
 """
 from sqlalchemy import BigInteger, Column, SmallInteger

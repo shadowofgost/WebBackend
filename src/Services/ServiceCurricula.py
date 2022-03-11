@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-10 19:41:19
+# @LastTime         : 2022-03-11 19:40:00
 # @Software         : Vscode
 """
 from Models import ModelCurricula, ModelLocation, ModelUser
@@ -14,7 +17,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from typing import List
 from .PublicService import service_select
-from Components.Exceptions import error_service_null
+from Components import error_service_null
 from .SchemaCurricula import ModelCurriculaSelectInSingleTableSchema
 
 
@@ -41,33 +44,41 @@ def orm_for_student(
         [description]
     """
     if service_type == 0:
-        stmt = (
-            select(
-                ModelCurricula,
-                ModelLocation.Name.label("ID_Location_Name"),
-                ModelUser.Name.label("ID_Speaker_Name"),  # type: ignore
-            )
+        sub_curricula = (
+            select(ModelCurricula)
             .where(ModelCurricula.RangeUsers.like("%{}%".format(str(id_manager))))
             .where(ModelCurricula.IMark == 0)
-            .where(ModelLocation.IMark == 0)
-            .where(ModelUser.IMark == 0)
-            .outerjoin(ModelUser, ModelUser.ID == ModelCurricula.ID_Speaker)
-            .outerjoin(ModelLocation, ModelLocation.ID == ModelCurricula.ID_Location)
+            .subquery()  # type: ignore
         )
-    elif service_type == 2:
         stmt = (
             select(
-                ModelCurricula,
+                sub_curricula,
                 ModelLocation.Name.label("ID_Location_Name"),
                 ModelUser.Name.label("ID_Speaker_Name"),  # type: ignore
             )
+            .where(ModelLocation.IMark == 0)
+            .where(ModelUser.IMark == 0)
+            .outerjoin(ModelUser, ModelUser.ID == sub_curricula.c.ID_Speaker)
+            .outerjoin(ModelLocation, ModelLocation.ID == sub_curricula.c.ID_Location)
+        )
+    elif service_type == 2:
+        sub_curricula = (
+            select(ModelCurricula)
             .where(ModelCurricula.RangeUsers.like("%{}%".format(str(id_manager))))
             .where(ModelCurricula.Name.like("%{}%".format(schema.Name)))  # type: ignore
             .where(ModelCurricula.IMark == 0)
+            .subquery()  # type: ignore
+        )
+        stmt = (
+            select(
+                sub_curricula,
+                ModelLocation.Name.label("ID_Location_Name"),
+                ModelUser.Name.label("ID_Speaker_Name"),  # type: ignore
+            )
             .where(ModelLocation.IMark == 0)
             .where(ModelUser.IMark == 0)
-            .outerjoin(ModelUser, ModelUser.ID == ModelCurricula.ID_Speaker)
-            .outerjoin(ModelLocation, ModelLocation.ID == ModelCurricula.ID_Location)
+            .outerjoin(ModelUser, ModelUser.ID == sub_curricula.c.ID_Speaker)
+            .outerjoin(ModelLocation, ModelLocation.ID == sub_curricula.c.ID_Location)
         )
     else:
         raise error_service_null
@@ -112,14 +123,14 @@ def get_curricula(
     """
     model_name = "ModelCurricula"
     if attr == 1:
-        return service_select(session, id_manager, model_name, service_type, schema)
+        return service_select(session, model_name, service_type, schema)
     elif attr == 3:
         return orm_for_student(session, id_manager, service_type, schema)
     elif attr == 2:
         schema.ID_Speaker = id_manager
         if service_type == 0:
-            return service_select(session, id_manager, model_name, 3, schema)
+            return service_select(session, model_name, 3, schema)
         else:
-            return service_select(session, id_manager, model_name, service_type, schema)
+            return service_select(session, model_name, service_type, schema)
     else:
         raise error_service_null

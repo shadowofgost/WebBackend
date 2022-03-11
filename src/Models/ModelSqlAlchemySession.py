@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Time             : 2022-01-14 01:17:55
 # @Author           : Albert Wang
@@ -7,7 +10,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-03-10 19:13:13
+# @LastTime         : 2022-03-11 14:23:15
 # @LastAuthor       : Albert Wang
 """
 from sqlalchemy import Column, Unicode, DateTime

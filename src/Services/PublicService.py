@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicService.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-10 18:42:13
+# @LastTime         : 2022-03-11 17:30:48
 # @Software         : Vscode
 """
 from sqlalchemy.orm import Session
@@ -18,7 +21,8 @@ from .PublicValuesAndSchemas import (
     DeleteSingleTableSchema,
     model_dict,
 )
-from Components.Exceptions import error_service_validation, error_service_null
+from Components import error_service_validation, error_service_null
+from typing import List
 
 
 def transform(id_manager: int, single_schema, multiple_schema, initial_schema):
@@ -86,7 +90,9 @@ def service_insert(
     return result
 
 
-def service_select(session: Session, id: int, model: str, service_type: int, schema):
+def service_select(
+    session: Session, model: str, service_type: int, schema
+) -> List[dict]:
     """
     select [筛选函数的服务提供]
 
@@ -116,31 +122,12 @@ def service_select(session: Session, id: int, model: str, service_type: int, sch
     if service_type == 0:
         return model_instance.condition_select()
     elif service_type == 1:
-        select_in_schema = model_dict[model]["select_single_schema"]
-        try:
-            table_schema = select_in_schema(ID=id)
-        except Exception:
-            raise error_service_validation
-        return model_instance.multiple_require_select(table_schema)
+        return model_instance.multiple_require_select(schema)
     elif service_type == 2:
-        try:
-            name = schema.Name
-        except Exception:
-            raise error_service_validation
-        return model_instance.name_select(name)
+        return model_instance.name_select(schema.Name)
     elif service_type == 3:
-        select_in_schema = model_dict[model]["select_single_schema"]
-        try:
-            table_schema = select_in_schema(**schema.dict())
-        except Exception:
-            raise error_service_validation
-        return model_instance.multiple_require_select(table_schema)
+        return model_instance.multiple_require_select(schema)
     elif service_type == 4:
-        select_in_schema = model_dict[model]["select_single_schema"]
-        try:
-            table_schema = select_in_schema(NoUser=schema.NoUser)
-        except Exception:
-            raise error_service_validation
-        return model_instance.multiple_require_select(table_schema)
+        return model_instance.multiple_require_select(schema)
     else:
         raise error_service_null

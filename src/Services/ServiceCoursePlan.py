@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceCoursePlan.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-23 16:53:24
+# @LastTime         : 2022-03-11 17:36:26
 # @Software         : Vscode
 """
 from sqlalchemy.orm import Session
@@ -17,7 +20,6 @@ from .SchemaCoursePlan import ModelCoursePlanSelectInSingleTableSchema
 
 def get_course_plan(
     session: Session,
-    id_manager: int,
     attr: int,
     service_type: int,
     schema: ModelCoursePlanSelectInSingleTableSchema,
@@ -47,6 +49,6 @@ def get_course_plan(
     """
     model = "ModelCoursePlan"
     if attr == 1:
-        return service_select(session, id_manager, model, service_type, schema)
+        return service_select(session,  model, service_type, schema)
     else:
-        return service_select(session, id_manager, model, 3, schema)
+        return service_select(session,  model, 3, schema)

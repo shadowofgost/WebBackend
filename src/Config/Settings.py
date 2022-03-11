@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Time             : 2022-01-13 23:29:29
 # @Author           : Albert Wang
@@ -7,7 +10,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-03-10 18:47:26
+# @LastTime         : 2022-03-11 16:34:04
 # @LastAuthor       : Albert Wang
 """
 import os
@@ -23,7 +26,7 @@ class DefaultSettings(BaseSettings):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
     ALGORITHM = "HS256"
-    TOKEN_EXPIRE_MINUTES = 100
+    TOKEN_EXPIRE_MINUTES = timedelta(minutes=120)
     TOKEN_LIFETIME = timedelta(hours=24)
     DB_ABS_PATH = os.path.join(BASE_DIR, "database/sqlite.db")
     DATABASE_URL = f"sqlite+aiosqlite:///{DB_ABS_PATH}"
@@ -38,7 +41,7 @@ class Dev(BaseSettings):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
     ALGORITHM = "HS256"
-    TOKEN_EXPIRE_MINUTES = timedelta(minutes=100)
+    TOKEN_EXPIRE_MINUTES = timedelta(minutes=120)
     TOKEN_LIFETIME = timedelta(hours=24)
     DATABASE_TYPE = "mysql"
     DATABASE_CONNECT = "pymysql"
@@ -67,7 +70,7 @@ class Production(BaseSettings):
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
     ALGORITHM = "HS256"
-    TOKEN_EXPIRE_MINUTES = timedelta(minutes=100)
+    TOKEN_EXPIRE_MINUTES = timedelta(minutes=120)
     TOKEN_LIFETIME = timedelta(hours=24)
     DATABASE_TYPE = "mysql"
     DATABASE_CONNECT = "pymysql"

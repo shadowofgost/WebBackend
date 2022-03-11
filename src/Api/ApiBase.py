@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiBase.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-10 17:54:27
+# @LastTime         : 2022-03-11 18:04:32
 # @Software         : Vscode
 """
 from fastapi import FastAPI, Request, Depends
@@ -30,7 +33,7 @@ from .ApiUserExtension import router as api_user_extension_router
 
 ##from .Depends import request_info
 from .Middleware import middleware_get_db
-
+from fastapi_pagination import add_pagination
 
 ##app = FastAPI(dependencies=[Depends(request_info)])
 app = FastAPI()
@@ -51,7 +54,7 @@ async def db_session_middleware(request: Request, call_next):
     return await middleware_get_db(request, call_next)
 
 
-"""
+
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
     start_time = time.time()
@@ -59,7 +62,7 @@ async def add_process_time_header(request: Request, call_next):
     process_time = time.time() - start_time
     response.headers["X-Process-Time"] = str(process_time)
     return response
-"""
+
 
 list_router = [
     login_router,
@@ -78,3 +81,4 @@ list_router = [
 ]
 for i in list_router:
     app.include_router(i)
+add_pagination(app)

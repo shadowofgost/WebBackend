@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Config/logger_config.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-10 19:44:06
+# @LastTime         : 2022-03-11 14:22:09
 # @Software         : Vscode
 """
 import logging

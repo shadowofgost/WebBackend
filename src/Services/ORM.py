@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Time             : 2022-01-22 14:17:46
 # @Author           : Albert Wang
@@ -7,7 +10,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-03-10 19:42:28
+# @LastTime         : 2022-03-11 15:26:09
 # @LastAuthor       : Albert Wang
 """
 from typing import List
@@ -16,7 +19,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session, sessionmaker
 
 from .PublicValuesAndSchemas import model_dict, name_column_model_dict
-from Components.Exceptions import (
+from Components import (
     error_database_execution,
     error_fuction_not_implemented,
     error_schema_validation,
@@ -82,7 +85,6 @@ def single_table_multiple_require_select(
         schema_dict["IMark"] = 0
     else:
         pass
-    print(schema_dict)
     if limit_data == -1 or offset_data == -1:
         stmt = select(sub_select).filter_by(**schema_dict)  # type: ignore
     else:

@@ -1,3 +1,6 @@
+# cython: language_level=3
+#!./env python
+# -*- coding: utf-8 -*-
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
@@ -6,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaSqlAlchemySession.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 17:59:20
+# @LastTime         : 2022-03-11 14:26:16
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -24,6 +27,7 @@ from .PublicFunctions import (
     sqlalchemy_to_pydantic,
     update_exclude,
 )
+
 ModelSqlAlchemySession_nullable_columns = []
 ModelSqlAlchemySession_nullable_columns.extend(nullable)
 
