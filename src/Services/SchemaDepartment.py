@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaDepartment.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 14:25:30
+# @LastTime         : 2022-03-13 17:40:48
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -106,9 +106,11 @@ ModelDepartmentSelectInSingleTableSchema = create_model(
     "ModelDepartmentSelectInSingleTableSchema",
     __base__=ModelDepartmentSelectInSingleTableSchema,
 )
+
+sub_department = select(ModelDepartment).where(ModelDepartment.IMark == 0).subquery()  # type: ignore
+sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
 ModelDepartment_sub_stmt = (
-    select(ModelDepartment, ModelUser.Name.label("ID_Manager_Name"))
-    .where(ModelUser.IMark == 0)
-    .join(ModelUser, ModelDepartment.IdManager == ModelUser.ID, isouter=True)
+    select(sub_department, sub_user.c.Name.label("ID_Manager_Name"))
+    .outerjoin(sub_user, sub_department.c.IdManager == sub_user.c.ID)
     .subquery()  # type: ignore
 )

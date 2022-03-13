@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaLocationExtension.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 14:25:45
+# @LastTime         : 2022-03-13 17:48:38
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -137,20 +137,16 @@ ModelLocationExtensionSelectInSingleTableSchema = create_model(
     "ModelLocationExtensionSelectInSingleTableSchema",
     __base__=ModelLocationExtensionSelectInSingleTableSchema,
 )
-
+sub_location = select(ModelLocation.ID, ModelLocation.Name).where(ModelLocation.IMark == 0).subquery()  # type: ignore
+sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
+sub_location_extension = select(ModelLocationExtension).where(ModelLocationExtension.IMark == 0).subquery()  # type: ignore
 ModelLocationExtension_sub_stmt = (
     select(
-        ModelLocationExtension,
-        ModelLocation.Name.label("ID_Location_Name"),
-        ModelUser.Name.label("ID_Manager_Name"),  # type: ignore
+        sub_location_extension,
+        sub_location.c.Name.label("ID_Location_Name"),
+        sub_user.c.Name.label("ID_Manager_Name"),  # type: ignore
     )
-    .join(ModelUser, ModelUser.ID == ModelLocationExtension.IdManager, isouter=True)
-    .join(
-        ModelLocation,
-        ModelLocation.ID == ModelLocationExtension.ID_Location,
-        isouter=True,
-    )
-    .where(ModelUser.IMark == 0)  # type: ignore
-    .where(ModelLocation.IMark == 0)
-    .subquery()
+    .outerjoin(sub_user, sub_user.c.ID == sub_location_extension.c.IdManager)
+    .outerjoin(sub_location, sub_location.c.ID == sub_location_extension.c.ID_Location)
+    .subquery()  # type: ignore
 )

@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaMmxData.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 14:26:05
+# @LastTime         : 2022-03-13 17:54:32
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -103,12 +103,13 @@ ModelMmxDataSelectInSingleTableSchema = create_model(
     "ModelMmxDataSelectInSingleTableSchema",
     __base__=ModelMmxDataSelectInSingleTableSchema,
 )
+sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
+sub_Mmx_Data = select(ModelMmxData).where(ModelMmxData.IMark == 0).subquery()  # type: ignore
 ModelMmxData_sub_stmt = (
     select(
-        ModelMmxData,
-        ModelUser.Name.label("ID_Manager_Name"),
+        sub_Mmx_Data,
+        sub_user.c.Name.label("ID_Manager_Name"),
     )
-    .join(ModelUser, ModelUser.ID == ModelMmxData.IdManager, isouter=True)
-    .where(ModelUser.IMark == 0)  # type: ignore
-    .subquery()
+    .outerjoin(sub_user, sub_user.c.ID == sub_Mmx_Data.c.IdManager)
+    .subquery()  # type: ignore
 )

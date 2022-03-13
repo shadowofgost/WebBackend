@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaTypera.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 14:26:27
+# @LastTime         : 2022-03-13 18:04:12
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -100,12 +100,13 @@ ModelTyperaSelectInSingleTableSchema = create_model(
     "ModelTyperaSelectInSingleTableSchema",
     __base__=ModelTyperaSelectInSingleTableSchema,
 )
+sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
+sub_typera = select(ModelTypera).where(ModelTypera.IMark == 0).subquery()  # type: ignore
 ModelTypera_sub_stmt = (
     select(
-        ModelTypera,
-        ModelUser.Name.label("ID_Manager_Name"),
+        sub_typera,
+        sub_user.c.Name.label("ID_Manager_Name"),
     )
-    .join(ModelUser, ModelUser.ID == ModelUser.IdManager, isouter=True)
-    .where(ModelUser.IMark == 0)  # type: ignore
-    .subquery()
+    .outerjoin(sub_user, sub_user.c.ID == sub_typera.c.IdManager)
+    .subquery()  # type: ignore
 )

@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaCoursePlan.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-10 19:38:33
+# @LastTime         : 2022-03-13 17:26:02
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -146,31 +146,23 @@ ModelCoursePlanSelectInSingleTableSchema = create_model(
     __base__=ModelCoursePlanSelectInSingleTableSchema,
 )
 ##TODO:修改sql查询语句因为超过三个join使得mysql的性能会大幅下降。
-user1 = aliased(ModelUser)
+sub_course_plan = select(ModelCoursePlan).where(ModelCoursePlan.IMark == 0).subquery()  # type: ignore
+sub_curricula = select(ModelCurricula.ID, ModelCurricula.Name).where(ModelCurricula.IMark == 0).subquery()  # type: ignore
+sub_location = select(ModelLocation.ID, ModelLocation.Name).where(ModelLocation.IMark == 0).subquery()  # type: ignore
+sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
+user1 = aliased(sub_user)
 ModelCoursePlan_sub_stmt = (
     select(
-        ModelCoursePlan,
-        ModelCurricula.Name.label("ID_Curricula_Name"),
-        ModelLocation.Name.label("ID_Location_Name"),  # type: ignore
-        ModelUser.Name.label("ID_Speaker_Name"),
-        ModelUser.NoUser.label("ID_Speaker_NoUser"),
-        user1.Name.label("ID_Manager_Name"),
+        sub_course_plan,
+        sub_curricula.c.Name.label("ID_Curricula_Name"),
+        sub_location.c.Name.label("ID_Location_Name"),  # type: ignore
+        sub_user.c.Name.label("ID_Speaker_Name"),
+        sub_user.c.NoUser.label("ID_Speaker_NoUser"),
+        user1.c.Name.label("ID_Manager_Name"),
     )
-    .where(ModelCurricula.IMark == 0)
-    .where(ModelUser.IMark == 0)
-    .where(ModelLocation.IMark == 0)
-    .where(user1.IMark == 0)
-    .join(
-        ModelCurricula,
-        ModelCurricula.ID == ModelCoursePlan.ID_Curricula,
-        isouter=True,
-    )
-    .join(ModelUser, ModelUser.ID == ModelCurricula.ID_Speaker, isouter=True)
-    .join(
-        ModelLocation,
-        ModelLocation.ID == ModelCoursePlan.ID_Location,
-        isouter=True,
-    )
-    .join(user1, user1.ID == ModelCoursePlan.IdManager, isouter=True)  # type: ignore
+    .outerjoin(sub_curricula, sub_curricula.c.ID == sub_course_plan.c.ID_Curricula)
+    .outerjoin(sub_user, sub_user.c.ID == sub_course_plan.c.ID_Speaker)
+    .outerjoin(sub_location, sub_location.c.ID == sub_course_plan.c.ID_Location)
+    .outerjoin(user1, user1.c.ID == sub_course_plan.c.IdManager)  # type: ignore
     .subquery()  # type: ignore
 )

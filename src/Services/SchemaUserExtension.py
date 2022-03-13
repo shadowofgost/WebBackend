@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaUserExtension.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 14:26:36
+# @LastTime         : 2022-03-13 18:09:31
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -111,10 +111,13 @@ ModelUserExtensionSelectInSingleTableSchema = create_model(
     "ModelUserExtensionSelectInSingleTableSchema",
     __base__=ModelUserExtensionSelectInSingleTableSchema,
 )
+sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
+sub_user_extension = select(ModelUserExtension).where(ModelUserExtension.IMark == 0).subquery()  # type: ignore
 ModelUserExtension_sub_stmt = (
     select(
-        ModelUserExtension,
-        ModelUser.Name.label("ID_Manager_Name"),
-    ).where(ModelUser.IMark == 0)
-    .join(ModelUser, ModelUser.ID == ModelUserExtension.IdManager, isouter=True).subquery()  # type: ignore
+        sub_user_extension,
+        sub_user.c.Name.label("ID_Manager_Name"),
+    )
+    .outerjoin(sub_user, sub_user.c.ID == sub_user_extension.c.IdManager)
+    .subquery()  # type: ignore
 )

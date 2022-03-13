@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaLocation.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 14:25:39
+# @LastTime         : 2022-03-13 17:44:29
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -104,9 +104,10 @@ class ModelLocationSelectOutSingleTableSchema(
         orm_mode = True
 
 
+sub_location = select(ModelLocation).where(ModelLocation.IMark == 0).subquery()  # type: ignore
+sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
 ModelLocation_sub_stmt = (
-    select(ModelLocation, ModelUser.Name.label("ID_Manager_Name"))
-    .where(ModelLocation.IMark == 0)
-    .join(ModelUser, ModelUser.ID == ModelLocation.IdManager, isouter=True)
+    select(sub_location, sub_user.c.Name.label("ID_Manager_Name"))
+    .outerjoin(sub_user, sub_user.c.ID == sub_location.c.IdManager)
     .subquery()  # type: ignore
 )

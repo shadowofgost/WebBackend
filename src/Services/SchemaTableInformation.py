@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaTableInformation.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 14:26:21
+# @LastTime         : 2022-03-13 18:02:35
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -110,12 +110,13 @@ ModelTableInformationSelectInSingleTableSchema = create_model(
     "ModelTableInformationSelectInSingleTableSchema",
     __base__=ModelTableInformationSelectInSingleTableSchema,
 )
+sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
+sub_tableinformation = select(ModelTableInformation).where(ModelTableInformation.IMark == 0).subquery()  # type: ignore
 ModelTableInformation_sub_stmt = (
     select(
-        ModelTableInformation,
-        ModelUser.Name.label("ID_Manager_Name"),
+        sub_tableinformation,
+        sub_user.c.Name.label("ID_Manager_Name"),
     )
-    .join(ModelUser, ModelUser.ID == ModelTableInformation.IdManager, isouter=True)
-    .where(ModelUser.IMark == 0)  # type: ignore
-    .subquery()
+    .outerjoin(sub_user, sub_user.c.ID == sub_tableinformation.c.IdManager)
+    .subquery()  # type: ignore
 )

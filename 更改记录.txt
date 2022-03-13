@@ -1,1 +1,18 @@
 每一个get函数都变成post("/search")，同时，查询的body参数也增加了两个page和size
+sub_curricula = select(ModelCurricula).where(ModelCurricula.IMark == 0).subquery()  # type: ignore
+sub_location = select(ModelLocation.ID, ModelLocation.Name).where(ModelLocation.IMark == 0).subquery()  # type: ignore
+sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
+user1 = aliased(sub_user)
+ModelCurricula_sub_stmt = (
+    select(
+        sub_curricula,
+        sub_location.c.Name.label("ID_Location_Name"),  # type: ignore
+        sub_user.c.Name.label("ID_Speaker_Name"),
+        sub_user.c.NoUser.label("ID_Speaker_NoUser"),
+        user1.c.Name.label("ID_Manager_Name"),
+    )
+    .outerjoin(sub_user, sub_user.c.ID == sub_curricula.c.ID_Speaker)
+    .outerjoin(sub_location, sub_location.c.ID == sub_curricula.c.ID_Location)
+    .outerjoin(user1, user1.c.ID == sub_curricula.c.IdManager)  # type: ignore
+    .subquery()  # type: ignore
+)

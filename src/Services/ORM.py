@@ -10,7 +10,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-03-11 15:26:09
+# @LastTime         : 2022-03-13 16:06:58
 # @LastAuthor       : Albert Wang
 """
 from typing import List
@@ -124,15 +124,21 @@ def single_table_condition_select(
     Returns:
         [type]: [description]
     """
+    ##TODO:WARNING:Salchemy的迁移，subquery,也就是子查询会更改接口形式，原来的sub.c.colum改为sub.column形式，注意修改
+    if hasattr(sub_select, "c"):
+        imark_condition = sub_select.c.IMark==0
+    else:
+        imark_condition = sub_select.IMark==0
     if limit_data == -1 or offset_data == -1:
         if physical == False:
             if condition == "" or condition == None:
-                stmt = select(sub_select).where(sub_select.IMark == 0)
+                ##TODO:WARNING:这里的查询是逻辑表的查询，需要改进
+                stmt = select(sub_select).where(imark_condition)
             else:
                 stmt = (
                     select(sub_select)
                     .where(eval(condition))
-                    .where(sub_select.IMark == 0)
+                    .where(imark_condition)
                 )
         else:
             if condition == "" or condition == None:
@@ -144,7 +150,7 @@ def single_table_condition_select(
             if condition == "" or condition == None:
                 stmt = (
                     select(sub_select)
-                    .where(sub_select.IMark == 0)
+                    .where(imark_condition)
                     .offset(offset_data)
                     .limit(limit_data)
                 )
@@ -152,7 +158,7 @@ def single_table_condition_select(
                 stmt = (
                     select(sub_select)
                     .where(eval(condition))
-                    .where(sub_select.IMark == 0)
+                    .where(imark_condition)
                     .offset(offset_data)
                     .limit(limit_data)
                 )
@@ -204,7 +210,7 @@ def single_table_name_select(
         name_condition = sub_select.Name.like(name)
     if limit_data == -1 or offset_data == -1:
         if physical == False:
-            stmt = select(sub_select).where(name_condition).where(sub_select.IMark == 0)
+            stmt = select(sub_select).where(name_condition).where(sub_select.c.IMark == 0)
         else:
             stmt = select(sub_select).where(name_condition)
     else:
@@ -212,7 +218,7 @@ def single_table_name_select(
             stmt = (
                 select(sub_select)
                 .where(name_condition)
-                .where(sub_select.IMark == 0)
+                .where(sub_select.c.IMark == 0)
                 .offset(offset_data)
                 .limit(limit_data)
             )

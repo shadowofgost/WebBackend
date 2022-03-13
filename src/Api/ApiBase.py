@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiBase.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 18:04:32
+# @LastTime         : 2022-03-13 18:15:44
 # @Software         : Vscode
 """
 from fastapi import FastAPI, Request, Depends
@@ -33,7 +33,6 @@ from .ApiUserExtension import router as api_user_extension_router
 
 ##from .Depends import request_info
 from .Middleware import middleware_get_db
-from fastapi_pagination import add_pagination
 
 ##app = FastAPI(dependencies=[Depends(request_info)])
 app = FastAPI()
@@ -52,7 +51,6 @@ app.add_middleware(
 @app.middleware("http")
 async def db_session_middleware(request: Request, call_next):
     return await middleware_get_db(request, call_next)
-
 
 
 @app.middleware("http")
@@ -81,4 +79,3 @@ list_router = [
 ]
 for i in list_router:
     app.include_router(i)
-add_pagination(app)

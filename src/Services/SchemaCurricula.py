@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 14:25:24
+# @LastTime         : 2022-03-13 17:39:35
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -137,24 +137,20 @@ ModelCurriculaSelectInSingleTableSchema = create_model(
     "ModelCurriculaSelectInSingleTableSchema",
     __base__=ModelCurriculaSelectInSingleTableSchema,
 )
-user1 = aliased(ModelUser)
+sub_curricula = select(ModelCurricula).where(ModelCurricula.IMark == 0).subquery()  # type: ignore
+sub_location = select(ModelLocation.ID, ModelLocation.Name).where(ModelLocation.IMark == 0).subquery()  # type: ignore
+sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
+user1 = aliased(sub_user)
 ModelCurricula_sub_stmt = (
     select(
-        ModelCurricula,
-        ModelLocation.Name.label("ID_Location_Name"),
-        ModelUser.Name.label("ID_Speaker_Name"),  # type: ignore
-        ModelUser.NoUser.label("ID_Speaker_NoUser"),
-        user1.Name.label("ID_Manager_Name"),
+        sub_curricula,
+        sub_location.c.Name.label("ID_Location_Name"),  # type: ignore
+        sub_user.c.Name.label("ID_Speaker_Name"),
+        sub_user.c.NoUser.label("ID_Speaker_NoUser"),
+        user1.c.Name.label("ID_Manager_Name"),
     )
-    .where(ModelUser.IMark == 0)
-    .where(ModelLocation.IMark == 0)
-    .where(user1.IMark == 0)
-    .join(ModelUser, ModelUser.ID == ModelCurricula.ID_Speaker, isouter=True)
-    .join(
-        ModelLocation,
-        ModelLocation.ID == ModelCurricula.ID_Location,
-        isouter=True,
-    )
-    .join(user1, user1.ID == ModelCurricula.IdManager, isouter=True)  # type: ignore
+    .outerjoin(sub_user, sub_user.c.ID == sub_curricula.c.ID_Speaker)
+    .outerjoin(sub_location, sub_location.c.ID == sub_curricula.c.ID_Location)
+    .outerjoin(user1, user1.c.ID == sub_curricula.c.IdManager)  # type: ignore
     .subquery()  # type: ignore
 )

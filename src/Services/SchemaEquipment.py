@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaEquipment.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 14:25:34
+# @LastTime         : 2022-03-13 17:43:17
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -113,15 +113,16 @@ ModelEquipmentSelectInSingleTableSchema = create_model(
     "ModelEquipmentSelectInSingleTableSchema",
     __base__=ModelEquipmentSelectInSingleTableSchema,
 )
+sub_location = select(ModelLocation.ID, ModelLocation.Name).where(ModelLocation.IMark == 0).subquery()  # type: ignore
+sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
+sub_equipment = select(ModelEquipment).where(ModelEquipment.IMark == 0).subquery()  # type: ignore
 ModelEquipment_sub_stmt = (
     select(
-        ModelEquipment,
-        ModelLocation.Name.label("ID_Location_Name"),
-        ModelUser.Name.label("ID_Manager_Name"),  # type: ignore
+        sub_equipment,
+        sub_location.c.Name.label("ID_Location_Name"),
+        sub_user.c.Name.label("ID_Manager_Name"),  # type: ignore
     )
-    .where(ModelUser.IMark == 0)
-    .where(ModelLocation.IMark == 0)
-    .join(ModelUser, ModelUser.ID == ModelEquipment.IdManager, isouter=True)
-    .join(ModelLocation, ModelLocation.ID == ModelEquipment.ID_Location, isouter=True)
+    .outerjoin(sub_user, sub_user.c.ID == sub_equipment.c.IdManager)
+    .outerjoin(sub_location, sub_location.c.ID == sub_equipment.c.ID_Location)
     .subquery()  # type: ignore
 )

@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 19:09:23
+# @LastTime         : 2022-03-13 16:06:51
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -51,15 +51,13 @@ class CurriculaGet(BaseModel):
 @router.post("/search", response_model=Page[ModelCurriculaSelectOutSingleTableSchema])
 async def api_model_curricula_get(
     schema: CurriculaGet,
-
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
     result_data = get_curricula(
         session, user.ID, user.Attr, schema.service_type, schema.requires
     )
-    print(result_data)
-    params=Params(page=schema.page,size=schema.size)
+    params = Params(page=schema.page, size=schema.size)
     return paginate(result_data, params)
 
 

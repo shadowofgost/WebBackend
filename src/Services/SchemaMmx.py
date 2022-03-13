@@ -9,12 +9,12 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaMmx.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 14:25:50
+# @LastTime         : 2022-03-13 18:08:30
 # @Software         : Vscode
 """
 from typing import List, Optional
 
-from Models import ModelMmxData, ModelUser, ModelMmx
+from Models import ModelMmxData, ModelMmx, ModelUser
 from pydantic import BaseModel, Field, create_model
 from sqlalchemy import select
 
@@ -106,15 +106,16 @@ ModelMmxSelectInSingleTableSchema = sqlalchemy_to_pydantic(
 ModelMmxSelectInSingleTableSchema = create_model(
     "ModelMmxSelectInSingleTableSchema", __base__=ModelMmxSelectInSingleTableSchema
 )
+sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
+sub_Mmx = select(ModelMmx).where(ModelMmx.IMark == 0).subquery()  # type: ignore
+sub_Mmx_Data = select(ModelMmxData).where(ModelMmxData.IMark == 0).subquery()  # type: ignore
 ModelMmx_sub_stmt = (
     select(
-        ModelMmx,
-        ModelMmxData.Data.label("Data"),
-        ModelUser.Name.label("ID_Manager_Name"),  # type: ignore
+        sub_Mmx,
+        sub_Mmx_Data.c.Data.label("Data"),
+        sub_user.c.Name.label("ID_Manager_Name"),
     )
-    .join(ModelUser, ModelUser.ID == ModelMmxData.IdManager, isouter=True)
-    .join(ModelMmxData, ModelMmxData.ID == ModelMmx.ID_Data, isouter=True)
-    .where(ModelMmxData.IMark == 0)  # type: ignore
-    .where(ModelUser.IMark == 0)
-    .subquery()
+    .outerjoin(sub_user, sub_user.c.ID == sub_Mmx.c.IdManager)
+    .outerjoin(sub_Mmx_Data, sub_Mmx_Data.c.ID == sub_Mmx.c.ID_Data)
+    .subquery()  # type: ignore
 )
