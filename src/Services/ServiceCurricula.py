@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 19:40:00
+# @LastTime         : 2022-03-13 18:28:37
 # @Software         : Vscode
 """
 from Models import ModelCurricula, ModelLocation, ModelUser
@@ -43,6 +43,8 @@ def orm_for_student(
     schema : ModelCurriculaSelectInSingleTableSchema
         [description]
     """
+    sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
+    sub_location = select(ModelLocation.ID, ModelLocation.Name).where(ModelLocation.IMark == 0).subquery()  # type: ignore
     if service_type == 0:
         sub_curricula = (
             select(ModelCurricula)
@@ -53,13 +55,11 @@ def orm_for_student(
         stmt = (
             select(
                 sub_curricula,
-                ModelLocation.Name.label("ID_Location_Name"),
-                ModelUser.Name.label("ID_Speaker_Name"),  # type: ignore
+                sub_location.c.Name.label("ID_Location_Name"),
+                sub_user.c.Name.label("ID_Speaker_Name"),  # type: ignore
             )
-            .where(ModelLocation.IMark == 0)
-            .where(ModelUser.IMark == 0)
-            .outerjoin(ModelUser, ModelUser.ID == sub_curricula.c.ID_Speaker)
-            .outerjoin(ModelLocation, ModelLocation.ID == sub_curricula.c.ID_Location)
+            .outerjoin(sub_user, sub_user.c.ID == sub_curricula.c.ID_Speaker)
+            .outerjoin(sub_location, sub_location.c.ID == sub_curricula.c.ID_Location)
         )
     elif service_type == 2:
         sub_curricula = (
@@ -72,13 +72,11 @@ def orm_for_student(
         stmt = (
             select(
                 sub_curricula,
-                ModelLocation.Name.label("ID_Location_Name"),
-                ModelUser.Name.label("ID_Speaker_Name"),  # type: ignore
+                sub_location.c.Name.label("ID_Location_Name"),
+                sub_user.c.Name.label("ID_Speaker_Name"),  # type: ignore
             )
-            .where(ModelLocation.IMark == 0)
-            .where(ModelUser.IMark == 0)
-            .outerjoin(ModelUser, ModelUser.ID == sub_curricula.c.ID_Speaker)
-            .outerjoin(ModelLocation, ModelLocation.ID == sub_curricula.c.ID_Location)
+            .outerjoin(sub_user, sub_user.c.ID == sub_curricula.c.ID_Speaker)
+            .outerjoin(sub_location, sub_location.c.ID == sub_curricula.c.ID_Location)
         )
     else:
         raise error_service_null

@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceRunningAccount.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 15:26:17
+# @LastTime         : 2022-03-13 18:42:23
 # @Software         : Vscode
 """
 from Models import ModelUser, ModelCoursePlan, ModelRunningAccount, ModelCurricula
@@ -113,7 +113,7 @@ def get_for_student(
         .where(ModelCoursePlan.ID == id_courseplan)
         .subquery()  # type: ignore
     )
-    sub_user = select(ModelUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
+    sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).where(ModelUser.ID=user.ID).subquery()  # type: ignore
     stmt = (
         select(
             sub_runningaccount,
@@ -122,12 +122,11 @@ def get_for_student(
             sub_user.c.Name.label("ID_User_Name"),
             sub_user.c.NoUser.label("ID_User_NoUser"),
         )
-        .join(
+        .outerjoin(
             sub_course_plan,
-            sub_runningaccount.c.Param2 == sub_course_plan.c.ID,
-            isouter=True,
+            sub_runningaccount.c.Param2 == sub_course_plan.c.ID
         )
-        .join(sub_user, sub_runningaccount.c.ID_User == sub_user.c.ID, isouter=True)
+        .outerjoin(sub_user, sub_runningaccount.c.ID_User == sub_user.c.ID)
     )
     result = execute_database(stmt, session)
     if result == []:
@@ -182,7 +181,7 @@ def get_for_teacher(session: Session, user: SchemaUserPydantic, id_courseplan: i
         sub_user.c.Name.label("ID_User_Name"),
         sub_user.c.NoUser.label("ID_User_NoUser"),
         sub_runningaccount,
-    ).join(sub_runningaccount, sub_runningaccount.c.ID_User == sub_user.c.ID)
+    ).outerjoin(sub_runningaccount, sub_runningaccount.c.ID_User == sub_user.c.ID)
     result_data = execute_database(stmt, session)
     data_initial_list = []
     for i in range(len(result_data)):
