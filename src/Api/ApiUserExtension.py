@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiUserExtension.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 19:32:56
+# @LastTime         : 2022-03-13 23:15:13
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends, UploadFile
@@ -54,13 +54,12 @@ class CurriculaGet(BaseModel):
 )
 async def api_model_userextension_get(
     schema: CurriculaGet,
-
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
     model = "ModelUserExtension"
     result_data = service_select(session, model, schema.service_type, schema.requires)
-    params=Params(page=schema.page,size=schema.size)
+    params = Params(page=schema.page, size=schema.size)
     return paginate(result_data, params)
 
 
@@ -96,5 +95,6 @@ async def api_model_userextension_delete(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelUserExtension"
     return service_delete(session, user.ID, model, schema)

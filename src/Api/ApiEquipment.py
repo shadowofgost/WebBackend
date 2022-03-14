@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiEquipment.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 17:35:12
+# @LastTime         : 2022-03-13 23:14:56
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -53,12 +53,11 @@ class CurriculaGet(BaseModel):
 async def api_model_equipment_get(
     schema: CurriculaGet,
     session: Session = Depends(get_db),
-
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
     model = "ModelEquipment"
     result_data = service_select(session, model, schema.service_type, schema.requires)
-    params=Params(page=schema.page,size=schema.size)
+    params = Params(page=schema.page, size=schema.size)
     return paginate(result_data, params)
 
 
@@ -88,5 +87,6 @@ async def api_model_equipment_delete(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelEquipment"
     return service_delete(session, user.ID, model, schema)

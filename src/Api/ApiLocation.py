@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiLocation.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 19:33:57
+# @LastTime         : 2022-03-13 23:15:00
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -53,12 +53,11 @@ class CurriculaGet(BaseModel):
 async def api_model_location_get(
     schema: CurriculaGet,
     session: Session = Depends(get_db),
-
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
     model = "ModelLocation"
     result_data = service_select(session, model, schema.service_type, schema.requires)
-    params=Params(page=schema.page,size=schema.size)
+    params = Params(page=schema.page, size=schema.size)
     return paginate(result_data, params)
 
 
@@ -88,5 +87,6 @@ async def api_model_location_delete(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelLocation"
     return service_delete(session, user.ID, model, schema)

@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceRunningAccount.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-13 18:42:23
+# @LastTime         : 2022-03-13 23:04:16
 # @Software         : Vscode
 """
 from Models import ModelUser, ModelCoursePlan, ModelRunningAccount, ModelCurricula
@@ -113,7 +113,7 @@ def get_for_student(
         .where(ModelCoursePlan.ID == id_courseplan)
         .subquery()  # type: ignore
     )
-    sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).where(ModelUser.ID=user.ID).subquery()  # type: ignore
+    sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).where(ModelUser.ID==user.ID).subquery()  # type: ignore
     stmt = (
         select(
             sub_runningaccount,

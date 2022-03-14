@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiUser.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 19:34:21
+# @LastTime         : 2022-03-14 00:03:27
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -60,12 +60,11 @@ async def api_current_user(
 async def api_model_user_get(
     schema: CurriculaGet,
     session: Session = Depends(get_db),
-
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
     model = "ModelUser"
     result_data = service_select(session, model, schema.service_type, schema.requires)
-    params=Params(page=schema.page,size=schema.size)
+    params = Params(page=schema.page, size=schema.size)
     return paginate(result_data, params)
 
 
@@ -95,5 +94,6 @@ async def api_model_user_delete(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelUser"
     return service_delete(session, user.ID, model, schema)

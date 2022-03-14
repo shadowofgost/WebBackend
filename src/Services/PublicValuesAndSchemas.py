@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicValuesAndSchemas.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 14:24:52
+# @LastTime         : 2022-03-13 23:08:33
 # @Software         : Vscode
 """
 from os import listdir
@@ -37,7 +37,7 @@ def format_current_time():
 
 
 class DeleteSingleGetSchema(BaseModel):
-    id: int
+    ID: int
 
 
 class DeleteMultipleGetSchema(BaseModel):

@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-13 16:06:51
+# @LastTime         : 2022-03-13 23:14:48
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -87,5 +87,6 @@ async def api_model_curricula_delete(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelCurricula"
     return service_delete(session, user.ID, model, schema)

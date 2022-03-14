@@ -10,7 +10,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-03-13 16:06:58
+# @LastTime         : 2022-03-13 22:59:29
 # @LastAuthor       : Albert Wang
 """
 from typing import List
@@ -253,7 +253,7 @@ def multiple_insert(model, multiple_schema, session: Session):
 
 
 def single_update(model, schema, session: Session):
-    stmt = update(model).where(model.id == schema.id).values(**schema.dict())
+    stmt = update(model).where(model.ID == schema.ID).values(**schema.dict())
     return execution(stmt, session)
 
 
@@ -272,21 +272,21 @@ def multiple_update(model, multiple_schema, session: Session):
 def single_delete(model, schema, session: Session):
     stmt = (
         update(model)
-        .where(model.id == schema.id)
+        .where(model.ID == schema.ID)
         .values(IMark=1, TimeUpdate=schema.TimeUpdate, IdManager=schema.IdManager)
     )
     return execution(stmt, session)
 
 
 def single_delete_physical(model, schema, session: Session):
-    stmt = delete(model).where(model.id == schema.id)
+    stmt = delete(model).where(model.ID == schema.ID)
     return execution(stmt, session)
 
 
 def multiple_delete(model, multiple_schema, session: Session):
     mappings = [
         {
-            "id": multiple_schema.data[i].id,
+            "ID": multiple_schema.data[i].ID,
             "TimeUpdate": multiple_schema.data[i].TimeUpdate,
             "IdManager": multiple_schema.data[i].IdManager,
             "IMark": 1,
@@ -306,7 +306,7 @@ def multiple_delete(model, multiple_schema, session: Session):
 def multiple_delete_physical(model, multiple_schema, session: Session):
     try:
         for i in range(multiple_schema.n):
-            stmt = delete(model).where(model.id == multiple_schema.data[i].id)
+            stmt = delete(model).where(model.ID == multiple_schema.data[i].ID)
             session.execute(stmt)
         session.commit()
         session.flush()

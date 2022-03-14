@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiRunningAccount.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 19:34:07
+# @LastTime         : 2022-03-13 23:15:05
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -58,7 +58,7 @@ async def api_result(
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
     result_data = get_running_account(session, user, schema)
-    params=Params(page=schema.page,size=schema.size)
+    params = Params(page=schema.page, size=schema.size)
     return paginate(result_data, params)
 
 
@@ -72,7 +72,7 @@ async def api_model_runningaccount_get(
 ):
     model = "ModelRunningAccount"
     result_data = service_select(session, model, schema.service_type, schema)
-    params=Params(page=schema.page,size=schema.size)
+    params = Params(page=schema.page, size=schema.size)
     return paginate(result_data, params)
 
 
@@ -102,5 +102,6 @@ async def api_model_runningaccount_delete(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelRunningAccount"
     return service_delete(session, user.ID, model, schema)
