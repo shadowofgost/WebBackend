@@ -10,14 +10,14 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-03-13 22:59:29
+# @LastTime         : 2022-03-17 23:54:06
 # @LastAuthor       : Albert Wang
 """
 from typing import List
 from sqlalchemy import create_engine, delete, insert, select, update
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session, sessionmaker
-
+from loguru import logger
 from .PublicValuesAndSchemas import model_dict, name_column_model_dict
 from Components import (
     error_database_execution,
@@ -52,6 +52,7 @@ def execution(stmt, session: Session) -> dict[str, str]:
         return success_execution
     except Exception:
         session.rollback()
+        logger.error("数据库执行出错，查看数据库数据情况")
         raise error_database_execution
 
 
@@ -97,6 +98,7 @@ def single_table_multiple_require_select(
     try:
         return session.execute(stmt).mappings().all()
     except Exception:
+        logger.error("数据库执行出错，查看数据库数据情况")
         raise error_database_execution
 
 
@@ -126,20 +128,16 @@ def single_table_condition_select(
     """
     ##TODO:WARNING:Salchemy的迁移，subquery,也就是子查询会更改接口形式，原来的sub.c.colum改为sub.column形式，注意修改
     if hasattr(sub_select, "c"):
-        imark_condition = sub_select.c.IMark==0
+        imark_condition = sub_select.c.IMark == 0
     else:
-        imark_condition = sub_select.IMark==0
+        imark_condition = sub_select.IMark == 0
     if limit_data == -1 or offset_data == -1:
         if physical == False:
             if condition == "" or condition == None:
                 ##TODO:WARNING:这里的查询是逻辑表的查询，需要改进
                 stmt = select(sub_select).where(imark_condition)
             else:
-                stmt = (
-                    select(sub_select)
-                    .where(eval(condition))
-                    .where(imark_condition)
-                )
+                stmt = select(sub_select).where(eval(condition)).where(imark_condition)
         else:
             if condition == "" or condition == None:
                 stmt = select(sub_select)
@@ -175,6 +173,7 @@ def single_table_condition_select(
     try:
         return session.execute(stmt).mappings().all()
     except Exception:
+        logger.error("数据库执行出错，查看数据库数据情况")
         raise error_database_execution
 
 
@@ -210,7 +209,9 @@ def single_table_name_select(
         name_condition = sub_select.Name.like(name)
     if limit_data == -1 or offset_data == -1:
         if physical == False:
-            stmt = select(sub_select).where(name_condition).where(sub_select.c.IMark == 0)
+            stmt = (
+                select(sub_select).where(name_condition).where(sub_select.c.IMark == 0)
+            )
         else:
             stmt = select(sub_select).where(name_condition)
     else:
@@ -232,6 +233,7 @@ def single_table_name_select(
     try:
         return session.execute(stmt).mappings().all()
     except Exception:
+        logger.error("数据库执行出错，查看数据库数据情况")
         raise error_database_execution
 
 
@@ -249,6 +251,7 @@ def multiple_insert(model, multiple_schema, session: Session):
         return success_execution
     except Exception:
         session.rollback()
+        logger.error("数据库执行出错，查看数据库数据情况")
         raise error_database_execution
 
 
@@ -266,6 +269,7 @@ def multiple_update(model, multiple_schema, session: Session):
         return success_execution
     except Exception:
         session.rollback()
+        logger.error("数据库执行出错，查看数据库数据情况")
         raise error_database_execution
 
 
@@ -300,6 +304,7 @@ def multiple_delete(model, multiple_schema, session: Session):
         return success_execution
     except Exception:
         session.rollback()
+        logger.error("数据库执行出错，查看数据库数据情况")
         raise error_database_execution
 
 
@@ -313,6 +318,7 @@ def multiple_delete_physical(model, multiple_schema, session: Session):
         return success_execution
     except Exception:
         session.rollback()
+        logger.error("数据库执行出错，查看数据库数据情况")
         raise error_database_execution
 
 
@@ -393,6 +399,7 @@ class ORM:
             try:
                 select_schema = self.select_single_schema(**schema.dict())
             except Exception:
+                logger.error("数据库用于执行的表单验证失败")
                 raise error_schema_validation
             if service == True:
                 return single_table_multiple_require_select(
@@ -489,6 +496,7 @@ class ORM:
             )
         else:
             if self.has_name == False:
+                logger.error("数据库用于执行的表单验证失败")
                 raise error_schema_validation
             else:
                 if service == True:
@@ -535,12 +543,14 @@ class ORM:
                 try:
                     insert_schema = self.insert_multiple_schema(**schema.dict())
                 except Exception:
+                    logger.error("数据库用于执行的表单验证失败")
                     raise error_schema_validation
                 return multiple_insert(self.model, insert_schema, self.session)
             else:
                 try:
                     insert_schema = self.insert_single_schema(**schema.dict())
                 except Exception:
+                    logger.error("数据库用于执行的表单验证失败")
                     raise error_schema_validation
                 return single_insert(self.model, insert_schema, self.session)
 
@@ -568,12 +578,14 @@ class ORM:
                 try:
                     update_schema = self.update_multiple_schema(**schema.dict())
                 except Exception:
+                    logger.error("数据库用于执行的表单验证失败")
                     raise error_schema_validation
                 return multiple_update(self.model, update_schema, self.session)
             else:
                 try:
                     update_schema = self.insert_single_schema(**schema.dict())
                 except Exception:
+                    logger.error("数据库用于执行的表单验证失败")
                     raise error_schema_validation
                 return single_update(self.model, update_schema, self.session)
 
@@ -603,6 +615,7 @@ class ORM:
                 try:
                     delete_schema = self.delete_multiple_schema(**schema.dict())
                 except Exception:
+                    logger.error("数据库用于执行的表单验证失败")
                     raise error_schema_validation
                 if physical == True:
                     return multiple_delete_physical(
@@ -614,6 +627,7 @@ class ORM:
                 try:
                     delete_schema = self.delete_single_schema(**schema.dict())
                 except Exception:
+                    logger.error("数据库用于执行的表单验证失败")
                     raise error_schema_validation
                 if physical == True:
                     return single_delete_physical(

@@ -9,14 +9,14 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Models/ModelMmxData.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 14:23:04
+# @LastTime         : 2022-03-17 15:53:51
 # @Software         : Vscode
 """
-from sqlalchemy import Column,Unicode
+from sqlalchemy import Column, Unicode,LargeBinary
 from .PublicModel import ModelPublic
 
 
 class ModelMmxData(ModelPublic):
     __tablename__ = "t_cymmxdata"
 
-    Data = Column(Unicode(1024), comment="媒体的内容", doc="媒体的内容")
+    Data = Column(LargeBinary, comment="媒体的内容", doc="媒体的内容")

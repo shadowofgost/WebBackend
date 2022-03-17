@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-13 18:28:37
+# @LastTime         : 2022-03-17 23:56:54
 # @Software         : Vscode
 """
 from Models import ModelCurricula, ModelLocation, ModelUser
@@ -19,7 +19,7 @@ from typing import List
 from .PublicService import service_select
 from Components import error_service_null
 from .SchemaCurricula import ModelCurriculaSelectInSingleTableSchema
-
+from loguru import logger
 
 def orm_for_student(
     session: Session,
@@ -79,10 +79,12 @@ def orm_for_student(
             .outerjoin(sub_location, sub_location.c.ID == sub_curricula.c.ID_Location)
         )
     else:
+        logger.error("请求的服务不存在")
         raise error_service_null
     try:
         return session.execute(stmt).mappings().all()
     except Exception:
+        logger.error("service层执行失败")
         raise error_service_null
 
 
@@ -131,4 +133,5 @@ def get_curricula(
         else:
             return service_select(session, model_name, service_type, schema)
     else:
+        logger.error("service层执行失败")
         raise error_service_null

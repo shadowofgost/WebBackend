@@ -10,7 +10,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-03-11 14:22:32
+# @LastTime         : 2022-03-17 11:49:41
 # @LastAuthor       : Albert Wang
 """
 from sqlalchemy import BigInteger, Column, Integer, SmallInteger, Unicode
@@ -65,9 +65,9 @@ class ModelCurricula(ModelPublic):
     TimeEndCheckEnd = Column(
         Integer, comment="考勤开始的最早时刻表", doc="安排考勤结束的最早时间（单位为分钟，0代表无效）"
     )
-    RangeUsers = Column(Unicode(1024), comment="学生学号列表", doc="学生学号列表，以逗号分隔")
+    RangeUsers = Column(Unicode(4096), comment="学生学号列表", doc="学生学号列表，以逗号分隔")
     ListDepts = Column(Unicode(1024), comment="部门列表", doc="参加安排的部门列表，以逗号分隔")
-    RangeEqus = Column(Unicode(1024), comment="座位范围列表", doc="课程使用的座位范围列表")
+    RangeEqus = Column(Unicode(4096), comment="座位范围列表", doc="课程使用的座位范围列表")
     ListPlaces = Column(Unicode(1024), comment="地点列表", doc="课程使用的地点列表")
     MapUser2Equ = Column(Unicode(1024), comment="对应列表", doc="学生和课程的对应表")
     AboutSpeaker = Column(Unicode(1024), comment="主讲人信息", doc="主讲人信息")

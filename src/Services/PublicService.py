@@ -9,11 +9,11 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicService.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-13 17:38:09
+# @LastTime         : 2022-03-17 23:56:11
 # @Software         : Vscode
 """
 from sqlalchemy.orm import Session
-
+from loguru import logger
 from .ORM import ORM
 from .PublicValuesAndSchemas import (
     DeleteMultipleGetSchema,
@@ -32,6 +32,7 @@ def transform(id_manager: int, single_schema, multiple_schema, initial_schema):
                 IdManager=id_manager, **initial_schema.data[0].dict()
             )
         except Exception:
+            logger.error("service层表单转化验证失败")
             raise error_service_validation
     else:
         try:
@@ -40,10 +41,12 @@ def transform(id_manager: int, single_schema, multiple_schema, initial_schema):
                 for i in range(initial_schema.n)
             ]
         except Exception:
+            logger.error("service层表单转化验证失败")
             raise error_service_validation
         try:
             result_schema = multiple_schema(data=transform_list, n=initial_schema.n)
         except Exception:
+            logger.error("service层表单转化验证失败")
             raise error_service_validation
     return result_schema
 
@@ -130,4 +133,5 @@ def service_select(
     elif service_type == 4:
         return model_instance.multiple_require_select(schema)
     else:
+        logger.error("请求的服务不存在")
         raise error_service_null

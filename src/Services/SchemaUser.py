@@ -9,16 +9,16 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaUser.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-13 18:06:22
+# @LastTime         : 2022-03-17 22:40:20
 # @Software         : Vscode
 """
 from typing import List, Optional
 
 from Models import ModelUser
-from pydantic import BaseModel, Field, create_model
+from pydantic import BaseModel, Field, create_model, validator
 from sqlalchemy import select
 from sqlalchemy.orm import aliased
-
+from passlib.context import CryptContext
 from .PublicFunctions import (
     format_current_time,
     insert_exclude,
@@ -28,7 +28,8 @@ from .PublicFunctions import (
     sqlalchemy_to_pydantic,
     update_exclude,
 )
-
+##TODO:自动数据加密系统
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated=["auto"])
 ModelUser_nullable_columns = ["Yue", "Yue2", "Email", "Phone", "LocalID"]
 ModelUser_nullable_columns.extend(nullable)
 
@@ -46,6 +47,19 @@ class ModelUserUpdateMultipleGetSchema(BaseModel):
 class ModelUserUpdateSingleTableSchema(ModelUserUpdateSingleGetSchema):
     TimeUpdate: int = format_current_time()
     IdManager: int
+
+##TODO:暗文加密系统的表单
+"""
+class ModelUserUpdateSingleTableSchema(ModelUserUpdateSingleGetSchema):
+    TimeUpdate: int = format_current_time()
+    IdManager: int
+    @validator('Psw', pre=True)
+    def split_str(cls, v):
+        return v.hash(v)
+    @validator('NoSfz', pre=True)
+    def split_str(cls, v):
+        return v.hash(v)
+"""
 
 
 class ModelUserUpdateMultipleTableSchema(BaseModel):
@@ -69,7 +83,18 @@ class ModelUserInsertMultipleGetSchema(BaseModel):
 class ModelUserInsertSingleTableSchema(ModelUserInsertSingleGetSchema):
     TimeUpdate: int = format_current_time()
     Idmanager: int
-
+##TODO:暗文加密系统的表单
+"""
+class ModelUserInsertSingleTableSchema(ModelUserInsertSingleGetSchema):
+    TimeUpdate: int = format_current_time()
+    Idmanager: int
+    @validator('Psw', pre=True)
+    def split_str(cls, v):
+        return v.hash(v)
+    @validator('NoSfz', pre=True)
+    def split_str(cls, v):
+        return v.hash(v)
+"""
 
 class ModelUserInsertMultipleTableSchema(BaseModel):
     data: List[ModelUserInsertSingleTableSchema]

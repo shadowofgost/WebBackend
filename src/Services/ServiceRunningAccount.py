@@ -9,20 +9,23 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceRunningAccount.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-13 23:04:16
+# @LastTime         : 2022-03-18 00:03:53
 # @Software         : Vscode
 """
-from Models import ModelUser, ModelCoursePlan, ModelRunningAccount, ModelCurricula
+from typing import List, Optional
+
+from Components import error_database_execution, error_service_null
+from loguru import logger
+from Models import ModelCoursePlan, ModelCurricula, ModelRunningAccount, ModelUser
+from pydantic import Field
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from pydantic import Field
-from typing import Optional, List
-from Components import error_service_null, error_database_execution
 from .SchemaRunningAccount import (
     ModelRunningAccountSelectInSingleTableSchema,
     ModelRunningAccountSelectOutSingleTableSchemaBase,
 )
 from .ServiceUser import SchemaUserPydantic
+
 
 ##TODO:这里的schema不一样，需要注意是根据RunningAccount直接手写的。
 class RunningAccountSchema(ModelRunningAccountSelectOutSingleTableSchemaBase):
@@ -67,6 +70,7 @@ def execute_database(stmt, session):
     try:
         result = session.execute(stmt).mappings().all()
     except Exception as e:
+        logger.error("数据库执行出错，查看数据库数据情况")
         raise error_database_execution
     return result
 
@@ -75,6 +79,7 @@ def transform_into_schema(data_initial: dict):
     try:
         data = RunningAccountSchema(**data_initial)
     except Exception as e:
+        logger.error("数据库执行出错，查看数据库数据情况")
         raise error_database_execution
     return data
 
@@ -113,7 +118,7 @@ def get_for_student(
         .where(ModelCoursePlan.ID == id_courseplan)
         .subquery()  # type: ignore
     )
-    sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).where(ModelUser.ID==user.ID).subquery()  # type: ignore
+    sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).where(ModelUser.ID == user.ID).subquery()  # type: ignore
     stmt = (
         select(
             sub_runningaccount,
@@ -122,10 +127,7 @@ def get_for_student(
             sub_user.c.Name.label("ID_User_Name"),
             sub_user.c.NoUser.label("ID_User_NoUser"),
         )
-        .outerjoin(
-            sub_course_plan,
-            sub_runningaccount.c.Param2 == sub_course_plan.c.ID
-        )
+        .outerjoin(sub_course_plan, sub_runningaccount.c.Param2 == sub_course_plan.c.ID)
         .outerjoin(sub_user, sub_runningaccount.c.ID_User == sub_user.c.ID)
     )
     result = execute_database(stmt, session)
@@ -162,7 +164,7 @@ def get_for_teacher(session: Session, user: SchemaUserPydantic, id_courseplan: i
     )
     RangeUsers = execute_database(stmt, session)
     range_users_initial_data = RangeUsers[0]["RangeUsers"].split(";")
-    range_users = [int(i) for i in range_users_initial_data]
+    range_users = [int(i.strip()) for i in range_users_initial_data]
     sub_runningaccount = (
         select(ModelRunningAccount)
         .where(ModelRunningAccount.Type == 4097)

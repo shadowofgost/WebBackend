@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceUser.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 17:31:08
+# @LastTime         : 2022-03-17 23:58:05
 # @Software         : Vscode
 """
 from sqlalchemy.orm import Session
@@ -20,6 +20,7 @@ from .SchemaUser import (
 )
 from Components import UserNotFound
 from typing import List, Optional
+from loguru import logger
 
 ##TODO:WARNING:后端文件的进行的权限控制系统
 class SchemaUserPydantic(ModelUserSelectOutSingleTableSchema):
@@ -37,6 +38,7 @@ def modify_user_attr(user_list: List[dict]) -> SchemaUserPydantic:
     try:
         user = SchemaUserPydantic(**user_list[0])
     except Exception:
+        logger.error("用户不存在")
         raise UserNotFound
     if user.NoUser.isdigit() == True:
         user.Attr = 3
