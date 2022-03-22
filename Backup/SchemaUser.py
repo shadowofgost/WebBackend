@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaUser.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 19:19:28
+# @LastTime         : 2022-03-17 22:40:20
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -34,8 +34,9 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated=["auto"])
 ModelUser_nullable_columns = ["Yue", "Yue2", "Email", "Phone", "LocalID"]
 ModelUser_nullable_columns.extend(nullable)
 
-ModelUserUpdateSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelUser, update_exclude, table_name="ModelUserUpdateSingleGetSchema"
+ModelUserUpdateSingleGetSchema = sqlalchemy_to_pydantic(ModelUser, update_exclude)
+ModelUserUpdateSingleGetSchema = create_model(
+    "ModelUserUpdateSingleGetSchema", __base__=ModelUserUpdateSingleGetSchema
 )
 
 
@@ -57,13 +58,11 @@ class ModelUserUpdateSingleTableSchema(ModelUserUpdateSingleGetSchema):
     IdManager: int
     IMark: int=0
     @validator('Psw', pre=True)
-    def Psw_hash(cls, v):
-        if v is not None:
-            return pwd_context.hash(v)
+    def split_str(cls, v):
+        return v.hash(v)
     @validator('NoSfz', pre=True)
-    def NoSfz_hash(cls, v):
-        if v is not None:
-            return pwd_context.hash(v)
+    def split_str(cls, v):
+        return v.hash(v)
 """
 
 
@@ -73,10 +72,10 @@ class ModelUserUpdateMultipleTableSchema(BaseModel):
 
 
 ModelUserInsertSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelUser,
-    insert_exclude,
-    ModelUser_nullable_columns,
-    table_name="ModelUserInsertSingleGetSchema",
+    ModelUser, insert_exclude, ModelUser_nullable_columns
+)
+ModelUserInsertSingleGetSchema = create_model(
+    "ModelUserInsertSingleGetSchema", __base__=ModelUserInsertSingleGetSchema
 )
 
 
@@ -98,13 +97,11 @@ class ModelUserInsertSingleTableSchema(ModelUserInsertSingleGetSchema):
     IdManager: int
     IMark: int=0
     @validator('Psw', pre=True)
-    def Psw_hash(cls, v):
-        if v is not None:
-            return pwd_context.hash(v)
+    def split_str(cls, v):
+        return v.hash(v)
     @validator('NoSfz', pre=True)
-    def NoSfz_hash(cls, v):
-        if v is not None:
-            return pwd_context.hash(v)
+    def split_str(cls, v):
+        return v.hash(v)
 """
 
 
@@ -114,10 +111,17 @@ class ModelUserInsertMultipleTableSchema(BaseModel):
 
 
 ModelUserSelectOutSingleTableSchemaBase = sqlalchemy_to_pydantic(
-    ModelUser, select_out_exclude, table_name="ModelUserSelectOutSingleTableSchemaBase"
+    ModelUser, select_out_exclude
+)
+ModelUserSelectOutSingleTableSchemaBase = create_model(
+    "ModelUserSelectOutSingleTableSchemaBase",
+    __base__=ModelUserSelectOutSingleTableSchemaBase,
 )
 ModelUserSelectInSingleTableSchema = sqlalchemy_to_pydantic(
-    ModelUser, select_in_exclude, [], table_name="ModelUserSelectInSingleTableSchema"
+    ModelUser, select_in_exclude, []
+)
+ModelUserSelectInSingleTableSchema = create_model(
+    "ModelUserSelectInSingleTableSchema", __base__=ModelUserSelectInSingleTableSchema
 )
 
 

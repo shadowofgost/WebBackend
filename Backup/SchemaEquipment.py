@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaEquipment.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 18:13:04
+# @LastTime         : 2022-03-13 17:43:17
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -38,7 +38,10 @@ ModelEquipment_nullable_columns = [
 ModelEquipment_nullable_columns.extend(nullable)
 
 ModelEquipmentUpdateSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelEquipment, update_exclude, table_name="ModelEquipmentUpdateSingleGetSchema"
+    ModelEquipment, update_exclude
+)
+ModelEquipmentUpdateSingleGetSchema = create_model(
+    "ModelEquipmentUpdateSingleGetSchema", __base__=ModelEquipmentUpdateSingleGetSchema
 )
 
 
@@ -50,7 +53,7 @@ class ModelEquipmentUpdateMultipleGetSchema(BaseModel):
 class ModelEquipmentUpdateSingleTableSchema(ModelEquipmentUpdateSingleGetSchema):
     TimeUpdate: int = format_current_time()
     IdManager: int
-    IMark: int = 0
+    IMark: int=0
 
 
 class ModelEquipmentUpdateMultipleTableSchema(BaseModel):
@@ -59,10 +62,10 @@ class ModelEquipmentUpdateMultipleTableSchema(BaseModel):
 
 
 ModelEquipmentInsertSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelEquipment,
-    insert_exclude,
-    ModelEquipment_nullable_columns,
-    table_name="ModelEquipmentInsertSingleGetSchema",
+    ModelEquipment, insert_exclude, ModelEquipment_nullable_columns
+)
+ModelEquipmentInsertSingleGetSchema = create_model(
+    "ModelEquipmentInsertSingleGetSchema", __base__=ModelEquipmentInsertSingleGetSchema
 )
 
 
@@ -74,7 +77,7 @@ class ModelEquipmentInsertMultipleGetSchema(BaseModel):
 class ModelEquipmentInsertSingleTableSchema(ModelEquipmentInsertSingleGetSchema):
     TimeUpdate: int = format_current_time()
     IdManager: int
-    IMark: int = 0
+    IMark: int=0
 
 
 class ModelEquipmentInsertMultipleTableSchema(BaseModel):
@@ -83,15 +86,11 @@ class ModelEquipmentInsertMultipleTableSchema(BaseModel):
 
 
 ModelEquipmentSelectOutSingleTableSchemaBase = sqlalchemy_to_pydantic(
-    ModelEquipment,
-    select_out_exclude,
-    table_name="ModelEquipmentSelectOutSingleTableSchemaBase",
+    ModelEquipment, select_out_exclude
 )
-ModelEquipmentSelectInSingleTableSchema = sqlalchemy_to_pydantic(
-    ModelEquipment,
-    select_in_exclude,
-    [],
-    table_name="ModelEquipmentSelectInSingleTableSchema",
+ModelEquipmentSelectOutSingleTableSchemaBase = create_model(
+    "ModelEquipmentSelectOutSingleTableSchemaBase",
+    __base__=ModelEquipmentSelectOutSingleTableSchemaBase,
 )
 
 
@@ -109,6 +108,13 @@ class ModelEquipmentSelectOutSingleTableSchema(
         orm_mode = True
 
 
+ModelEquipmentSelectInSingleTableSchema = sqlalchemy_to_pydantic(
+    ModelEquipment, select_in_exclude, []
+)
+ModelEquipmentSelectInSingleTableSchema = create_model(
+    "ModelEquipmentSelectInSingleTableSchema",
+    __base__=ModelEquipmentSelectInSingleTableSchema,
+)
 sub_location = select(ModelLocation.ID, ModelLocation.Name).where(ModelLocation.IMark == 0).subquery()  # type: ignore
 sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
 sub_equipment = select(ModelEquipment).where(ModelEquipment.IMark == 0).subquery()  # type: ignore

@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceUser.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-17 23:58:05
+# @LastTime         : 2022-03-22 21:40:46
 # @Software         : Vscode
 """
 from sqlalchemy.orm import Session
@@ -43,7 +43,7 @@ def modify_user_attr(user_list: List[dict]) -> SchemaUserPydantic:
     if user.NoUser.isdigit() == True:
         user.Attr = 3
     else:
-        if user.Attr == 1 or 2:
+        if user.Attr == 1 or user.Attr ==  2:
             user.Attr = 1
         else:
             user.Attr = 2

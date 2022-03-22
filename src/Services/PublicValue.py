@@ -7,56 +7,21 @@
 # @Time             : 2022-01-25 17:54:21
 # @Description      :
 # @Email            : shadowofgost@outlook.com
-# @FilePath         : /WebBackend/src/Services/PublicValuesAndSchemas.py
+# @FilePath         : /WebBackend/src/Services/PublicValue.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-15 17:25:41
+# @LastTime         : 2022-03-22 17:03:01
 # @Software         : Vscode
 """
 from os import listdir
 from os.path import dirname
 from re import match
-from time import localtime, mktime, strptime, time
-from typing import Container, List, Optional, Type
-
-from pydantic import BaseModel
-
+from .PublicSchema import DeleteSingleTableSchema,DeleteMultipleTableSchema,DeleteSingleGetSchema,DeleteMultipleGetSchema
 path = dirname(__file__)
 model_filename_list = [
     filename_str.split(".")[0].replace("Schema", "Model")
     for filename_str in listdir(path)
     if filename_str.endswith(".py") and match(r"Schema", filename_str) is not None
 ]
-
-
-def format_current_time():
-
-    base_time = mktime(strptime("2000-01-01 00:00:00", "%Y-%m-%d %X"))  ##设定标准或者说基础的时间
-    current_time = mktime(localtime())  ##获取当前时间
-    time_update = int(current_time - base_time)  ##计算时间差
-    return time_update
-
-
-class DeleteSingleGetSchema(BaseModel):
-    ID: int
-
-
-class DeleteMultipleGetSchema(BaseModel):
-    data: List[DeleteSingleGetSchema]
-    n: int
-
-
-class DeleteSingleTableSchema(DeleteSingleGetSchema):
-    TimeUpdate: int = format_current_time()
-    IdManager: int
-
-
-class DeleteMultipleTableSchema(BaseModel):
-    data: List[DeleteSingleTableSchema]
-    n: int
-
-
-class Execution(BaseModel):
-    message: str
 
 
 def import_models_schemas():

@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaTableInformation.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 18:58:44
+# @LastTime         : 2022-03-13 18:02:35
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -32,7 +32,11 @@ ModelTableInformation_nullable_columns = []
 ModelTableInformation_nullable_columns.extend(nullable)
 
 ModelTableInformationUpdateSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelTableInformation, update_exclude,table_name="ModelTableInformationUpdateSingleGetSchema"
+    ModelTableInformation, update_exclude
+)
+ModelTableInformationUpdateSingleGetSchema = create_model(
+    "ModelTableInformationUpdateSingleGetSchema",
+    __base__=ModelTableInformationUpdateSingleGetSchema,
 )
 
 
@@ -55,8 +59,13 @@ class ModelTableInformationUpdateMultipleTableSchema(BaseModel):
 
 
 ModelTableInformationInsertSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelTableInformation, insert_exclude, ModelTableInformation_nullable_columns,table_name="ModelTableInformationInsertSingleGetSchema"
+    ModelTableInformation, insert_exclude, ModelTableInformation_nullable_columns
 )
+ModelTableInformationInsertSingleGetSchema = create_model(
+    "ModelTableInformationInsertSingleGetSchema",
+    __base__=ModelTableInformationInsertSingleGetSchema,
+)
+
 
 class ModelTableInformationInsertMultipleGetSchema(BaseModel):
     data: List[ModelTableInformationInsertSingleGetSchema]
@@ -77,11 +86,13 @@ class ModelTableInformationInsertMultipleTableSchema(BaseModel):
 
 
 ModelTableInformationSelectOutSingleTableSchemaBase = sqlalchemy_to_pydantic(
-    ModelTableInformation, select_out_exclude,table_name="ModelTableInformationSelectOutSingleTableSchemaBase"
+    ModelTableInformation, select_out_exclude
 )
-ModelTableInformationSelectInSingleTableSchema = sqlalchemy_to_pydantic(
-    ModelTableInformation, select_in_exclude, [],table_name="ModelTableInformationSelectInSingleTableSchema"
+ModelTableInformationSelectOutSingleTableSchemaBase = create_model(
+    "ModelTableInformationSelectOutSingleTableSchemaBase",
+    __base__=ModelTableInformationSelectOutSingleTableSchemaBase,
 )
+
 
 class ModelTableInformationSelectOutSingleTableSchema(
     ModelTableInformationSelectOutSingleTableSchemaBase
@@ -93,6 +104,14 @@ class ModelTableInformationSelectOutSingleTableSchema(
     class Config:
         orm_mode = True
 
+
+ModelTableInformationSelectInSingleTableSchema = sqlalchemy_to_pydantic(
+    ModelTableInformation, select_in_exclude, []
+)
+ModelTableInformationSelectInSingleTableSchema = create_model(
+    "ModelTableInformationSelectInSingleTableSchema",
+    __base__=ModelTableInformationSelectInSingleTableSchema,
+)
 sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
 sub_tableinformation = select(ModelTableInformation).where(ModelTableInformation.IMark == 0).subquery()  # type: ignore
 ModelTableInformation_sub_stmt = (

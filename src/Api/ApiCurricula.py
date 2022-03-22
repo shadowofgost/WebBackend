@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-13 23:14:48
+# @LastTime         : 2022-03-22 20:30:49
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -55,7 +55,7 @@ async def api_model_curricula_get(
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
     result_data = get_curricula(
-        session, user.ID, user.Attr, schema.service_type, schema.requires
+        session, user, schema.service_type, schema.requires
     )
     params = Params(page=schema.page, size=schema.size)
     return paginate(result_data, params)

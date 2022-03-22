@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaTypera.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 19:00:43
+# @LastTime         : 2022-03-13 18:04:12
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -31,8 +31,9 @@ from .PublicFunctions import (
 ModelTypera_nullable_columns = []
 ModelTypera_nullable_columns.extend(nullable)
 
-ModelTyperaUpdateSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelTypera, update_exclude, table_name="ModelTyperaUpdateSingleGetSchema"
+ModelTyperaUpdateSingleGetSchema = sqlalchemy_to_pydantic(ModelTypera, update_exclude)
+ModelTyperaUpdateSingleGetSchema = create_model(
+    "ModelTyperaUpdateSingleGetSchema", __base__=ModelTyperaUpdateSingleGetSchema
 )
 
 
@@ -44,7 +45,7 @@ class ModelTyperaUpdateMultipleGetSchema(BaseModel):
 class ModelTyperaUpdateSingleTableSchema(ModelTyperaUpdateSingleGetSchema):
     TimeUpdate: int = format_current_time()
     IdManager: int
-    IMark: int = 0
+    IMark: int=0
 
 
 class ModelTyperaUpdateMultipleTableSchema(BaseModel):
@@ -53,10 +54,10 @@ class ModelTyperaUpdateMultipleTableSchema(BaseModel):
 
 
 ModelTyperaInsertSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelTypera,
-    insert_exclude,
-    ModelTypera_nullable_columns,
-    table_name="ModelTyperaInsertSingleGetSchema",
+    ModelTypera, insert_exclude, ModelTypera_nullable_columns
+)
+ModelTyperaInsertSingleGetSchema = create_model(
+    "ModelTyperaInsertSingleGetSchema", __base__=ModelTyperaInsertSingleGetSchema
 )
 
 
@@ -68,7 +69,7 @@ class ModelTyperaInsertMultipleGetSchema(BaseModel):
 class ModelTyperaInsertSingleTableSchema(ModelTyperaInsertSingleGetSchema):
     TimeUpdate: int = format_current_time()
     IdManager: int
-    IMark: int = 0
+    IMark: int=0
 
 
 class ModelTyperaInsertMultipleTableSchema(BaseModel):
@@ -77,15 +78,11 @@ class ModelTyperaInsertMultipleTableSchema(BaseModel):
 
 
 ModelTyperaSelectOutSingleTableSchemaBase = sqlalchemy_to_pydantic(
-    ModelTypera,
-    select_out_exclude,
-    table_name="ModelTyperaSelectOutSingleTableSchemaBase",
+    ModelTypera, select_out_exclude
 )
-ModelTyperaSelectInSingleTableSchema = sqlalchemy_to_pydantic(
-    ModelTypera,
-    select_in_exclude,
-    [],
-    table_name="ModelTyperaSelectInSingleTableSchema",
+ModelTyperaSelectOutSingleTableSchemaBase = create_model(
+    "ModelTyperaSelectOutSingleTableSchemaBase",
+    __base__=ModelTyperaSelectOutSingleTableSchemaBase,
 )
 
 
@@ -98,6 +95,13 @@ class ModelTyperaSelectOutSingleTableSchema(ModelTyperaSelectOutSingleTableSchem
         orm_mode = True
 
 
+ModelTyperaSelectInSingleTableSchema = sqlalchemy_to_pydantic(
+    ModelTypera, select_in_exclude, []
+)
+ModelTyperaSelectInSingleTableSchema = create_model(
+    "ModelTyperaSelectInSingleTableSchema",
+    __base__=ModelTyperaSelectInSingleTableSchema,
+)
 sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
 sub_typera = select(ModelTypera).where(ModelTypera.IMark == 0).subquery()  # type: ignore
 ModelTypera_sub_stmt = (

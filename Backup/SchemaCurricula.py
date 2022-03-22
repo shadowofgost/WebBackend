@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 21:43:06
+# @LastTime         : 2022-03-13 17:39:35
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -17,7 +17,7 @@ from typing import List, Optional
 from Models import ModelCurricula, ModelLocation, ModelUser
 from pydantic import BaseModel, Field, create_model
 from sqlalchemy import select
-from sqlalchemy.orm import aliased
+from sqlalchemy.orm import Session, aliased
 
 from .PublicFunctions import (
     format_current_time,
@@ -39,12 +39,16 @@ ModelCurricula_nullable_columns = [
 ]
 ModelCurricula_nullable_columns.extend(nullable)
 ModelCurriculaUpdateSingleGetSchemaBase = sqlalchemy_to_pydantic(
-    ModelCurricula, update_exclude, table_name="ModelCurriculaUpdateSingleGetSchemaBase"
+    ModelCurricula, update_exclude
+)
+ModelCurriculaUpdateSingleGetSchemaBase = create_model(
+    "ModelCurriculaUpdateSingleGetSchemaBase",
+    __base__=ModelCurriculaUpdateSingleGetSchemaBase,
 )
 
 
 class ModelCurriculaUpdateSingleGetSchema(ModelCurriculaUpdateSingleGetSchemaBase):
-    ID_Speaker_NoUser: str
+    ID_Speaker_NoUser: int
 
     class Config:
         orm_mode = True
@@ -58,7 +62,7 @@ class ModelCurriculaUpdateMultipleGetSchema(BaseModel):
 class ModelCurriculaUpdateSingleTableSchema(ModelCurriculaUpdateSingleGetSchemaBase):
     TimeUpdate: int = format_current_time()
     IdManager: int
-    IMark: int = 0
+    IMark: int=0
 
 
 class ModelCurriculaUpdateMultipleTableSchema(BaseModel):
@@ -67,15 +71,16 @@ class ModelCurriculaUpdateMultipleTableSchema(BaseModel):
 
 
 ModelCurriculaInsertSingleGetSchemaBase = sqlalchemy_to_pydantic(
-    ModelCurricula,
-    insert_exclude,
-    ModelCurricula_nullable_columns,
-    table_name="ModelCurriculaInsertSingleGetSchemaBase",
+    ModelCurricula, insert_exclude, ModelCurricula_nullable_columns
+)
+ModelCurriculaInsertSingleGetSchemaBase = create_model(
+    "ModelCurriculaInsertSingleGetSchemaBase",
+    __base__=ModelCurriculaInsertSingleGetSchemaBase,
 )
 
 
 class ModelCurriculaInsertSingleGetSchema(ModelCurriculaInsertSingleGetSchemaBase):
-    ID_Speaker_NoUser: str
+    ID_Speaker_NoUser: int
 
     class Config:
         orm_mode = True
@@ -89,7 +94,7 @@ class ModelCurriculaInsertMultipleGetSchema(BaseModel):
 class ModelCurriculaInsertSingleTableSchema(ModelCurriculaInsertSingleGetSchemaBase):
     TimeUpdate: int = format_current_time()
     IdManager: int
-    IMark: int = 0
+    IMark: int=0
 
 
 class ModelCurriculaInsertMultipleTableSchema(BaseModel):
@@ -98,16 +103,12 @@ class ModelCurriculaInsertMultipleTableSchema(BaseModel):
 
 
 ModelCurriculaSelectOutSingleTableSchemaBase = sqlalchemy_to_pydantic(
-    ModelCurricula,
-    select_out_exclude,
-    table_name="ModelCurriculaSelectOutSingleTableSchemaBase",
+    ModelCurricula, select_out_exclude
 )
 
-ModelCurriculaSelectInSingleTableSchema = sqlalchemy_to_pydantic(
-    ModelCurricula,
-    select_in_exclude,
-    [],
-    table_name="ModelCurriculaSelectInSingleTableSchema",
+ModelCurriculaSelectOutSingleTableSchemaBase = create_model(
+    "ModelCurriculaSelectOutSingleTableSchemaBase",
+    __base__=ModelCurriculaSelectOutSingleTableSchemaBase,
 )
 
 
@@ -120,7 +121,7 @@ class ModelCurriculaSelectOutSingleTableSchema(
     ID_Speaker_Name: Optional[str] = Field(
         default=None, title="老师名称", description="这是这节课程安排课对应的上课老师的姓名"
     )
-    ID_Speaker_NoUser: Optional[str] = Field(
+    ID_Speaker_NoUser: Optional[int] = Field(
         default=None, title="老师/演讲者的教职工号", description="这是这节课程安排课对应的老师/演讲者的教职工号"
     )
     ID_Manager_Name: Optional[str] = Field(
@@ -131,6 +132,13 @@ class ModelCurriculaSelectOutSingleTableSchema(
         orm_mode = True
 
 
+ModelCurriculaSelectInSingleTableSchema = sqlalchemy_to_pydantic(
+    ModelCurricula, select_in_exclude, []
+)
+ModelCurriculaSelectInSingleTableSchema = create_model(
+    "ModelCurriculaSelectInSingleTableSchema",
+    __base__=ModelCurriculaSelectInSingleTableSchema,
+)
 sub_curricula = select(ModelCurricula).where(ModelCurricula.IMark == 0).subquery()  # type: ignore
 sub_location = select(ModelLocation.ID, ModelLocation.Name).where(ModelLocation.IMark == 0).subquery()  # type: ignore
 sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore

@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaCoursePlan.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 21:42:45
+# @LastTime         : 2022-03-13 17:26:02
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -20,9 +20,9 @@ from Models import (
     ModelLocation,
     ModelUser,
 )
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, create_model
 from sqlalchemy import select
-from sqlalchemy.orm import aliased
+from sqlalchemy.orm import Session, aliased
 
 from .PublicFunctions import (
     format_current_time,
@@ -45,14 +45,16 @@ ModelCoursePlan_nullable_columns = [
 ModelCoursePlan_nullable_columns.extend(nullable)
 
 ModelCoursePlanUpdateSingleGetSchemaBase = sqlalchemy_to_pydantic(
-    ModelCoursePlan,
-    update_exclude,
-    table_name="ModelCoursePlanUpdateSingleGetSchemaBase",
+    ModelCoursePlan, update_exclude
+)
+ModelCoursePlanUpdateSingleGetSchemaBase = create_model(
+    "ModelCoursePlanUpdateSingleGetSchemaBase",
+    __base__=ModelCoursePlanUpdateSingleGetSchemaBase,
 )
 
 
 class ModelCoursePlanUpdateSingleGetSchema(ModelCoursePlanUpdateSingleGetSchemaBase):
-    ID_Speaker_NoUser: str
+    ID_Speaker_NoUser: int
 
     class Config:
         orm_mode = True
@@ -75,15 +77,16 @@ class ModelCoursePlanUpdateMultipleTableSchema(BaseModel):
 
 
 ModelCoursePlanInsertSingleGetSchemaBase = sqlalchemy_to_pydantic(
-    ModelCoursePlan,
-    insert_exclude,
-    ModelCoursePlan_nullable_columns,
-    table_name="ModelCoursePlanInsertSingleGetSchemaBase",
+    ModelCoursePlan, insert_exclude, ModelCoursePlan_nullable_columns
+)
+ModelCoursePlanInsertSingleGetSchemaBase = create_model(
+    "ModelCoursePlanInsertSingleGetSchemaBase",
+    __base__=ModelCoursePlanInsertSingleGetSchemaBase,
 )
 
 
 class ModelCoursePlanInsertSingleGetSchema(ModelCoursePlanInsertSingleGetSchemaBase):
-    ID_Speaker_NoUser: str
+    ID_Speaker_NoUser: int
 
     class Config:
         orm_mode = True
@@ -97,7 +100,7 @@ class ModelCoursePlanInsertMultipleGetSchema(BaseModel):
 class ModelCoursePlanInsertSingleTableSchema(ModelCoursePlanInsertSingleGetSchemaBase):
     TimeUpdate: int = format_current_time()
     IdManager: int
-    IMark: int = 0
+    IMark: int=0
 
 
 class ModelCoursePlanInsertMultipleTableSchema(BaseModel):
@@ -106,16 +109,11 @@ class ModelCoursePlanInsertMultipleTableSchema(BaseModel):
 
 
 ModelCoursePlanSelectOutSingleTableSchemaBase = sqlalchemy_to_pydantic(
-    ModelCoursePlan,
-    select_out_exclude,
-    table_name="ModelCoursePlanSelectOutSingleTableSchemaBase",
+    ModelCoursePlan, select_out_exclude
 )
-
-ModelCoursePlanSelectInSingleTableSchema = sqlalchemy_to_pydantic(
-    ModelCoursePlan,
-    select_in_exclude,
-    [],
-    table_name="ModelCoursePlanSelectInSingleTableSchema",
+ModelCoursePlanSelectOutSingleTableSchemaBase = create_model(
+    "ModelCoursePlanSelectOutSingleTableSchemaBase",
+    __base__=ModelCoursePlanSelectOutSingleTableSchemaBase,
 )
 
 
@@ -131,7 +129,7 @@ class ModelCoursePlanSelectOutSingleTableSchema(
     ID_Speaker_Name: Optional[str] = Field(
         default=None, title="老师名称", description="这是这节课程安排课对应的上课老师的姓名"
     )
-    ID_Speaker_NoUser: Optional[str] = Field(
+    ID_Speaker_NoUser: Optional[int] = Field(
         default=None, title="老师/演讲者的教职工号", description="这是这节课程安排课对应的老师/演讲者的教职工号"
     )
     ID_Manager_Name: Optional[str] = Field(
@@ -142,6 +140,13 @@ class ModelCoursePlanSelectOutSingleTableSchema(
         orm_mode = True
 
 
+ModelCoursePlanSelectInSingleTableSchema = sqlalchemy_to_pydantic(
+    ModelCoursePlan, select_in_exclude, []
+)
+ModelCoursePlanSelectInSingleTableSchema = create_model(
+    "ModelCoursePlanSelectInSingleTableSchema",
+    __base__=ModelCoursePlanSelectInSingleTableSchema,
+)
 ##TODO:修改sql查询语句因为超过三个join使得mysql的性能会大幅下降。
 sub_course_plan = select(ModelCoursePlan).where(ModelCoursePlan.IMark == 0).subquery()  # type: ignore
 sub_curricula = select(ModelCurricula.ID, ModelCurricula.Name).where(ModelCurricula.IMark == 0).subquery()  # type: ignore

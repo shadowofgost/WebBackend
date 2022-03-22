@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaMmx.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 18:16:31
+# @LastTime         : 2022-03-13 18:08:30
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -32,7 +32,10 @@ from .PublicFunctions import (
 ModelMmx_nullable_columns = []
 ModelMmx_nullable_columns.extend(nullable)
 
-ModelMmxUpdateSingleGetSchema = sqlalchemy_to_pydantic(ModelMmx, update_exclude,table_name="ModelMmxUpdateSingleGetSchema")
+ModelMmxUpdateSingleGetSchema = sqlalchemy_to_pydantic(ModelMmx, update_exclude)
+ModelMmxUpdateSingleGetSchema = create_model(
+    "ModelMmxUpdateSingleGetSchema", __base__=ModelMmxUpdateSingleGetSchema
+)
 
 
 class ModelMmxUpdateMultipleGetSchema(BaseModel):
@@ -52,7 +55,10 @@ class ModelMmxUpdateMultipleTableSchema(BaseModel):
 
 
 ModelMmxInsertSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelMmx, insert_exclude, ModelMmx_nullable_columns,table_name="ModelMmxInsertSingleGetSchema"
+    ModelMmx, insert_exclude, ModelMmx_nullable_columns
+)
+ModelMmxInsertSingleGetSchema = create_model(
+    "ModelMmxInsertSingleGetSchema", __base__=ModelMmxInsertSingleGetSchema
 )
 
 
@@ -73,11 +79,13 @@ class ModelMmxInsertMultipleTableSchema(BaseModel):
 
 
 ModelMmxSelectOutSingleTableSchemaBase = sqlalchemy_to_pydantic(
-    ModelMmx, select_out_exclude,table_name="ModelMmxSelectOutSingleTableSchemaBase"
+    ModelMmx, select_out_exclude
 )
-ModelMmxSelectInSingleTableSchema = sqlalchemy_to_pydantic(
-    ModelMmx, select_in_exclude, [],table_name="ModelMmxSelectInSingleTableSchema"
+ModelMmxSelectOutSingleTableSchemaBase = create_model(
+    "ModelMmxSelectOutSingleTableSchemaBase",
+    __base__=ModelMmxSelectOutSingleTableSchemaBase,
 )
+
 
 class ModelMmxSelectOutSingleTableSchema(ModelMmxSelectOutSingleTableSchemaBase):
     Data: Optional[str] = Field(
@@ -93,6 +101,13 @@ class ModelMmxSelectOutSingleTableSchema(ModelMmxSelectOutSingleTableSchemaBase)
     class Config:
         orm_mode = True
 
+
+ModelMmxSelectInSingleTableSchema = sqlalchemy_to_pydantic(
+    ModelMmx, select_in_exclude, []
+)
+ModelMmxSelectInSingleTableSchema = create_model(
+    "ModelMmxSelectInSingleTableSchema", __base__=ModelMmxSelectInSingleTableSchema
+)
 sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
 sub_Mmx = select(ModelMmx).where(ModelMmx.IMark == 0).subquery()  # type: ignore
 sub_Mmx_Data = select(ModelMmxData).where(ModelMmxData.IMark == 0).subquery()  # type: ignore

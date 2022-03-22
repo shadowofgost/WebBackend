@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaUserExtension.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 22:00:46
+# @LastTime         : 2022-03-13 18:09:31
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -17,6 +17,7 @@ from typing import List, Optional
 from Models import ModelUserExtension, ModelUser
 from pydantic import BaseModel, Field, create_model
 from sqlalchemy import select
+from sqlalchemy.orm import Session, aliased
 
 from .PublicFunctions import (
     format_current_time,
@@ -28,13 +29,15 @@ from .PublicFunctions import (
     update_exclude,
 )
 
-ModelUserExtension_nullable_columns = ["NoSfz"]
+ModelUserExtension_nullable_columns = ["Photo_dataF"]
 ModelUserExtension_nullable_columns.extend(nullable)
 
 ModelUserExtensionUpdateSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelUserExtension,
-    update_exclude,
-    table_name="ModelUserExtensionUpdateSingleGetSchema",
+    ModelUserExtension, update_exclude
+)
+ModelUserExtensionUpdateSingleGetSchema = create_model(
+    "ModelUserExtensionUpdateSingleGetSchema",
+    __base__=ModelUserExtensionUpdateSingleGetSchema,
 )
 
 
@@ -48,7 +51,7 @@ class ModelUserExtensionUpdateSingleTableSchema(
 ):
     TimeUpdate: int = format_current_time()
     IdManager: int
-    IMark: int = 0
+    IMark: int=0
 
 
 class ModelUserExtensionUpdateMultipleTableSchema(BaseModel):
@@ -57,10 +60,11 @@ class ModelUserExtensionUpdateMultipleTableSchema(BaseModel):
 
 
 ModelUserExtensionInsertSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelUserExtension,
-    insert_exclude,
-    ModelUserExtension_nullable_columns,
-    table_name="ModelUserExtensionInsertSingleGetSchema",
+    ModelUserExtension, insert_exclude, ModelUserExtension_nullable_columns
+)
+ModelUserExtensionInsertSingleGetSchema = create_model(
+    "ModelUserExtensionInsertSingleGetSchema",
+    __base__=ModelUserExtensionInsertSingleGetSchema,
 )
 
 
@@ -74,7 +78,7 @@ class ModelUserExtensionInsertSingleTableSchema(
 ):
     TimeUpdate: int = format_current_time()
     IdManager: int
-    IMark: int = 0
+    IMark: int=0
 
 
 class ModelUserExtensionInsertMultipleTableSchema(BaseModel):
@@ -83,19 +87,11 @@ class ModelUserExtensionInsertMultipleTableSchema(BaseModel):
 
 
 ModelUserExtensionSelectOutSingleTableSchemaBase = sqlalchemy_to_pydantic(
-    ModelUserExtension,
-    select_out_exclude,
-    table_name="ModelUserExtensionSelectOutSingleTableSchemaBase",
+    ModelUserExtension, select_out_exclude
 )
-ModelUserExtensionSelectInSingleTableSchema = sqlalchemy_to_pydantic(
-    ModelUserExtension,
-    select_in_exclude,
-    [],
-    table_name="ModelUserExtensionSelectInSingleTableSchema",
-)
-ModelUserExtensionSelectInSingleTableSchema = create_model(
-    "ModelUserExtensionSelectInSingleTableSchema",
-    __base__=ModelUserExtensionSelectInSingleTableSchema,
+ModelUserExtensionSelectOutSingleTableSchemaBase = create_model(
+    "ModelUserExtensionSelectOutSingleTableSchemaBase",
+    __base__=ModelUserExtensionSelectOutSingleTableSchemaBase,
 )
 
 
@@ -110,6 +106,13 @@ class ModelUserExtensionSelectOutSingleTableSchema(
         orm_mode = True
 
 
+ModelUserExtensionSelectInSingleTableSchema = sqlalchemy_to_pydantic(
+    ModelUserExtension, select_in_exclude, []
+)
+ModelUserExtensionSelectInSingleTableSchema = create_model(
+    "ModelUserExtensionSelectInSingleTableSchema",
+    __base__=ModelUserExtensionSelectInSingleTableSchema,
+)
 sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
 sub_user_extension = select(ModelUserExtension).where(ModelUserExtension.IMark == 0).subquery()  # type: ignore
 ModelUserExtension_sub_stmt = (

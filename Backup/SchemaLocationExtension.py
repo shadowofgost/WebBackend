@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaLocationExtension.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 18:15:13
+# @LastTime         : 2022-03-13 17:48:38
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -55,7 +55,11 @@ ModelLocationExtension_nullable_columns = [
 ModelLocationExtension_nullable_columns.extend(nullable)
 
 ModelLocationExtensionUpdateSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelLocationExtension, update_exclude,table_name="ModelLocationExtensionUpdateSingleGetSchema"
+    ModelLocationExtension, update_exclude
+)
+ModelLocationExtensionUpdateSingleGetSchema = create_model(
+    "ModelLocationExtensionUpdateSingleGetSchema",
+    __base__=ModelLocationExtensionUpdateSingleGetSchema,
 )
 
 
@@ -78,7 +82,12 @@ class ModelLocationExtensionUpdateMultipleTableSchema(BaseModel):
 
 
 ModelLocationExtensionInsertSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelLocationExtension, insert_exclude, ModelLocationExtension_nullable_columns,table_name="ModelLocationExtensionInsertSingleGetSchema"
+    ModelLocationExtension, insert_exclude, ModelLocationExtension_nullable_columns
+)
+
+ModelLocationExtensionInsertSingleGetSchema = create_model(
+    "ModelLocationExtensionInsertSingleGetSchema",
+    __base__=ModelLocationExtensionInsertSingleGetSchema,
 )
 
 
@@ -101,11 +110,13 @@ class ModelLocationExtensionInsertMultipleTableSchema(BaseModel):
 
 
 ModelLocationExtensionSelectOutSingleTableSchemaBase = sqlalchemy_to_pydantic(
-    ModelLocationExtension, select_out_exclude,table_name="ModelLocationExtensionSelectOutSingleTableSchemaBase"
+    ModelLocationExtension, select_out_exclude
 )
-ModelLocationExtensionSelectInSingleTableSchema = sqlalchemy_to_pydantic(
-    ModelLocationExtension, select_in_exclude, [],table_name="ModelLocationExtensionSelectInSingleTableSchema"
+ModelLocationExtensionSelectOutSingleTableSchemaBase = create_model(
+    "ModelLocationExtensionSelectOutSingleTableSchemaBase",
+    __base__=ModelLocationExtensionSelectOutSingleTableSchemaBase,
 )
+
 
 class ModelLocationExtensionSelectOutSingleTableSchema(
     ModelLocationExtensionSelectOutSingleTableSchemaBase
@@ -120,6 +131,14 @@ class ModelLocationExtensionSelectOutSingleTableSchema(
     class Config:
         orm_mode = True
 
+
+ModelLocationExtensionSelectInSingleTableSchema = sqlalchemy_to_pydantic(
+    ModelLocationExtension, select_in_exclude, []
+)
+ModelLocationExtensionSelectInSingleTableSchema = create_model(
+    "ModelLocationExtensionSelectInSingleTableSchema",
+    __base__=ModelLocationExtensionSelectInSingleTableSchema,
+)
 sub_location = select(ModelLocation.ID, ModelLocation.Name).where(ModelLocation.IMark == 0).subquery()  # type: ignore
 sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore
 sub_location_extension = select(ModelLocationExtension).where(ModelLocationExtension.IMark == 0).subquery()  # type: ignore

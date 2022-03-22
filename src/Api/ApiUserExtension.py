@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiUserExtension.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-13 23:15:13
+# @LastTime         : 2022-03-22 22:18:55
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends, UploadFile
@@ -25,6 +25,8 @@ from Services import (
     SchemaUserPydantic,
     ModelUserExtensionSelectInSingleTableSchema,
     ModelUserExtensionSelectOutSingleTableSchema,
+    ModelUserExtensionInsertSingleGetSchema,
+    ModelUserExtensionUpdateSingleGetSchema,
     ModelUserExtensionInsertMultipleGetSchema,
     ModelUserExtensionUpdateMultipleGetSchema,
     DeleteMultipleGetSchema,
@@ -65,27 +67,39 @@ async def api_model_userextension_get(
 
 @router.post("/", response_model=Execution)
 async def api_model_userextension_insert(
-    schema: ModelUserExtensionInsertMultipleGetSchema,
+    NoUser: str,
     file: UploadFile,
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
     model = "ModelUserExtension"
-    schema.Photo = file.read()
-    schema.FaceFeature = file.read()
+    photo=await file.read()
+    schema_single = ModelUserExtensionInsertSingleGetSchema(
+        NoUser=NoUser,
+        FaceFeature=photo,
+        Photo=photo,
+    )
+    schema = ModelUserExtensionInsertMultipleGetSchema(data=[schema_single], n=1)
     return service_insert(session, user.ID, model, schema)
 
 
 @router.put("/", response_model=Execution)
 async def api_model_userextension_update(
-    schema: ModelUserExtensionUpdateMultipleGetSchema,
+    ID: int,
+    NoUser: str,
     file: UploadFile,
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
     model = "ModelUserExtension"
-    schema.Photo = file.read()
-    schema.FaceFeature = file.read()
+    photo=await file.read()
+    schema_single = ModelUserExtensionUpdateSingleGetSchema(
+        ID=ID,
+        NoUser=NoUser,
+        FaceFeature=photo,
+        Photo=photo,
+    )
+    schema = ModelUserExtensionUpdateMultipleGetSchema(data=[schema_single], n=1)
     return service_update(session, user.ID, model, schema)
 
 

@@ -9,16 +9,15 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicFunctions.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 14:24:42
+# @LastTime         : 2022-03-22 17:57:54
 # @Software         : Vscode
 """
-from time import localtime, mktime, strptime
 from typing import Container, Optional, Type, NewType
 from pydantic import BaseConfig, BaseModel, Field, create_model
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.inspection import inspect
 from sqlalchemy.orm.properties import ColumnProperty
-
+from .PublicSchema import format_current_time
 Base = declarative_base()
 
 exclude = [
@@ -40,23 +39,6 @@ select_in_exclude = exclude[:]
 nullable = ["Rem", "Introduction"]
 
 
-def format_current_time():
-    """
-    format_current_time _summary_
-
-    _extended_summary_
-
-    Returns
-    -------
-    _type_
-        _description_
-    """
-    base_time = mktime(strptime("2000-01-01 00:00:00", "%Y-%m-%d %X"))  ##设定标准或者说基础的时间
-    current_time = mktime(localtime())  ##获取当前时间
-    time_update = int(current_time - base_time)  ##计算时间差
-    return time_update
-
-
 class OrmConfig(BaseConfig):
     orm_mode = True
 
@@ -66,6 +48,7 @@ def sqlalchemy_to_pydantic(
     exclude: Container[str] = [],
     nullable: Container[str] = ["*"],
     config: Type = OrmConfig,
+    table_name: Optional[str] = None,
 ) -> Type[BaseModel]:
     """
     sqlalchemy_to_pydantic [summary]
@@ -130,7 +113,9 @@ def sqlalchemy_to_pydantic(
                         default=default,
                     ),
                 )
+    if table_name is None:
+        table_name = db_model.__name__
     pydantic_model = create_model(
-        db_model.__name__, __config__=config, **fields  # type: ignore
+        table_name, __config__=config, **fields  # type: ignore
     )
     return pydantic_model

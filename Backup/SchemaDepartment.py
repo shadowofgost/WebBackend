@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaDepartment.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 18:11:03
+# @LastTime         : 2022-03-13 17:40:48
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -32,8 +32,13 @@ ModelDepartment_nullable_columns = []
 ModelDepartment_nullable_columns.extend(nullable)
 
 ModelDepartmentUpdateSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelDepartment, update_exclude, table_name="ModelDepartmentUpdateSingleGetSchema"
+    ModelDepartment, update_exclude
 )
+ModelDepartmentUpdateSingleGetSchema = create_model(
+    "ModelDepartmentUpdateSingleGetSchema",
+    __base__=ModelDepartmentUpdateSingleGetSchema,
+)
+
 
 class ModelDepartmentUpdateMultipleGetSchema(BaseModel):
     data: List[ModelDepartmentUpdateSingleGetSchema]
@@ -43,7 +48,7 @@ class ModelDepartmentUpdateMultipleGetSchema(BaseModel):
 class ModelDepartmentUpdateSingleTableSchema(ModelDepartmentUpdateSingleGetSchema):
     TimeUpdate: int = format_current_time()
     IdManager: int
-    IMark: int = 0
+    IMark: int=0
 
 
 class ModelDepartmentUpdateMultipleTableSchema(BaseModel):
@@ -52,7 +57,11 @@ class ModelDepartmentUpdateMultipleTableSchema(BaseModel):
 
 
 ModelDepartmentInsertSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelDepartment, insert_exclude, ModelDepartment_nullable_columns,table_name="ModelDepartmentInsertSingleGetSchema"
+    ModelDepartment, insert_exclude, ModelDepartment_nullable_columns
+)
+ModelDepartmentInsertSingleGetSchema = create_model(
+    "ModelDepartmentInsertSingleGetSchema",
+    __base__=ModelDepartmentInsertSingleGetSchema,
 )
 
 
@@ -64,7 +73,7 @@ class ModelDepartmentInsertMultipleGetSchema(BaseModel):
 class ModelDepartmentInsertSingleTableSchema(ModelDepartmentInsertSingleGetSchema):
     TimeUpdate: int = format_current_time()
     IdManager: int
-    IMark: int = 0
+    IMark: int=0
 
 
 class ModelDepartmentInsertMultipleTableSchema(BaseModel):
@@ -73,11 +82,13 @@ class ModelDepartmentInsertMultipleTableSchema(BaseModel):
 
 
 ModelDepartmentSelectOutSingleTableSchemaBase = sqlalchemy_to_pydantic(
-    ModelDepartment, select_out_exclude,table_name="ModelDepartmentSelectOutSingleTableSchemaBase"
+    ModelDepartment, select_out_exclude
 )
-ModelDepartmentSelectInSingleTableSchema = sqlalchemy_to_pydantic(
-    ModelDepartment, select_in_exclude, [],table_name="ModelDepartmentSelectInSingleTableSchema"
+ModelDepartmentSelectOutSingleTableSchemaBase = create_model(
+    "ModelDepartmentSelectOutSingleTableSchemaBase",
+    __base__=ModelDepartmentSelectOutSingleTableSchemaBase,
 )
+
 
 class ModelDepartmentSelectOutSingleTableSchema(
     ModelDepartmentSelectOutSingleTableSchemaBase
@@ -89,6 +100,14 @@ class ModelDepartmentSelectOutSingleTableSchema(
     class Config:
         orm_mode = True
 
+
+ModelDepartmentSelectInSingleTableSchema = sqlalchemy_to_pydantic(
+    ModelDepartment, select_in_exclude, []
+)
+ModelDepartmentSelectInSingleTableSchema = create_model(
+    "ModelDepartmentSelectInSingleTableSchema",
+    __base__=ModelDepartmentSelectInSingleTableSchema,
+)
 
 sub_department = select(ModelDepartment).where(ModelDepartment.IMark == 0).subquery()  # type: ignore
 sub_user = select(ModelUser.ID, ModelUser.Name, ModelUser.NoUser).where(ModelUser.IMark == 0).subquery()  # type: ignore

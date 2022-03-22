@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaSqlAlchemySession.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 18:57:52
+# @LastTime         : 2022-03-11 14:26:16
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -32,7 +32,11 @@ ModelSqlAlchemySession_nullable_columns = []
 ModelSqlAlchemySession_nullable_columns.extend(nullable)
 
 ModelSqlAlchemySessionUpdateSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelSqlAlchemySession, update_exclude,table_name="ModelSqlAlchemySessionUpdateSingleGetSchema"
+    ModelSqlAlchemySession, update_exclude
+)
+ModelSqlAlchemySessionUpdateSingleGetSchema = create_model(
+    "ModelSqlAlchemySessionUpdateSingleGetSchema",
+    __base__=ModelSqlAlchemySessionUpdateSingleGetSchema,
 )
 
 
@@ -55,7 +59,11 @@ class ModelSqlAlchemySessionUpdateMultipleTableSchema(BaseModel):
 
 
 ModelSqlAlchemySessionInsertSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelSqlAlchemySession, insert_exclude, ModelSqlAlchemySession_nullable_columns,table_name="ModelSqlAlchemySessionInsertSingleGetSchema"
+    ModelSqlAlchemySession, insert_exclude, ModelSqlAlchemySession_nullable_columns
+)
+ModelSqlAlchemySessionInsertSingleGetSchema = create_model(
+    "ModelSqlAlchemySessionInsertSingleGetSchema",
+    __base__=ModelSqlAlchemySessionInsertSingleGetSchema,
 )
 
 
@@ -78,10 +86,18 @@ class ModelSqlAlchemySessionInsertMultipleTableSchema(BaseModel):
 
 
 ModelSqlAlchemySessionSelectOutSingleTableSchema = sqlalchemy_to_pydantic(
-    ModelSqlAlchemySession, select_out_exclude,table_name="ModelSqlAlchemySessionSelectOutSingleTableSchema"
+    ModelSqlAlchemySession, select_out_exclude
+)
+ModelSqlAlchemySessionSelectOutSingleTableSchema = create_model(
+    "ModelSqlAlchemySessionSelectOutSingleTableSchema",
+    __base__=ModelSqlAlchemySessionSelectOutSingleTableSchema,
 )
 ModelSqlAlchemySessionSelectInSingleTableSchema = sqlalchemy_to_pydantic(
-    ModelSqlAlchemySession, select_in_exclude, [],table_name="ModelSqlAlchemySessionSelectInSingleTableSchema"
+    ModelSqlAlchemySession, select_in_exclude, []
+)
+ModelSqlAlchemySessionSelectInSingleTableSchema = create_model(
+    "ModelSqlAlchemySessionSelectInSingleTableSchema",
+    __base__=ModelSqlAlchemySessionSelectInSingleTableSchema,
 )
 
 ModelSqlAlchemySession_sub_stmt = select(ModelSqlAlchemySession)

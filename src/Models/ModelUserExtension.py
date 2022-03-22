@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Models/ModelUserExtension.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-17 15:50:59
+# @LastTime         : 2022-03-22 22:16:39
 # @Software         : Vscode
 """
 from sqlalchemy import BigInteger, Column, LargeBinary, Unicode

@@ -9,10 +9,9 @@
 # @FilePath         : /WebBackend/src/Test.py
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-03-11 20:14:45
+# @LastTime         : 2022-03-22 18:02:03
 # @LastAuthor       : Albert Wang
 """
-from hashlib import algorithms_available
 from Models import (
     ModelUserExtension,
     ModelUser,
@@ -30,6 +29,12 @@ from Services.SchemaCurricula import (
 )
 from Services.SchemaRunningAccount import (
     ModelRunningAccountSelectOutSingleTableSchema,
+    ModelRunningAccountInsertSingleTableSchema,
+    ModelRunningAccountUpdateSingleTableSchema,
+)
+from Services.SchemaLocation import (
+    ModelLocationInsertSingleTableSchema,
+    ModelLocationUpdateSingleTableSchema,
 )
 from sqlalchemy import (
     select,
@@ -41,6 +46,7 @@ from Config import get_settings
 from pydantic import create_model
 from jose import JWTError, jwt
 from fastapi_pagination import Params
+
 settings = get_settings()
 
 
@@ -106,6 +112,11 @@ def test_model_name():
     print(test_schema.__dict__)
 
 
+def test_insert_schema():
+    print(ModelLocationUpdateSingleTableSchema.__dict__)
+    print(ModelLocationInsertSingleTableSchema.__dict__)
+
+
 def jwt_test():
     token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJleHAiOjE2NDY5OTMxODl9.g7xOy8IOJ_HEpT7INYUGXz-8Vv0xJBjq0ttGI7GedgM"
     token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJleHAiOjE2NDY5OTUyMDJ9.YaSyMJC8WkxdWHfTD_N7RZAUWrGQ6FrJPXPDNuZg8a4"
@@ -115,5 +126,6 @@ def jwt_test():
     print(token)
     payload = jwt.decode(token=token, key=key, algorithms=algorithms)
     print("error")
-param=Params(page=1,size=10)
-print(param)
+
+
+test_insert_schema()

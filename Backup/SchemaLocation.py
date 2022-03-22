@@ -9,13 +9,13 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/SchemaLocation.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 17:59:41
+# @LastTime         : 2022-03-13 17:44:29
 # @Software         : Vscode
 """
 from typing import List, Optional
 
 from Models import ModelLocation, ModelUser
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, create_model
 from sqlalchemy import select
 
 from .PublicFunctions import (
@@ -28,12 +28,14 @@ from .PublicFunctions import (
     update_exclude,
 )
 
-
 ModelLocation_nullable_columns = []
 ModelLocation_nullable_columns.extend(nullable)
 
 ModelLocationUpdateSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelLocation, update_exclude, table_name="ModelLocationUpdateSingleGetSchema"
+    ModelLocation, update_exclude
+)
+ModelLocationUpdateSingleGetSchema = create_model(
+    "ModelLocationUpdateSingleGetSchema", __base__=ModelLocationUpdateSingleGetSchema
 )
 
 
@@ -45,7 +47,7 @@ class ModelLocationUpdateMultipleGetSchema(BaseModel):
 class ModelLocationUpdateSingleTableSchema(ModelLocationUpdateSingleGetSchema):
     TimeUpdate: int = format_current_time()
     IdManager: int
-    IMark: int = 0
+    IMark: int=0
 
 
 class ModelLocationUpdateMultipleTableSchema(BaseModel):
@@ -54,10 +56,10 @@ class ModelLocationUpdateMultipleTableSchema(BaseModel):
 
 
 ModelLocationInsertSingleGetSchema = sqlalchemy_to_pydantic(
-    ModelLocation,
-    insert_exclude,
-    ModelLocation_nullable_columns,
-    table_name="ModelLocationInsertSingleGetSchema",
+    ModelLocation, insert_exclude, ModelLocation_nullable_columns
+)
+ModelLocationInsertSingleGetSchema = create_model(
+    "ModelLocationInsertSingleGetSchema", __base__=ModelLocationInsertSingleGetSchema
 )
 
 
@@ -69,7 +71,7 @@ class ModelLocationInsertMultipleGetSchema(BaseModel):
 class ModelLocationInsertSingleTableSchema(ModelLocationInsertSingleGetSchema):
     TimeUpdate: int = format_current_time()
     IdManager: int
-    IMark: int = 0
+    IMark: int=0
 
 
 class ModelLocationInsertMultipleTableSchema(BaseModel):
@@ -78,16 +80,18 @@ class ModelLocationInsertMultipleTableSchema(BaseModel):
 
 
 ModelLocationSelectOutSingleTableSchemaBase = sqlalchemy_to_pydantic(
-    ModelLocation,
-    select_out_exclude,
-    table_name="ModelLocationSelectOutSingleTableSchemaBase",
+    ModelLocation, select_out_exclude
 )
-
+ModelLocationSelectOutSingleTableSchemaBase = create_model(
+    "ModelLocationSelectOutSingleTableSchemaBase",
+    __base__=ModelLocationSelectOutSingleTableSchemaBase,
+)
 ModelLocationSelectInSingleTableSchema = sqlalchemy_to_pydantic(
-    ModelLocation,
-    select_in_exclude,
-    [],
-    table_name="ModelLocationSelectInSingleTableSchema",
+    ModelLocation, select_in_exclude, []
+)
+ModelLocationSelectInSingleTableSchema = create_model(
+    "ModelLocationSelectInSingleTableSchema",
+    __base__=ModelLocationSelectInSingleTableSchema,
 )
 
 

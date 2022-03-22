@@ -9,21 +9,25 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-17 23:56:54
+# @LastTime         : 2022-03-22 21:45:07
 # @Software         : Vscode
 """
+from typing import List
+
+from Components import error_service_null
+from loguru import logger
 from Models import ModelCurricula, ModelLocation, ModelUser
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from typing import List
+
 from .PublicService import service_select
-from Components import error_service_null
 from .SchemaCurricula import ModelCurriculaSelectInSingleTableSchema
-from loguru import logger
+from .ServiceUser import SchemaUserPydantic
+
 
 def orm_for_student(
     session: Session,
-    id_manager: int,
+    nouser: str,
     service_type: int,
     schema: ModelCurriculaSelectInSingleTableSchema,
 ):
@@ -48,7 +52,7 @@ def orm_for_student(
     if service_type == 0:
         sub_curricula = (
             select(ModelCurricula)
-            .where(ModelCurricula.RangeUsers.like("%{}%".format(str(id_manager))))
+            .where(ModelCurricula.RangeUsers.like("%{}%".format(str(nouser))))
             .where(ModelCurricula.IMark == 0)
             .subquery()  # type: ignore
         )
@@ -64,7 +68,7 @@ def orm_for_student(
     elif service_type == 2:
         sub_curricula = (
             select(ModelCurricula)
-            .where(ModelCurricula.RangeUsers.like("%{}%".format(str(id_manager))))
+            .where(ModelCurricula.RangeUsers.like("%{}%".format(str(nouser))))
             .where(ModelCurricula.Name.like("%{}%".format(schema.Name)))  # type: ignore
             .where(ModelCurricula.IMark == 0)
             .subquery()  # type: ignore
@@ -90,8 +94,7 @@ def orm_for_student(
 
 def get_curricula(
     session: Session,
-    id_manager: int,
-    attr: int,
+    user: SchemaUserPydantic,
     service_type: int,
     schema: ModelCurriculaSelectInSingleTableSchema,
 ) -> List[dict]:
@@ -122,12 +125,12 @@ def get_curricula(
         [description]
     """
     model_name = "ModelCurricula"
-    if attr == 1:
+    if user.Attr == 1:
         return service_select(session, model_name, service_type, schema)
-    elif attr == 3:
-        return orm_for_student(session, id_manager, service_type, schema)
-    elif attr == 2:
-        schema.ID_Speaker = id_manager
+    elif user.Attr == 3:
+        return orm_for_student(session, user.NoUser, service_type, schema)
+    elif user.Attr == 2:
+        schema = ModelCurriculaSelectInSingleTableSchema(ID_Speaker=user.ID)
         if service_type == 0:
             return service_select(session, model_name, 3, schema)
         else:

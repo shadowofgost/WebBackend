@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceCoursePlan.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-11 17:36:26
+# @LastTime         : 2022-03-22 19:45:51
 # @Software         : Vscode
 """
 from sqlalchemy.orm import Session
@@ -49,6 +49,6 @@ def get_course_plan(
     """
     model = "ModelCoursePlan"
     if attr == 1:
-        return service_select(session,  model, service_type, schema)
+        return service_select(session, model, service_type, schema)
     else:
-        return service_select(session,  model, 3, schema)
+        return service_select(session, model, 3, schema)
