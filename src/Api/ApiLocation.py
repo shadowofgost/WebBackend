@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiLocation.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-13 23:15:00
+# @LastTime         : 2022-03-23 12:51:38
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -67,6 +67,7 @@ async def api_model_location_insert(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelLocation"
     return service_insert(session, user.ID, model, schema)
 
@@ -77,6 +78,7 @@ async def api_model_location_update(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelLocation"
     return service_update(session, user.ID, model, schema)
 

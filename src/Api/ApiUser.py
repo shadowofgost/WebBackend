@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiUser.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-14 00:03:27
+# @LastTime         : 2022-03-23 12:48:45
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -74,6 +74,7 @@ async def api_model_user_insert(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelUser"
     return service_insert(session, user.ID, model, schema)
 
@@ -84,6 +85,7 @@ async def api_model_user_update(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelUser"
     return service_update(session, user.ID, model, schema)
 

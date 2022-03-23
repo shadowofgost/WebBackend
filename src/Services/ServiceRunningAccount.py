@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/ServiceRunningAccount.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 21:45:30
+# @LastTime         : 2022-03-23 10:43:19
 # @Software         : Vscode
 """
 from typing import List, Optional
@@ -188,6 +188,7 @@ def get_for_teacher(session: Session, user: SchemaUserPydantic, id_courseplan: i
         .where(ModelCoursePlan.IMark == 0)
     )
     result_courseplan = execute_database(sub_course_plan, session)
+    print(result_courseplan)
     id_curricula = result_courseplan[0]["ID_Curricula"]
     time_begin = result_courseplan[0]["TimeBegin"]
     time_end = result_courseplan[0]["TimeEnd"]

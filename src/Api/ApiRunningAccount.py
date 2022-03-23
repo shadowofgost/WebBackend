@@ -9,10 +9,10 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiRunningAccount.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-21 21:23:53
+# @LastTime         : 2022-03-23 13:15:57
 # @Software         : Vscode
 """
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from fastapi_pagination import Page, Params, paginate
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
@@ -53,12 +53,15 @@ class CurriculaGet(BaseModel):
 
 @router.post("/result", response_model=Page[RunningAccountSchema])
 async def api_result(
-    schema: CurriculaGet,
+    course_plan: int = Query(default=None, title="需要查询的courseplam，也就是课程安排的id的值"),
+    page:int= Query(default=1, title="查询用的页码数"),
+    size:int= Query(default=5, title="一个页面查询记录的数量",ge=5,le=100),
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
-    result_data = get_running_account(session, user, schema.requires)
-    params = Params(page=schema.page, size=schema.size)
+    schema=ModelRunningAccountSelectInSingleTableSchema(Param2=course_plan)
+    result_data = get_running_account(session, user, schema)
+    params = Params(page=page, size=size)
     return paginate(result_data, params)
 
 
@@ -82,6 +85,7 @@ async def api_model_runningaccount_insert(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelRunningAccount"
     return service_insert(session, user.ID, model, schema)
 
@@ -92,6 +96,7 @@ async def api_model_runningaccount_update(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelRunningAccount"
     return service_update(session, user.ID, model, schema)
 

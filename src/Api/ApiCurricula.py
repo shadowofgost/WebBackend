@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiCurricula.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-22 20:30:49
+# @LastTime         : 2022-03-23 12:50:58
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -67,6 +67,7 @@ async def api_model_curricula_insert(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelCurricula"
     return service_insert(session, user.ID, model, schema)
 
@@ -77,6 +78,7 @@ async def api_model_curricula_update(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelCurricula"
     return service_update(session, user.ID, model, schema)
 
