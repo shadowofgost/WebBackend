@@ -10,7 +10,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-03-11 14:22:44
+# @LastTime         : 2022-03-23 15:16:47
 # @LastAuthor       : Albert Wang
 """
 from sqlalchemy import BigInteger, Column, Integer, SmallInteger, Unicode
@@ -36,12 +36,12 @@ class ModelEquipment(ModelPublic):
     )
     Login = Column(SmallInteger, index=True, comment="登陆状态", doc="登录状态，0：未登录、1：已经登录 ")
     Link = Column(SmallInteger, index=True, comment="网络状态", doc="网络状态，0：脱机、1：在线")
-    Class_field = Column(
+    Class = Column(
         SmallInteger,
         index=True,
         name="Class",
         comment="设备种类",
-        doc="设备种类，0：PC设备、2：刷卡门禁设备，11：服务器设备"
+        doc="设备种类，0：PC设备、2：刷卡门禁设备，11：服务器设备",
     )  # type: ignore
     Dx = Column(Integer, doc="Layout显示坐标位置x（单位像素）", comment="Dx")
     Dy = Column(Integer, doc="Layout显示坐标位置y（单位像素）", comment="Dy")

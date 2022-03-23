@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Services/PublicService.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-23 12:46:04
+# @LastTime         : 2022-03-23 15:19:36
 # @Software         : Vscode
 """
 from sqlalchemy.orm import Session
@@ -72,7 +72,6 @@ def service_update(
     single_schema = model_dict[model]["update_single_schema"]
     multiple_schema = model_dict[model]["update_multiple_schema"]
     table_schema = transform(id_manager, single_schema, multiple_schema, schema)
-    print(table_schema)
     if schema.n == 1:
         result = model_instance.update(table_schema)
     else:
@@ -87,7 +86,6 @@ def service_insert(
     single_schema = model_dict[model]["insert_single_schema"]
     multiple_schema = model_dict[model]["insert_multiple_schema"]
     table_schema = transform(id_manager, single_schema, multiple_schema, schema)
-    print(table_schema)
     if schema.n == 1:
         result = model_instance.insert(table_schema)
     else:

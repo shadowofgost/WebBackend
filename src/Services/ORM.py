@@ -10,7 +10,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-03-22 22:11:57
+# @LastTime         : 2022-03-23 15:16:55
 # @LastAuthor       : Albert Wang
 """
 from typing import List
@@ -584,7 +584,7 @@ class ORM:
                 return multiple_update(self.model, update_schema, self.session)
             else:
                 try:
-                    update_schema = self.insert_single_schema(**schema.dict())
+                    update_schema = self.update_single_schema(**schema.dict())
                 except Exception:
                     logger.error("数据库用于执行的表单验证失败")
                     raise error_schema_validation
