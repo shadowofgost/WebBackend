@@ -10,10 +10,10 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-03-11 16:17:35
+# @LastTime         : 2022-03-23 16:25:28
 # @LastAuthor       : Albert Wang
 """
-from Api import app
+from Base import app
 import uvicorn
 from Config import logger_config
 

@@ -1,12 +1,12 @@
 """
 # @Author           : Albert Wang
 # @Copyright Notice : Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
-# @Time             : 2022-02-01 22:20:36
+# @Time             : 2022-02-01 22:21:49
 # @Description      :
 # @Email            : shadowofgost@outlook.com
-# @FilePath         : /WebBackend/Backup/ApiLocationExtension.py
+# @FilePath         : /WebBackend/src/Api/ApiTypera.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-18 12:43:05
+# @LastTime         : 2022-03-23 15:37:29
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -14,29 +14,30 @@ from fastapi_pagination import Page, Params, paginate
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
+
 from Services import (
     service_select,
     service_insert,
     service_update,
     service_delete,
     SchemaUserPydantic,
-    ModelLocationExtensionSelectInSingleTableSchema,
-    ModelLocationExtensionSelectOutSingleTableSchema,
-    ModelLocationExtensionInsertMultipleGetSchema,
-    ModelLocationExtensionUpdateMultipleGetSchema,
+    ModelTyperaSelectInSingleTableSchema,
+    ModelTyperaSelectOutSingleTableSchema,
+    ModelTyperaInsertMultipleGetSchema,
+    ModelTyperaUpdateMultipleGetSchema,
     DeleteMultipleGetSchema,
     Execution,
 )
-from ..src.Api.Depends import get_current_user, get_db
+from .Depends import get_current_user, get_db
 
 router = APIRouter(
-    prefix="/model_locationextension",
-    tags=["model_locationextension"],
+    prefix="/model_typera",
+    tags=["model_typera"],
 )
 
 
 class CurriculaGet(BaseModel):
-    requires: ModelLocationExtensionSelectInSingleTableSchema
+    requires: ModelTyperaSelectInSingleTableSchema
     service_type: int = Field(
         title="选择查询的服务形式",
         description="根据输入数据判断服务类型,0表示查询所有的数据，1表示查询的是通过id查询数据，2表示通过name查询数据，3表示通过schema查询特定值的数据，4表示通过学号/序列号查询账户",
@@ -44,45 +45,46 @@ class CurriculaGet(BaseModel):
     )
 
 
-@router.get("/", response_model=Page[ModelLocationExtensionSelectOutSingleTableSchema])
-async def api_model_locationextension_get(
+@router.get("/", response_model=Page[ModelTyperaSelectOutSingleTableSchema])
+async def api_model_typera_get(
     schema: CurriculaGet,
     Params=Depends(),
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
-    model = "ModelLocationExtension"
-    result_data = service_select(
-        session, user.ID, model, schema.service_type, schema.requires
-    )
+    model = "ModelTypera"
+    result_data = service_select(session, model, schema.service_type, schema.requires)
     return paginate(result_data, Params)
 
 
 @router.post("/", response_model=Execution)
-async def api_model_locationextension_insert(
-    schema: ModelLocationExtensionInsertMultipleGetSchema,
+async def api_model_typera_insert(
+    schema: ModelTyperaInsertMultipleGetSchema,
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
-    model = "ModelLocationExtension"
+    schema.n = len(schema.data)
+    model = "ModelTypera"
     return service_insert(session, user.ID, model, schema)
 
 
 @router.put("/", response_model=Execution)
-async def api_model_locationextension_update(
-    schema: ModelLocationExtensionUpdateMultipleGetSchema,
+async def api_model_typera_update(
+    schema: ModelTyperaUpdateMultipleGetSchema,
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
-    model = "ModelLocationExtension"
+    schema.n = len(schema.data)
+    model = "ModelTypera"
     return service_update(session, user.ID, model, schema)
 
 
 @router.delete("/", response_model=Execution)
-async def api_model_locationextension_delete(
+async def api_model_typera_delete(
     schema: DeleteMultipleGetSchema,
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
-    model = "ModelLocationExtension"
+    schema.n = len(schema.data)
+    model = "ModelTypera"
     return service_delete(session, user.ID, model, schema)

@@ -9,13 +9,15 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/Middleware.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-14 10:18:30
+# @LastTime         : 2022-03-23 16:17:03
 # @Software         : Vscode
 """
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 from Config import get_settings
+from time import time
 from fastapi import Request, Response
+
 settings = get_settings()
 engine = create_engine(settings.DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)

@@ -6,7 +6,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Api/ApiMmxData.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-02-17 20:40:35
+# @LastTime         : 2022-03-23 15:37:16
 # @Software         : Vscode
 """
 from fastapi import APIRouter, Depends
@@ -54,7 +54,7 @@ async def api_model_mmxdata_get(
 ):
     model = "ModelMmxData"
     result_data = service_select(
-        session, user.ID, model, schema.service_type, schema.requires
+        session, model, schema.service_type, schema.requires
     )
     return paginate(result_data, Params)
 
@@ -65,6 +65,7 @@ async def api_model_mmxdata_insert(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelMmxData"
     return service_insert(session, user.ID, model, schema)
 
@@ -75,6 +76,7 @@ async def api_model_mmxdata_update(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelMmxData"
     return service_update(session, user.ID, model, schema)
 
@@ -85,5 +87,6 @@ async def api_model_mmxdata_delete(
     session: Session = Depends(get_db),
     user: SchemaUserPydantic = Depends(get_current_user),
 ):
+    schema.n = len(schema.data)
     model = "ModelMmxData"
     return service_delete(session, user.ID, model, schema)
