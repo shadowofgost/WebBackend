@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Base.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-23 16:25:28
+# @LastTime         : 2022-03-23 16:55:52
 # @Software         : Vscode
 """
 from fastapi import FastAPI, Request, Depends
@@ -71,7 +71,7 @@ async def get_db(request: Request, call_next):
     return await middleware_get_db(request, call_next)
 
 
-# app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 list_router = [
     login_router,

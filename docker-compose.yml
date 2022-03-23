@@ -13,7 +13,7 @@ services:
             network:
                 ipv4_address: 172.19.0.3
         volumes:
-            - /root/logs:/usr/webbackend/src/Logs
+            - /root/logs/server:/usr/webbackend/src/Logs
         restart: always
         tty: true
     nginx:
@@ -25,5 +25,7 @@ services:
         networks:
             network:
                 ipv4_address: 172.19.0.4
+        volumes:
+            - /root/logs/nginx:/logs
         depends_on:
             - app
