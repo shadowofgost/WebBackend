@@ -28,4 +28,4 @@ services:
         volumes:
             - /root/logs/nginx:/logs
         depends_on:
-            - docs
+            - app
