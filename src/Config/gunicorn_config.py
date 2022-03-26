@@ -9,7 +9,7 @@
 # @Email            : shadowofgost@outlook.com
 # @FilePath         : /WebBackend/src/Config/gunicorn_config.py
 # @LastAuthor       : Albert Wang
-# @LastTime         : 2022-03-25 20:21:01
+# @LastTime         : 2022-03-26 23:48:39
 # @Software         : Vscode
 """
 # config.py
@@ -84,7 +84,7 @@ backlog = 2048
 #       A positive integer. Generally set in the 1-5 seconds range.
 #
 # 并行工作进程数
-workers = 2
+workers = 3
 # 每个进程的开启线程
 ##threads = 2
 worker_class = "uvicorn.workers.UvicornWorker"
