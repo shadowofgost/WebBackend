@@ -27,6 +27,8 @@ services:
             - /root/logs/docs:/usr/webbackend/src/Logs
         restart: always
         tty: true
+        depends_on:
+            - app
     nginx:
         build: ./nginx
         ports:
@@ -39,4 +41,4 @@ services:
         volumes:
             - /root/logs/nginx:/logs
         depends_on:
-            - app
+            - docs
