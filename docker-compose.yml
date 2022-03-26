@@ -16,19 +16,6 @@ services:
             - /root/logs/server:/usr/webbackend/src/Logs
         restart: always
         tty: true
-    docs:
-        build: ./src
-        ports:
-            - "9000:9001"
-        networks:
-            network:
-                ipv4_address: 172.19.0.5
-        volumes:
-            - /root/logs/docs:/usr/webbackend/src/Logs
-        restart: always
-        tty: true
-        depends_on:
-            - app
     nginx:
         build: ./nginx
         ports:
