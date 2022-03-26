@@ -10,7 +10,7 @@
 # @Copyright Notice : Copyright (c) ${now_year} Albert Wang 王子睿, All Rights Reserved.
 # @Copyright (c) 2022 Albert Wang 王子睿, All Rights Reserved.
 # @Description      :
-# @LastTime         : 2022-03-23 16:25:28
+# @LastTime         : 2022-03-26 23:54:13
 # @LastAuthor       : Albert Wang
 """
 from Base import app
@@ -21,7 +21,7 @@ logger = logger_config.init_logging()
 if __name__ == "__main__":
     uvicorn.run(
         app="main:app",
-        host="localhost",
+        host="0.0.0.0",
         port=9001,
         reload=True,
         access_log=True,
